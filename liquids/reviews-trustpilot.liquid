@@ -1,0 +1,506 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ================================================================
+     REVIEWS GRID — BLOCO ISOLADO
+     Todos os seletores usam o prefixo .rvx- para evitar colisão
+     com CSS do tema Shopify. Variáveis ficam no próprio escopo.
+     ================================================================ */
+  .rvx-section,
+  .rvx-section *,
+  .rvx-section *::before,
+  .rvx-section *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .rvx-section {
+    --rvx-green: #00a650;
+    --rvx-star: #00b67a;
+    --rvx-dark: #1a1a1a;
+    --rvx-mid: #444;
+    --rvx-muted: #777;
+    --rvx-border: #e5e5e5;
+    --rvx-bg: #fff;
+
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    color: var(--rvx-dark);
+    -webkit-font-smoothing: antialiased;
+    background: #f5f5f5;
+    width: 100%;
+    line-height: 1.4;
+  }
+
+  .rvx-section .rvx-header {
+    background: var(--rvx-bg);
+    padding: 24px 16px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--rvx-border);
+  }
+  .rvx-section .rvx-score-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px; }
+  .rvx-section .rvx-score { font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -0.5px; }
+  .rvx-section .rvx-stars-big { display: flex; gap: 3px; }
+  .rvx-section .rvx-stars-big span { font-size: 22px; color: var(--rvx-star); }
+  .rvx-section .rvx-count { font-size: 13px; color: var(--rvx-muted); margin-bottom: 14px; font-weight: 400; }
+  .rvx-section .rvx-actions { display: flex; gap: 8px; }
+  .rvx-section .rvx-btn-write {
+    flex: 1; padding: 11px 0;
+    border: 1.5px solid var(--rvx-dark); border-radius: 6px;
+    background: var(--rvx-bg); font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    letter-spacing: 0.02em; transition: background .15s;
+    color: var(--rvx-dark);
+  }
+  .rvx-section .rvx-btn-write:hover { background: #f2f2f2; }
+  .rvx-section .rvx-btn-filter {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--rvx-border); border-radius: 6px;
+    background: var(--rvx-bg); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: border-color .15s;
+  }
+  .rvx-section .rvx-btn-filter:hover { border-color: var(--rvx-dark); }
+  .rvx-section .rvx-btn-filter svg { width: 18px; height: 18px; stroke: var(--rvx-dark); }
+
+  @media (min-width: 900px) {
+    .rvx-section .rvx-header { text-align: left; padding: 28px 32px 20px; }
+    .rvx-section .rvx-header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .rvx-section .rvx-score-row { justify-content: flex-start; }
+    .rvx-section .rvx-count { margin-bottom: 0; }
+    .rvx-section .rvx-score { font-size: 40px; }
+    .rvx-section .rvx-actions { width: auto; }
+    .rvx-section .rvx-btn-write { flex: none; padding: 10px 26px; }
+  }
+
+  .rvx-section .rvx-form {
+    display: none; background: var(--rvx-bg);
+    border-bottom: 1px solid var(--rvx-border); padding: 20px 16px;
+  }
+  .rvx-section .rvx-form.rvx-open { display: block; }
+  .rvx-section .rvx-form h3 { font-size: 17px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.2px; }
+  .rvx-section .rvx-fgroup { margin-bottom: 13px; }
+  .rvx-section .rvx-fgroup label {
+    display: block; font-size: 11px; font-weight: 600;
+    color: var(--rvx-muted); margin-bottom: 5px;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .rvx-section .rvx-fgroup input,
+  .rvx-section .rvx-fgroup textarea {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--rvx-border); border-radius: 6px;
+    font-size: 14px; font-family: 'Montserrat', sans-serif;
+    transition: border-color .15s;
+    background: var(--rvx-bg); color: var(--rvx-dark);
+  }
+  .rvx-section .rvx-fgroup input:focus,
+  .rvx-section .rvx-fgroup textarea:focus { outline: none; border-color: var(--rvx-green); }
+  .rvx-section .rvx-frow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rvx-section .rvx-star-pick { display: flex; gap: 5px; cursor: pointer; }
+  .rvx-section .rvx-star-pick span { font-size: 30px; color: #ddd; user-select: none; transition: color .1s; }
+  .rvx-section .rvx-star-pick span.rvx-on { color: var(--rvx-star); }
+  .rvx-section .rvx-submit {
+    width: 100%; padding: 13px;
+    background: var(--rvx-dark); color: #fff;
+    border: none; border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; font-weight: 600;
+    letter-spacing: 0.02em; cursor: pointer; margin-top: 4px;
+    transition: opacity .15s;
+  }
+  .rvx-section .rvx-submit:hover { opacity: .85; }
+
+  .rvx-section .rvx-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px 8px 40px;
+  }
+  @media (min-width: 600px) and (max-width: 899px) {
+    .rvx-section .rvx-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 900px) {
+    .rvx-section .rvx-grid { grid-template-columns: repeat(3, 1fr); padding: 16px 80px 48px; gap: 8px; }
+    .rvx-section .rvx-photo-wrap { aspect-ratio: 1 / 1; }
+  }
+
+  .rvx-section .rvx-card { padding: 6px 6px 10px; border-radius: 8px; }
+  .rvx-section .rvx-card:hover { background: #fafafa; }
+  .rvx-section .rvx-photo-wrap {
+    width: 100%; aspect-ratio: 3 / 4;
+    border-radius: 6px; overflow: hidden;
+    background: #e8e8e8; margin-bottom: 9px;
+  }
+  .rvx-section .rvx-photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .35s ease;
+  }
+  .rvx-section .rvx-card:hover .rvx-photo-wrap img { transform: scale(1.08); }
+  .rvx-section .rvx-no-photo {
+    width: 100%; height: 100%;
+    display: flex; align-items: center;
+    justify-content: center; font-size: 26px; color: #bbb;
+  }
+  .rvx-section .rvx-card-stars { display: flex; gap: 2px; margin-bottom: 5px; }
+  .rvx-section .rvx-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.01em; }
+  .rvx-section .rvx-verified {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 11px; color: var(--rvx-green); margin-bottom: 6px; font-weight: 500;
+  }
+  .rvx-section .rvx-check {
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--rvx-green); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rvx-section .rvx-check::after {
+    content: ''; display: block;
+    width: 5px; height: 3px;
+    border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translate(0.5px, -0.5px);
+  }
+  .rvx-section .rvx-text {
+    font-size: 12px; color: var(--rvx-mid); line-height: 1.5; font-weight: 400;
+    display: -webkit-box; -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .rvx-section .rvx-more {
+    display: inline; font-size: 12px; color: var(--rvx-muted);
+    background: none; border: none; padding: 0;
+    cursor: pointer; text-decoration: underline;
+    text-decoration-style: dotted; font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Modal — fica em position: fixed, por isso precisa do prefixo fora de .rvx-section */
+  .rvx-modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.5); z-index: 9999;
+    align-items: flex-end; justify-content: center;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+  }
+  .rvx-modal-bg.rvx-open { display: flex; }
+  .rvx-modal-bg * { box-sizing: border-box; margin: 0; padding: 0; }
+  .rvx-modal-bg .rvx-modal {
+    background: #fff; border-radius: 16px 16px 0 0;
+    width: 100%; max-height: 82vh;
+    padding: 20px 20px 40px;
+    overflow-y: auto; position: relative;
+    animation: rvxSlideUp .22s ease;
+    color: #1a1a1a;
+  }
+  @keyframes rvxSlideUp { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @media (min-width: 600px) {
+    .rvx-modal-bg { align-items: center; }
+    .rvx-modal-bg .rvx-modal { border-radius: 12px; max-width: 480px; }
+  }
+  .rvx-modal-bg .rvx-handle { width: 36px; height: 4px; border-radius: 2px; background: #ddd; margin: 0 auto 18px; }
+  .rvx-modal-bg .rvx-modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: none; border: none; font-size: 24px;
+    cursor: pointer; color: #777; line-height: 1;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .rvx-modal-bg .rvx-modal-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .rvx-modal-bg .rvx-modal-text { font-size: 14px; color: #444; line-height: 1.65; font-weight: 400; }
+  .rvx-modal-bg .rvx-verified {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 11px; color: #00a650; margin-bottom: 14px; font-weight: 500;
+  }
+  .rvx-modal-bg .rvx-check {
+    width: 13px; height: 13px; border-radius: 50%;
+    background: #00a650; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rvx-modal-bg .rvx-check::after {
+    content: ''; display: block;
+    width: 5px; height: 3px;
+    border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg) translate(0.5px, -0.5px);
+  }
+</style>
+
+<section class="rvx-section" data-rvx-root>
+  <div class="rvx-header">
+    <div class="rvx-header-inner">
+      <div>
+        <div class="rvx-score-row">
+          <span class="rvx-score" data-rvx-score>4.8</span>
+          <div class="rvx-stars-big" data-rvx-hstars></div>
+        </div>
+        <div class="rvx-count" data-rvx-count></div>
+      </div>
+      <div class="rvx-actions">
+        <button type="button" class="rvx-btn-write" data-rvx-toggle-form>Write a review</button>
+        <button type="button" class="rvx-btn-filter" aria-label="Filter reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+            <line x1="11" y1="18" x2="13" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rvx-form" data-rvx-form>
+    <h3>Leave a review</h3>
+    <div class="rvx-fgroup">
+      <label>Rating</label>
+      <div class="rvx-star-pick" data-rvx-pick>
+        <span data-v="1">★</span><span data-v="2">★</span>
+        <span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+      </div>
+    </div>
+    <div class="rvx-frow">
+      <div class="rvx-fgroup">
+        <label>Name</label><input data-rvx-f-name type="text" placeholder="John Smith">
+      </div>
+      <div class="rvx-fgroup">
+        <label>Email</label><input data-rvx-f-email type="email" placeholder="your@email.com">
+      </div>
+    </div>
+    <div class="rvx-fgroup">
+      <label>Your review</label>
+      <textarea data-rvx-f-text rows="3" placeholder="Tell us about your experience with this product..."></textarea>
+    </div>
+    <button type="button" class="rvx-submit" data-rvx-submit>Post review</button>
+  </div>
+
+  <div class="rvx-grid" data-rvx-grid></div>
+</section>
+
+<div class="rvx-modal-bg" data-rvx-modal>
+  <div class="rvx-modal">
+    <div class="rvx-handle"></div>
+    <button type="button" class="rvx-modal-close" data-rvx-modal-close>×</button>
+    <div class="rvx-modal-name" data-rvx-m-name></div>
+    <div data-rvx-m-stars style="display:flex;gap:3px;margin-bottom:8px;"></div>
+    <div class="rvx-verified">
+      <div class="rvx-check"></div>Verified purchase
+    </div>
+    <div class="rvx-modal-text" data-rvx-m-text></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // Mapa único para escapar HTML (mais rápido que 5 .replace encadeados)
+  var ESC_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  var ESC_RE  = /[&<>"']/g;
+
+  function initRvx(root) {
+    if (!root || root.dataset.rvxReady === '1') return;
+    root.dataset.rvxReady = '1';
+
+    var DATA = [
+      {
+        name: "Rebecca H.", stars: 5, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/01-SD.jpg?v=1777424731",
+        text: "Bought a pair for me and one for my sister and we are both obsessed. The two adjustable straps make a huge difference — they actually stay put when I'm walking, unlike every slide I've owned. The Croslite footbed is so soft it feels like walking on a cushion. We've worn ours to brunch, to the pool, on errands. I'll be ordering a third color next week."
+      },
+      {
+        name: "Jordan P.", stars: 5, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/Troque_sandalia_mulher_imagem_2_202604282203.webp?v=1777424731",
+        text: "I was skeptical because I've tried so many sandals that look great online and end up stiff or cheap. These are the complete opposite. The moment I slipped my foot in it felt molded to me. The two straps adjust perfectly to my narrow feet — no slipping, no rubbing. Three weeks of nonstop wear and they look brand new. Worth every dollar."
+      },
+      {
+        name: "Priya K.", stars: 5, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/03-SD.jpg?v=1777424731",
+        text: "Took these on a 10-day trip to Portugal and lived in them. Beach, cobblestone streets, rooftop dinners — they handled everything. No blisters, dried in minutes after a swim, and zero wear on the sole. The strap is soft where it touches your foot and the design is minimal enough to pair with dresses or jeans. Already ordered a second pair in black."
+      },
+      {
+        name: "Tyler W.", stars: 4, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/02-SD.jpg?v=1777424731",
+        text: "Solid sandal overall. The Croslite foam is genuinely comfortable and the build feels more premium than the slides I had before. Only reason I'm giving 4 stars is the sizing — I usually wear a 10 and these felt a touch long, so I'd size down if you're borderline. Apart from that, really impressed. The Jibbitz holes on the straps are a nice touch."
+      },
+      {
+        name: "Emma S.", stars: 5, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/Troque_sandalia_mulher_imagem_2_202604282203_2.webp?v=1777424731",
+        text: "I have plantar fasciitis and most sandals destroy my feet by the end of the day. These are the first I can wear from morning errands to evening dog walks without regretting it. The cushioning is cloud-level, the straps don't rub, and the sole grips wet floors without looking chunky. They've replaced every other slide in my closet."
+      },
+      {
+        name: "Andre L.", stars: 5, verified: true,
+        photo: "https://cdn.shopify.com/s/files/1/0982/2296/5104/files/Troque_sandalia_mulher_imagem_2_202604282203_1.webp?v=1777424731",
+        text: "Got these as my airport-and-everything-else pair and they've earned the spot. Slip them off at security in two seconds, comfortable for long terminal walks, and look way more put-together than regular slides. I add a couple of Jibbitz to make them mine. Clean look, plush feel, don't scream gym shoe like most recovery sandals. Highly recommend."
+      }
+    ];
+
+    var scoreEl   = root.querySelector('[data-rvx-score]');
+    var hstarsEl  = root.querySelector('[data-rvx-hstars]');
+    var countEl   = root.querySelector('[data-rvx-count]');
+    var gridEl    = root.querySelector('[data-rvx-grid]');
+    var formEl    = root.querySelector('[data-rvx-form]');
+    var toggleEl  = root.querySelector('[data-rvx-toggle-form]');
+    var pickEl    = root.querySelector('[data-rvx-pick]');
+    var submitEl  = root.querySelector('[data-rvx-submit]');
+    var fName     = root.querySelector('[data-rvx-f-name]');
+    var fEmail    = root.querySelector('[data-rvx-f-email]');
+    var fText     = root.querySelector('[data-rvx-f-text]');
+
+    var modalEl   = document.querySelector('[data-rvx-modal]');
+    var mName     = modalEl && modalEl.querySelector('[data-rvx-m-name]');
+    var mStars    = modalEl && modalEl.querySelector('[data-rvx-m-stars]');
+    var mText     = modalEl && modalEl.querySelector('[data-rvx-m-text]');
+    var mCloseEl  = modalEl && modalEl.querySelector('[data-rvx-modal-close]');
+
+    function escapeHtml(s) {
+      return String(s).replace(ESC_RE, function (c) { return ESC_MAP[c]; });
+    }
+
+    function starsHtml(n, sz) {
+      sz = sz || 13;
+      var out = '';
+      for (var i = 1; i <= 5; i++) {
+        out += '<span style="font-size:' + sz + 'px;color:' + (i <= n ? '#00b67a' : '#ddd') + '">★</span>';
+      }
+      return out;
+    }
+
+    function renderHeader() {
+      var sum = 0;
+      var len = DATA.length;
+      for (var i = 0; i < len; i++) sum += DATA[i].stars;
+      var avg = sum / len;
+      if (scoreEl) scoreEl.textContent = avg.toFixed(1);
+      if (hstarsEl) hstarsEl.innerHTML = starsHtml(Math.round(avg), 22);
+      if (countEl) countEl.textContent = len.toLocaleString('en-US') + ' reviews';
+    }
+
+    function renderGrid() {
+      if (!gridEl) return;
+      var parts = [];
+      var len = DATA.length;
+
+      for (var i = 0; i < len; i++) {
+        var r = DATA[i];
+        var safeName = escapeHtml(r.name);
+        var cut = r.text.length > 165;
+        var preview = escapeHtml(cut ? r.text.slice(0, 165) : r.text);
+
+        parts.push('<div class="rvx-card"><div class="rvx-photo-wrap">');
+        parts.push(r.photo
+          ? '<img src="' + escapeHtml(r.photo) + '" alt="' + safeName + '" loading="lazy">'
+          : '<div class="rvx-no-photo">📷</div>');
+        parts.push('</div><div><div class="rvx-card-stars">' + starsHtml(r.stars) + '</div>');
+        parts.push('<div class="rvx-name">' + safeName + '</div>');
+        if (r.verified) {
+          parts.push('<div class="rvx-verified"><div class="rvx-check"></div>Verified purchase</div>');
+        }
+        parts.push('<p class="rvx-text">' + preview);
+        if (cut) {
+          parts.push('<button type="button" class="rvx-more" data-rvx-open="' + i + '">...read full review</button>');
+        }
+        parts.push('</p></div></div>');
+      }
+      gridEl.innerHTML = parts.join('');
+
+      gridEl.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('error', function () {
+          this.parentNode.innerHTML = '<div class="rvx-no-photo">📷</div>';
+        });
+      });
+
+      gridEl.querySelectorAll('[data-rvx-open]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openModal(parseInt(this.getAttribute('data-rvx-open'), 10));
+        });
+      });
+    }
+
+    function openModal(i) {
+      if (!modalEl) return;
+      var r = DATA[i];
+      if (!r) return;
+      if (mName)  mName.textContent = r.name;
+      if (mStars) mStars.innerHTML  = starsHtml(r.stars, 16);
+      if (mText)  mText.textContent = r.text;
+      modalEl.classList.add('rvx-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (!modalEl) return;
+      modalEl.classList.remove('rvx-open');
+      document.body.style.overflow = '';
+    }
+
+    if (modalEl) {
+      modalEl.addEventListener('click', function (e) {
+        if (e.target === modalEl) closeModal();
+      });
+    }
+    if (mCloseEl) mCloseEl.addEventListener('click', closeModal);
+
+    var picked = 0;
+
+    if (toggleEl && formEl) {
+      toggleEl.addEventListener('click', function () {
+        formEl.classList.toggle('rvx-open');
+        if (formEl.classList.contains('rvx-open')) {
+          formEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    function highlight(v) {
+      if (!pickEl) return;
+      pickEl.querySelectorAll('span').forEach(function (s) {
+        s.classList.toggle('rvx-on', +s.dataset.v <= v);
+      });
+    }
+
+    if (pickEl) {
+      pickEl.addEventListener('mouseover', function (e) {
+        var v = e.target.dataset && e.target.dataset.v;
+        if (v) highlight(+v);
+      });
+      pickEl.addEventListener('mouseleave', function () { highlight(picked); });
+      pickEl.addEventListener('click', function (e) {
+        var v = e.target.dataset && e.target.dataset.v;
+        if (v) {
+          picked = +v;
+          highlight(picked);
+        }
+      });
+    }
+
+    if (submitEl) {
+      submitEl.addEventListener('click', function () {
+        var name = fName ? fName.value.trim() : '';
+        var text = fText ? fText.value.trim() : '';
+        if (!name || !text || !picked) {
+          alert('Please fill in your name, rating, and review.');
+          return;
+        }
+        DATA.unshift({ name: name, stars: picked, verified: true, photo: null, text: text });
+        renderGrid();
+        renderHeader();
+        if (formEl) formEl.classList.remove('rvx-open');
+        if (fName) fName.value = '';
+        if (fEmail) fEmail.value = '';
+        if (fText) fText.value = '';
+        picked = 0;
+        highlight(0);
+        alert('Thank you for your review!');
+      });
+    }
+
+    renderHeader();
+    renderGrid();
+  }
+
+  function bootRvx() {
+    document.querySelectorAll('[data-rvx-root]').forEach(initRvx);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootRvx);
+  } else {
+    bootRvx();
+  }
+})();
+</script>

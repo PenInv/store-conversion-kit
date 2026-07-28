@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+  ::selection {
+    background: #1c69d4;
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Faixa tricolor da marca (azul / azul claro / vermelho). */
+  .m-stripe {
+    background: linear-gradient(
+      90deg,
+      #0066b1 0,
+      #0066b1 33.33%,
+      #1c69d4 0,
+      #1c69d4 66.66%,
+      #e22718 0,
+      #e22718
+    );
+  }
+
+  .shiki-wrapper pre {
+    background: #0d0d0d !important;
+    padding: 24px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}

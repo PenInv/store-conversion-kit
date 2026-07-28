@@ -1,0 +1,1029 @@
+﻿<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    .spk-widget * {
+        box-sizing: border-box;
+    }
+
+    .spk-widget {
+        font-family: 'Montserrat', sans-serif;
+        max-width: 480px;
+    }
+
+    .spk-loading {
+        color: #888;
+        font-size: 14px;
+        padding: 12px 0;
+    }
+
+    .spk-error {
+        color: #c0392b;
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .spk-card {
+        border: 1.5px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        background: #fff;
+        transition: border-color 0.18s;
+        position: relative;
+    }
+
+    .spk-card.selected {
+        border-color: #1a1a1a;
+        border-width: 2px;
+    }
+
+    .spk-card:hover:not(.selected) {
+        border-color: #bbb;
+    }
+
+    .spk-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .spk-radio {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.18s;
+    }
+
+    .spk-card.selected .spk-radio {
+        border-color: #1a1a1a;
+    }
+
+    .spk-radio-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #1a1a1a;
+        display: none;
+    }
+
+    .spk-card.selected .spk-radio-dot {
+        display: block;
+    }
+
+    .spk-card-title-row {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-wrap: wrap;
+    }
+
+    .spk-card-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+        flex: 1;
+    }
+
+    .spk-card-title-row .spk-card-title {
+        flex: 0 1 auto;
+    }
+
+    .spk-card-save-pill {
+        background: #3fa572;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 3px 6px;
+        border-radius: 4px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .spk-card-subtitle {
+        font-size: 12px;
+        font-weight: 400;
+        color: #888;
+        margin-top: 3px;
+    }
+
+    .spk-card-price-col {
+        text-align: right;
+        flex-shrink: 0;
+        padding-top: 8px;
+    }
+
+    .spk-card-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .spk-card-price-original {
+        font-size: 13px;
+        color: #aaa;
+        text-decoration: line-through;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .spk-badge {
+        position: absolute;
+        top: -1px;
+        right: 16px;
+        background: #3fa572;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 0 0 8px 8px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    /* BONUS BLOCK */
+    .spk-bonus-block {
+        display: none;
+        margin: 12px -18px -16px;
+        overflow: hidden;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .spk-card.selected .spk-bonus-block {
+        display: block;
+    }
+
+    .spk-bonus-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #111111;
+        padding: 11px 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .spk-bonus-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .spk-bonus-icon img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        border-radius: 4px;
+    }
+
+    .spk-bonus-text {
+        flex: 1;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .spk-bonus-price {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: line-through;
+        flex-shrink: 0;
+    }
+
+    .spk-variants-inner {
+        display: none;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .spk-card.selected .spk-variants-inner {
+        display: block;
+    }
+
+    .spk-pair-block {
+        margin-bottom: 12px;
+    }
+
+    .spk-pair-block:last-child {
+        margin-bottom: 0;
+    }
+
+    .spk-pair-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 7px;
+    }
+
+    .spk-pair-divider {
+        border: none;
+        border-top: 1px dashed #e8e8e8;
+        margin: 12px 0;
+    }
+
+    .spk-selectors-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+    }
+
+    .spk-custom-select {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+        user-select: none;
+    }
+
+    .spk-custom-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+        border: 1.5px solid #d0d0d0;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+        transition: border-color 0.15s;
+        height: 48px;
+    }
+
+    .spk-custom-trigger:hover {
+        border-color: #1a1a1a;
+    }
+
+    .spk-custom-trigger.open {
+        border-color: #1a1a1a;
+        border-width: 2px;
+    }
+
+    .spk-trigger-img {
+        width: 38px;
+        height: 38px;
+        border-radius: 5px;
+        object-fit: contain;
+        background: #f5f5f5;
+        flex-shrink: 0;
+        border: 1px solid #eee;
+    }
+
+    .spk-trigger-name {
+        flex: 1;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .spk-trigger-arrow {
+        font-size: 9px;
+        color: #888;
+        flex-shrink: 0;
+        transition: transform 0.15s;
+    }
+
+    .spk-custom-trigger.open .spk-trigger-arrow {
+        transform: rotate(180deg);
+    }
+
+    .spk-dropdown-list {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1.5px solid #1a1a1a;
+        border-radius: 8px;
+        overflow: hidden;
+        z-index: 999;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    }
+
+    .spk-dropdown-list.open {
+        display: block;
+    }
+
+    .spk-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: background 0.12s;
+    }
+
+    .spk-dropdown-item:hover {
+        background: #f5f5f5;
+    }
+
+    .spk-dropdown-item.active {
+        background: #f0f0f0;
+    }
+
+    .spk-dropdown-item.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .spk-item-img {
+        width: 28px;
+        height: 28px;
+        border-radius: 5px;
+        object-fit: contain;
+        background: #f5f5f5;
+        flex-shrink: 0;
+        border: 1px solid #eee;
+    }
+
+    .spk-item-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .spk-item-unavail {
+        font-size: 11px;
+        color: #aaa;
+        margin-left: 4px;
+    }
+
+    .spk-native-select-wrap {
+        position: relative;
+        flex: 1.6;
+        min-width: 0;
+    }
+
+    .spk-select {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        height: 48px;
+        padding: 0 30px 0 12px;
+        border: 1.5px solid #d0d0d0;
+        border-radius: 8px;
+        background: #fff;
+        color: #1a1a1a;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.15s;
+    }
+
+    .spk-select:hover {
+        border-color: #1a1a1a;
+    }
+
+    .spk-select:focus {
+        border-color: #1a1a1a;
+        border-width: 2px;
+    }
+
+    .spk-select-arrow {
+        position: absolute;
+        right: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 9px;
+        color: #888;
+    }
+
+    .spk-size-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .spk-size-toggle-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+    }
+
+    .spk-toggle-btn-group {
+        display: flex;
+        border: 1.5px solid #d0d0d0;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .spk-toggle-btn {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 700;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        border: none;
+        background: #fff;
+        color: #888;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .spk-toggle-btn.active {
+        background: #1a1a1a;
+        color: #fff;
+    }
+
+    .spk-buy-btn {
+        margin-top: 18px;
+        width: 100%;
+        padding: 15px 24px;
+        background: #3fa572;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        transition: background 0.18s;
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .spk-buy-btn:hover {
+        background: #35926a;
+    }
+
+    .spk-buy-btn:disabled {
+        background: #aaa;
+        cursor: not-allowed;
+    }
+
+    .spk-btn-original {
+        font-size: 13px;
+        font-weight: 400;
+        text-decoration: line-through;
+        opacity: 0.55;
+    }
+</style>
+
+<div id="shopify-custom-product"></div>
+
+<script>
+    (function () {
+        var SHOPIFY_DOMAIN = 'sua-loja.myshopify.com';
+        var STOREFRONT_TOKEN = 'SEU_STOREFRONT_TOKEN_AQUI';
+        var PRODUCT_ID_NUMBER = 'SEU_PRODUCT_ID_AQUI';
+        var CONTAINER_ID = 'shopify-custom-product';
+        var BUTTON_TEXT = 'Add to Cart';
+        var BUTTON_TEXT_LOADING = 'Loading...';
+
+        var COLOR_IMAGES = {
+            'Black': 'https://cdn.shopify.com/s/files/1/0699/2225/8997/files/avif.avif?v=1777933963',
+            'Truffle': 'https://cdn.shopify.com/s/files/1/0699/2225/8997/files/avif_6afbace3-5ccf-495f-979a-a77008ba84ad.avif?v=1777934017'
+        };
+
+        var SIZE_LABELS = {
+            '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '10': '10', '11': '11'
+        };
+
+        var sizeUnit = 'US';
+
+        var PRIMARY_PRICE_CENTS = 6990;
+
+        function formatUSD(cents) {
+            return '$' + (cents / 100).toFixed(2);
+        }
+
+        function bundleOffer(label, qty, priceCents, badge, bonus) {
+            var originalCents = PRIMARY_PRICE_CENTS * qty;
+            var discount = Math.round((1 - priceCents / originalCents) * 100);
+            var savingsCents = originalCents - priceCents;
+            return {
+                label: label,
+                subtitle: 'Save ' + discount + '%',
+                discountLabel: 'Save ' + discount + '%',
+                savingsLabel: 'You save ' + formatUSD(savingsCents),
+                qty: qty,
+                price: formatUSD(priceCents),
+                original: formatUSD(originalCents),
+                badge: badge,
+                bonus: bonus || []
+            };
+        }
+
+        // bonus: array de brindes — icon (emoji) ou img (URL), text, price (riscado)
+        var BUNDLES = [
+            bundleOffer('One Pair', 1, 4990, null, []),
+            bundleOffer('Two Pairs', 2, 6990, 'SPECIAL OFFER', [{ icon: '💝', text: "FREE Gift: Mother's Day Bracelet", price: '$24.90' }]),
+            bundleOffer('Three Pairs', 3, 9990, null, [{ icon: '💝', text: "FREE Gift: Mother's Day Bracelet", price: '$24.90' }])
+        ];
+
+        var selectedBundle = 1;
+        var allVariants = [];
+        var productOptions = [];
+        var pairSelections = {};
+        var openDropdownEl = null;
+
+        var container = document.getElementById(CONTAINER_ID);
+        if (!container) return;
+        container.innerHTML = '<p class="spk-loading">Loading...</p>';
+
+        document.addEventListener('click', function (e) {
+            if (openDropdownEl && !openDropdownEl.contains(e.target)) closeAllDropdowns();
+        });
+
+        var gid = btoa('gid://shopify/Product/' + PRODUCT_ID_NUMBER);
+        var query = 'query GetProduct($id: ID!) { node(id: $id) { ... on Product { title options { name values } variants(first: 100) { edges { node { id availableForSale selectedOptions { name value } } } } } } }';
+
+        fetch('https://' + SHOPIFY_DOMAIN + '/api/2023-10/graphql.json', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN },
+            body: JSON.stringify({ query: query, variables: { id: gid } })
+        })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                var product = data.data && data.data.node;
+                if (!product) throw new Error('Product not found.');
+                render(product);
+            })
+            .catch(function (err) {
+                container.innerHTML = '<p class="spk-error">Error loading product. Please try again.</p>';
+                console.error('[Shopify Widget]', err);
+            });
+
+        function isSizeOption(name) { return /size|tamanho/i.test(name); }
+        function isColorOption(name) { return /color|colour|cor/i.test(name); }
+        function sizeLabel(val) {
+            var n = parseInt(val, 10);
+            if (sizeUnit === 'UK') return 'UK ' + (n - 2);
+            return 'US ' + val;
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.spk-dropdown-list.open').forEach(function (d) { d.classList.remove('open'); });
+            document.querySelectorAll('.spk-custom-trigger.open').forEach(function (t) { t.classList.remove('open'); });
+            openDropdownEl = null;
+        }
+
+        function defaultSelections() {
+            var sel = {};
+            productOptions.forEach(function (opt) { sel[opt.name] = opt.values[0]; });
+            return sel;
+        }
+
+        function render(product) {
+            allVariants = product.variants.edges.map(function (e) { return e.node; });
+            productOptions = product.options;
+            BUNDLES.forEach(function (bundle, bIdx) {
+                pairSelections[bIdx] = {};
+                for (var p = 0; p < bundle.qty; p++) pairSelections[bIdx][p] = defaultSelections();
+            });
+
+            var wrapper = document.createElement('div');
+            wrapper.className = 'spk-widget';
+
+            BUNDLES.forEach(function (bundle, idx) { wrapper.appendChild(buildCard(bundle, idx)); });
+
+            var btn = document.createElement('button');
+            btn.className = 'spk-buy-btn';
+            btn.id = 'spk-buy-btn';
+            btn.addEventListener('click', handleBuy);
+            wrapper.appendChild(btn);
+
+            container.innerHTML = '';
+            container.appendChild(wrapper);
+            updateButton();
+        }
+
+        function buildCard(bundle, bIdx) {
+            var card = document.createElement('div');
+            card.className = 'spk-card' + (bIdx === selectedBundle ? ' selected' : '');
+            card.id = 'spk-card-' + bIdx;
+
+            if (bundle.badge) {
+                var badge = document.createElement('div');
+                badge.className = 'spk-badge';
+                badge.textContent = bundle.badge;
+                card.appendChild(badge);
+            }
+
+            var header = document.createElement('div');
+            header.className = 'spk-card-header';
+            var radio = document.createElement('div');
+            radio.className = 'spk-radio';
+            var dot = document.createElement('div');
+            dot.className = 'spk-radio-dot';
+            radio.appendChild(dot);
+            var titleCol = document.createElement('div');
+            titleCol.style.flex = '1';
+            var titleRow = document.createElement('div');
+            titleRow.className = 'spk-card-title-row';
+            var titleEl = document.createElement('div');
+            titleEl.className = 'spk-card-title';
+            titleEl.textContent = bundle.label;
+            if (bIdx > 0) {
+                titleRow.appendChild(titleEl);
+                var savePill = document.createElement('span');
+                savePill.className = 'spk-card-save-pill';
+                savePill.textContent = bundle.discountLabel;
+                titleRow.appendChild(savePill);
+            }
+            var subEl = document.createElement('div');
+            subEl.className = 'spk-card-subtitle';
+            subEl.textContent = bIdx > 0 ? bundle.savingsLabel : bundle.subtitle;
+            titleCol.appendChild(bIdx > 0 ? titleRow : titleEl);
+            titleCol.appendChild(subEl);
+            var priceCol = document.createElement('div');
+            priceCol.className = 'spk-card-price-col';
+            var priceEl = document.createElement('div');
+            priceEl.className = 'spk-card-price';
+            priceEl.textContent = bundle.price;
+            priceCol.appendChild(priceEl);
+            if (bundle.original) {
+                var origEl = document.createElement('span');
+                origEl.className = 'spk-card-price-original';
+                origEl.textContent = bundle.original;
+                priceCol.appendChild(origEl);
+            }
+            header.appendChild(radio);
+            header.appendChild(titleCol);
+            header.appendChild(priceCol);
+            card.appendChild(header);
+
+            var inner = document.createElement('div');
+            inner.className = 'spk-variants-inner';
+            inner.id = 'spk-inner-' + bIdx;
+            buildPairs(inner, bIdx, bundle.qty);
+            card.appendChild(inner);
+
+            // BONUS BLOCK — sempre no final do card, visível só quando selecionado via CSS
+            if (bundle.bonus && bundle.bonus.length > 0) {
+                var bonusBlock = document.createElement('div');
+                bonusBlock.className = 'spk-bonus-block';
+                bundle.bonus.forEach(function (b) {
+                    var item = document.createElement('div');
+                    item.className = 'spk-bonus-item';
+                    var iconEl = document.createElement('div');
+                    iconEl.className = 'spk-bonus-icon';
+                    if (b.img) {
+                        var img = document.createElement('img');
+                        img.src = b.img; img.alt = b.text;
+                        iconEl.appendChild(img);
+                    } else {
+                        iconEl.textContent = b.icon || '🎁';
+                    }
+                    var textEl = document.createElement('div');
+                    textEl.className = 'spk-bonus-text';
+                    textEl.textContent = b.text;
+                    var prEl = document.createElement('div');
+                    prEl.className = 'spk-bonus-price';
+                    prEl.textContent = b.price;
+                    item.appendChild(iconEl);
+                    item.appendChild(textEl);
+                    item.appendChild(prEl);
+                    bonusBlock.appendChild(item);
+                });
+                card.appendChild(bonusBlock);
+            }
+
+            card.addEventListener('click', function (e) {
+                if (e.target.closest('.spk-custom-select') || e.target.tagName === 'SELECT') return;
+                selectBundle(bIdx);
+            });
+            return card;
+        }
+
+        function selectBundle(idx) {
+            selectedBundle = idx;
+            BUNDLES.forEach(function (_, i) {
+                var c = document.getElementById('spk-card-' + i);
+                if (c) c.className = 'spk-card' + (i === idx ? ' selected' : '');
+            });
+            updateButton();
+        }
+
+        function buildPairs(inner, bIdx, qty) {
+            inner.innerHTML = '';
+            for (var pIdx = 0; pIdx < qty; pIdx++) {
+                if (pIdx > 0) { var div = document.createElement('hr'); div.className = 'spk-pair-divider'; inner.appendChild(div); }
+                var block = document.createElement('div');
+                block.className = 'spk-pair-block';
+                if (qty > 1) { var lbl = document.createElement('div'); lbl.className = 'spk-pair-label'; lbl.textContent = 'Pair #' + (pIdx + 1); block.appendChild(lbl); }
+                var row = document.createElement('div');
+                row.className = 'spk-selectors-row';
+                var colorOpt = null, sizeOpt = null;
+                productOptions.forEach(function (opt) {
+                    if (isColorOption(opt.name)) colorOpt = opt;
+                    else if (isSizeOption(opt.name)) sizeOpt = opt;
+                });
+                if (sizeOpt) row.appendChild(buildSizeSelect(sizeOpt, bIdx, pIdx));
+                if (colorOpt) row.appendChild(buildColorDropdown(colorOpt, bIdx, pIdx));
+                block.appendChild(row);
+                inner.appendChild(block);
+            }
+        }
+
+        function buildColorDropdown(opt, bIdx, pIdx) {
+            var currentVal = pairSelections[bIdx][pIdx][opt.name];
+            var wrap = document.createElement('div');
+            wrap.className = 'spk-custom-select';
+            var trigger = document.createElement('div');
+            trigger.className = 'spk-custom-trigger';
+            var trigImg = document.createElement('img');
+            trigImg.className = 'spk-trigger-img';
+            trigImg.src = COLOR_IMAGES[currentVal] || '';
+            trigImg.alt = currentVal;
+            trigImg.style.display = COLOR_IMAGES[currentVal] ? 'block' : 'none';
+            var trigName = document.createElement('span');
+            trigName.className = 'spk-trigger-name';
+            trigName.textContent = currentVal;
+            var trigArrow = document.createElement('span');
+            trigArrow.className = 'spk-trigger-arrow';
+            trigArrow.textContent = '▼';
+            trigger.appendChild(trigImg); trigger.appendChild(trigName); trigger.appendChild(trigArrow);
+            var list = document.createElement('div');
+            list.className = 'spk-dropdown-list';
+            opt.values.forEach(function (val) {
+                var available = isAvailableForPair(opt.name, val, bIdx, pIdx);
+                var item = document.createElement('div');
+                item.className = 'spk-dropdown-item' + (val === currentVal ? ' active' : '') + (!available ? ' disabled' : '');
+                if (COLOR_IMAGES[val]) { var ii = document.createElement('img'); ii.className = 'spk-item-img'; ii.src = COLOR_IMAGES[val]; ii.alt = val; item.appendChild(ii); }
+                var iName = document.createElement('span'); iName.className = 'spk-item-name'; iName.textContent = val; item.appendChild(iName);
+                if (!available) { var un = document.createElement('span'); un.className = 'spk-item-unavail'; un.textContent = '— Unavailable'; item.appendChild(un); }
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (!available) return;
+                    pairSelections[bIdx][pIdx][opt.name] = val;
+                    closeAllDropdowns();
+                    var inn = document.getElementById('spk-inner-' + bIdx);
+                    if (inn) buildPairs(inn, bIdx, BUNDLES[bIdx].qty);
+                    updateButton();
+                });
+                list.appendChild(item);
+            });
+            trigger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var isOpen = list.classList.contains('open');
+                closeAllDropdowns();
+                if (!isOpen) { list.classList.add('open'); trigger.classList.add('open'); openDropdownEl = wrap; }
+            });
+            wrap.appendChild(trigger); wrap.appendChild(list);
+            return wrap;
+        }
+
+        function buildSizeSelect(opt, bIdx, pIdx) {
+            var currentVal = pairSelections[bIdx][pIdx][opt.name];
+            var outer = document.createElement('div');
+            outer.style.cssText = 'flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;';
+
+            // toggle US/UK — só no primeiro par para não duplicar
+            if (pIdx === 0) {
+                var toggleRow = document.createElement('div');
+                toggleRow.className = 'spk-size-toggle';
+                var toggleLabel = document.createElement('span');
+                toggleLabel.className = 'spk-size-toggle-label';
+                toggleLabel.textContent = 'Size';
+                var btnGroup = document.createElement('div');
+                btnGroup.className = 'spk-toggle-btn-group';
+                ['US', 'UK'].forEach(function (unit) {
+                    var btn = document.createElement('button');
+                    btn.className = 'spk-toggle-btn' + (sizeUnit === unit ? ' active' : '');
+                    btn.type = 'button';
+                    btn.textContent = unit;
+                    btn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        sizeUnit = unit;
+                        // rebuild todos os pares de todos os bundles abertos
+                        BUNDLES.forEach(function (_, bi) {
+                            var inn = document.getElementById('spk-inner-' + bi);
+                            if (inn) buildPairs(inn, bi, BUNDLES[bi].qty);
+                        });
+                    });
+                    btnGroup.appendChild(btn);
+                });
+                toggleRow.appendChild(toggleLabel);
+                toggleRow.appendChild(btnGroup);
+                outer.appendChild(toggleRow);
+            }
+
+            var wrap = document.createElement('div');
+            wrap.className = 'spk-native-select-wrap';
+            wrap.style.flex = 'unset';
+            var select = document.createElement('select');
+            select.className = 'spk-select';
+            opt.values.forEach(function (val) {
+                var available = isAvailableForPair(opt.name, val, bIdx, pIdx);
+                var option = document.createElement('option');
+                option.value = val;
+                option.textContent = sizeLabel(val);
+                if (!available) { option.disabled = true; option.textContent += ' — Unavailable'; }
+                if (currentVal === val) option.selected = true;
+                select.appendChild(option);
+            });
+            select.addEventListener('change', function () {
+                pairSelections[bIdx][pIdx][opt.name] = select.value;
+                var inn = document.getElementById('spk-inner-' + bIdx);
+                if (inn) buildPairs(inn, bIdx, BUNDLES[bIdx].qty);
+                updateButton();
+            });
+            var arrow = document.createElement('span'); arrow.className = 'spk-select-arrow'; arrow.textContent = '▼';
+            wrap.appendChild(select); wrap.appendChild(arrow);
+            outer.appendChild(wrap);
+            return outer;
+        }
+
+        function isAvailableForPair(optName, optValue, bIdx, pIdx) {
+            var sel = pairSelections[bIdx][pIdx];
+            return allVariants.some(function (v) {
+                var matchesThis = v.selectedOptions.some(function (o) { return o.name === optName && o.value === optValue; });
+                var matchesOthers = Object.keys(sel).every(function (key) {
+                    if (key === optName) return true;
+                    return v.selectedOptions.some(function (o) { return o.name === key && o.value === sel[key]; });
+                });
+                return matchesThis && matchesOthers && v.availableForSale;
+            });
+        }
+
+        function getVariantForPair(bIdx, pIdx) {
+            var sel = pairSelections[bIdx][pIdx];
+            return allVariants.find(function (v) {
+                return Object.keys(sel).every(function (key) {
+                    return v.selectedOptions.some(function (o) { return o.name === key && o.value === sel[key]; });
+                });
+            });
+        }
+
+        function updateButton() {
+            var btn = document.getElementById('spk-buy-btn');
+            if (!btn) return;
+            var bundle = BUNDLES[selectedBundle];
+            btn.innerHTML = '';
+            var allValid = true;
+            for (var p = 0; p < bundle.qty; p++) {
+                var v = getVariantForPair(selectedBundle, p);
+                if (!v || !v.availableForSale) { allValid = false; break; }
+            }
+            if (!allValid) { btn.textContent = 'Unavailable'; btn.disabled = true; return; }
+            btn.disabled = false;
+            var text = document.createElement('span');
+            text.textContent = BUTTON_TEXT + ' — ' + bundle.price;
+            btn.appendChild(text);
+            if (bundle.original) {
+                var orig = document.createElement('span');
+                orig.className = 'spk-btn-original';
+                orig.textContent = ' (' + bundle.original + ')';
+                btn.appendChild(orig);
+            }
+        }
+
+        function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : '';
+        }
+        function setCookie(name, value, days) {
+            var expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+        }
+        function randomToken() {
+            return Math.random().toString(36).substr(2, 10) + Math.random().toString(36).substr(2, 10);
+        }
+        function buildFbc(fbclid) { return 'fb.1.' + Date.now() + '.' + fbclid; }
+        function buildFbp() { return 'fb.1.' + Date.now() + '.' + randomToken(); }
+
+        function handleBuy() {
+            var bundle = BUNDLES[selectedBundle];
+            var btn = document.getElementById('spk-buy-btn');
+            var items = [];
+            for (var p = 0; p < bundle.qty; p++) {
+                var variant = getVariantForPair(selectedBundle, p);
+                if (!variant) return;
+                var variantId = variant.id.split('/').pop();
+                var existing = items.find(function (i) { return i.id === variantId; });
+                if (existing) { existing.qty++; } else { items.push({ id: variantId, qty: 1 }); }
+            }
+            btn.textContent = BUTTON_TEXT_LOADING;
+            btn.disabled = true;
+
+            var urlParams = new URLSearchParams(window.location.search);
+
+            // TikTok
+            var ttclid = urlParams.get('ttclid') || getCookie('_ttclid') || '';
+            if (urlParams.get('ttclid')) setCookie('_ttclid', urlParams.get('ttclid'), 7);
+
+            // external_id
+            var extid = getCookie('_extid');
+            if (!extid) {
+                extid = 'u_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                setCookie('_extid', extid, 30);
+            }
+
+            // Meta - fbclid + _fbc
+            var fbclid = urlParams.get('fbclid') || '';
+            var fbc = getCookie('_fbc') || '';
+            if (fbclid) {
+                fbc = buildFbc(fbclid);
+                setCookie('_fbc', fbc, 90);
+            }
+
+            // Meta - _fbp (Pixel cria automaticamente; fallback se nao existir)
+            var fbp = getCookie('_fbp') || '';
+            if (!fbp) {
+                fbp = buildFbp();
+                setCookie('_fbp', fbp, 90);
+            }
+
+            var cartString = items.map(function (i) { return i.id + ':' + i.qty; }).join(',');
+            var checkoutUrl = 'https://' + SHOPIFY_DOMAIN + '/cart/' + cartString;
+
+            var params = [];
+            if (ttclid) params.push('attributes[tiktok_ttclid]=' + encodeURIComponent(ttclid));
+            if (extid) params.push('attributes[external_id]=' + encodeURIComponent(extid));
+            if (fbc) params.push('attributes[meta_fbc]=' + encodeURIComponent(fbc));
+            if (fbp) params.push('attributes[meta_fbp]=' + encodeURIComponent(fbp));
+            if (fbclid) params.push('attributes[meta_fbclid]=' + encodeURIComponent(fbclid));
+            params.push('attributes[landing_url]=' + encodeURIComponent(window.location.href));
+            if (params.length) checkoutUrl += (checkoutUrl.includes('?') ? '&' : '?') + params.join('&');
+
+            // Payload compartilhado Meta + TikTok
+            var totalQty = items.reduce(function (acc, i) { return acc + i.qty; }, 0);
+            var priceNum = Number(String(bundle.price).replace(/[^0-9.]/g, '')) || 0;
+            var contentIds = items.map(function (i) { return String(i.id); });
+            var atcEventId = 'atc_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+            var icEventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+
+            // Meta — AddToCart + InitiateCheckout (browser-side, Loja 1)
+            try {
+                if (typeof fbq === 'function') {
+                    var metaContents = items.map(function (i) {
+                        return { id: String(i.id), quantity: i.qty };
+                    });
+
+                    var metaPayload = {
+                        content_type: 'product',
+                        content_ids: contentIds,
+                        contents: metaContents,
+                        currency: 'USD',
+                        value: priceNum,
+                        num_items: totalQty
+                    };
+
+                    fbq('track', 'AddToCart', metaPayload, { eventID: atcEventId });
+                    fbq('track', 'InitiateCheckout', metaPayload, { eventID: icEventId });
+                }
+            } catch (err) {
+                console.warn('[meta-pixel] AddToCart/InitiateCheckout falhou', err);
+            }
+
+            // TikTok — AddToCart + InitiateCheckout (browser-side, Loja 1)
+            try {
+                if (window.ttq && typeof window.ttq.track === 'function') {
+                    var ttContents = items.map(function (i) {
+                        return {
+                            content_id: String(i.id),
+                            content_type: 'product',
+                            quantity: i.qty,
+                            price: totalQty > 0 ? priceNum / totalQty : priceNum
+                        };
+                    });
+
+                    var ttPayload = {
+                        contents: ttContents,
+                        content_type: 'product',
+                        value: priceNum,
+                        currency: 'USD'
+                    };
+
+                    var ttUserData = {};
+                    if (extid) ttUserData.external_id = extid;
+                    if (ttclid) ttUserData.ttclid = ttclid;
+                    if (Object.keys(ttUserData).length) window.ttq.identify(ttUserData);
+
+                    window.ttq.track('AddToCart', ttPayload, { event_id: atcEventId });
+                    window.ttq.track('InitiateCheckout', ttPayload, { event_id: icEventId });
+                }
+            } catch (err) {
+                console.warn('[tiktok-pixel] AddToCart/InitiateCheckout falhou', err);
+            }
+
+            window.location.href = checkoutUrl;
+        }
+
+    })();
+</script>

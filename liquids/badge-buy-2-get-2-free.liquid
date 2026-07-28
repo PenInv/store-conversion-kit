@@ -1,0 +1,58 @@
+<style>
+  /* ============================================================
+     BADGE "BUY 2 GET 2 FREE" — clone fiel da Hollow Socks
+     Fonte da verdade: DOM ao vivo de
+     https://hollowsocks.com/products/alpaca-compression-socks
+     Valores reais extraídos via getComputedStyle:
+       - fundo:  original rgb(7, 48, 38) → substituído por #041E3A
+                 (azul-marinho da marca, mesmo tom já usado no widget)
+       - raio:   4px | padding: 3px 8px 5px | altura total: 27px
+       - texto:  GT America Mono Medium 15px/15px, bold, branco,
+                 uppercase, letter-spacing -4%
+     ============================================================ */
+
+  /* Fonte real servida pela Hollow (CDN Replo) + fallback mono */
+  @font-face {
+    font-family: 'GT America Mono Medium';
+    src: url('https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/787a4c5b-7bbf-431a-9359-67ce6dd4e65a_GT-America-Mono-Medium.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .hb2g2-root,
+  .hb2g2-root * {
+    box-sizing: border-box !important;
+    margin: 0;
+  }
+
+  /* Pill verde-escuro — display flex + align center como no original */
+  .hb2g2-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #041E3A !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    padding: 3px 8px 5px !important;
+    line-height: 24px !important;
+  }
+
+  /* Texto — o original é um <strong> dentro de rich text (peso 700
+     sintetizado sobre a Medium); padding-top 2px do wrapper interno */
+  .hb2g2-badge span {
+    display: block !important;
+    padding-top: 2px !important;
+    font-family: 'GT America Mono Medium', 'Courier New', monospace !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 15px !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    letter-spacing: -0.04em !important;
+    white-space: nowrap !important;
+  }
+</style>
+
+<div class="hb2g2-root">
+  <div class="hb2g2-badge"><span>Buy 2 Get 2 Free</span></div>
+</div>

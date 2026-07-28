@@ -1,0 +1,180 @@
+<style>
+  .edps-tc-root { box-sizing: border-box !important; }
+  .edps-tc-root *, .edps-tc-root *::before, .edps-tc-root *::after { box-sizing: border-box !important; }
+
+  .edps-tc-root {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    background: #ffffff !important;
+    font-family: Inter, sans-serif !important;
+    padding: 0 !important;
+  }
+
+  .edps-tc-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .edps-tc-card {
+    position: relative !important;
+    overflow: hidden !important;
+    display: block !important;
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  .edps-tc-card::before {
+    content: '' !important;
+    display: block !important;
+    width: 100% !important;
+    padding-bottom: 41.68421052631579% !important;
+  }
+
+  .edps-tc-img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  .edps-tc-content {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 100px !important;
+    pointer-events: none !important;
+  }
+  .edps-tc-card--left .edps-tc-content { justify-content: flex-start !important; }
+  .edps-tc-card--right .edps-tc-content { justify-content: flex-end !important; }
+
+  .edps-tc-text {
+    max-width: 55% !important;
+    pointer-events: auto !important;
+  }
+  .edps-tc-title p { white-space: nowrap !important; }
+  .edps-tc-card--left .edps-tc-text { text-align: left !important; }
+  .edps-tc-card--right .edps-tc-text { text-align: right !important; }
+
+  .edps-tc-title {
+    font-family: Inter, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 34px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    color: #0a0a0a !important;
+    margin: 0 0 24px 0 !important;
+  }
+  .edps-tc-title p { margin: 0 !important; padding: 0 !important; font: inherit !important; color: inherit !important; }
+
+  .edps-tc-learn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-family: Inter, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    color: #0a0a0a !important;
+    text-decoration: none !important;
+    letter-spacing: -0.01em !important;
+  }
+  .edps-tc-arrow {
+    width: 6px !important;
+    height: 10px !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+  }
+
+  @media screen and (min-width: 1025px) and (max-width: 1365px) {
+    .edps-tc-content { padding: 0 80px !important; }
+    .edps-tc-title { font-size: 30px !important; margin-bottom: 20px !important; }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .edps-tc-card::before { padding-bottom: 59.43536404160475% !important; }
+    .edps-tc-content { padding: 0 40px !important; }
+    .edps-tc-title { font-size: 22px !important; margin-bottom: 14px !important; }
+    .edps-tc-learn { font-size: 13px !important; }
+    .edps-tc-arrow { width: 5px !important; height: 8px !important; }
+    .edps-tc-card--right .edps-tc-content { justify-content: flex-start !important; }
+    .edps-tc-card--right .edps-tc-text { text-align: left !important; max-width: 60% !important; }
+    .edps-tc-text { max-width: 60% !important; }
+  }
+
+  @media screen and (max-width: 767px) {
+    .edps-tc-root { padding-top: 8px !important; }
+    .edps-tc-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+    .edps-tc-card::before { padding-bottom: 152% !important; }
+    .edps-tc-content { padding: 18px 16px !important; align-items: flex-start !important; justify-content: flex-start !important; }
+    .edps-tc-card--right .edps-tc-content { justify-content: flex-start !important; }
+    .edps-tc-card--right .edps-tc-text { text-align: left !important; }
+    .edps-tc-text { max-width: 100% !important; }
+    .edps-tc-title { font-size: 22px !important; line-height: 1.15 !important; margin-bottom: 12px !important; }
+    .edps-tc-title p { white-space: normal !important; }
+    .edps-tc-learn { font-size: 13px !important; }
+    .edps-tc-arrow { width: 5px !important; height: 8px !important; }
+  }
+</style>
+
+<section class="edps-tc-root" id="edps-tc-root">
+  <div class="edps-tc-grid">
+    <div class="edps-tc-card edps-tc-card--left">
+      <picture>
+        <source media="(max-width: 767px)"
+          srcset="https://www.dreo.com/cdn/shop/files/Collection_1_banner_mob_28a1ce52-652a-4e84-a936-f04b3d4530ce_375x.png?v=1755153335 1x,
+                  https://www.dreo.com/cdn/shop/files/Collection_1_banner_mob_28a1ce52-652a-4e84-a936-f04b3d4530ce_375x@2x.png?v=1755153335 2x,
+                  https://www.dreo.com/cdn/shop/files/Collection_1_banner_mob_28a1ce52-652a-4e84-a936-f04b3d4530ce_375x@3x.png?v=1755153335 3x">
+        <source media="(max-width: 1365px)"
+          srcset="https://www.dreo.com/cdn/shop/files/Collection_1_banner_iPad_93bab6fb-3a2f-44c4-a108-f0a7fe56f9a7_1200x.png?v=1755153318">
+        <img class="edps-tc-img"
+          src="https://www.dreo.com/cdn/shop/files/Collection_1_banner_pc_1440x.png?v=1755153296"
+          alt="Air Power. Unleashed." loading="lazy" width="1900" height="792">
+      </picture>
+      <div class="edps-tc-content">
+        <div class="edps-tc-text">
+          <div class="edps-tc-title"><p>Air Power.</p><p>Unleashed.</p></div>
+          <span class="edps-tc-learn">
+            Learn More
+            <svg class="edps-tc-arrow" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="m.75 9 3-3-3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="edps-tc-card edps-tc-card--right">
+      <picture>
+        <source media="(max-width: 767px)"
+          srcset="https://www.dreo.com/cdn/shop/files/Collection_2_banner_mob_a11235cc-a35b-4229-bace-d408b3217490_375x.png?v=1755153335 1x,
+                  https://www.dreo.com/cdn/shop/files/Collection_2_banner_mob_a11235cc-a35b-4229-bace-d408b3217490_375x@2x.png?v=1755153335 2x,
+                  https://www.dreo.com/cdn/shop/files/Collection_2_banner_mob_a11235cc-a35b-4229-bace-d408b3217490_375x@3x.png?v=1755153335 3x">
+        <source media="(max-width: 1365px)"
+          srcset="https://www.dreo.com/cdn/shop/files/Collection_2_banner_iPad_218fedf6-8491-4806-9c54-884b9e2b1390_1200x.png?v=1755153318">
+        <img class="edps-tc-img"
+          src="https://www.dreo.com/cdn/shop/files/Collection_2_banner_pc_1440x.png?v=1755153301"
+          alt="Sublime Taste. Smart Simplicity." loading="lazy" width="1900" height="792">
+      </picture>
+      <div class="edps-tc-content">
+        <div class="edps-tc-text">
+          <div class="edps-tc-title"><p>Sublime Taste.</p><p>Smart Simplicity.</p></div>
+          <span class="edps-tc-learn">
+            Learn More
+            <svg class="edps-tc-arrow" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="m.75 9 3-3-3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

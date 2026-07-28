@@ -1,0 +1,416 @@
+<style>
+  /* ===== Tokens (resolvidos do tema WideStep) — escopados p/ raiz + overlays fixos ===== */
+  .wsz-root,
+  .wsz-fx {
+    --ws-white:#FFFFFF; --ws-ink:#1A1A1A; --ws-navy:#B26B36; --ws-navy-deep:#96592C;
+    --ws-muted:#5C5C5C; --ws-line:#C9C0B2; --ws-warm:#F7F6F2; --ws-sage:#B8C9B0;
+    --ws-green-dark:#1F3326; --ws-gold:#C9A227; --ws-on-dark:#FFFFFF;
+    --ws-r:12px; --ws-r-sm:8px; --ws-r-pill:9999px;
+    --wsst-sheet-radius:22px; --wsst-modal-radius:18px;
+    --ws-font-ui:inherit;
+    --ws-font-display:inherit;
+  }
+
+  .wsz-root *, .wsz-root *::before, .wsz-root *::after,
+  .wsz-fx *, .wsz-fx *::before, .wsz-fx *::after { box-sizing: border-box; }
+
+  /* ===== Barra de botões (Find My Size / Size Chart) ===== */
+  .wsz-root {
+    display: block !important;
+    width: 100% !important;
+    max-width: 701px !important;
+    margin: 16px auto !important;
+    background: #ffffff !important;
+    border: 1px solid var(--ws-line) !important;
+    border-radius: 12px !important;
+    font-family: inherit !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wsz-root .wsz-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    background: #fcfcfb !important;
+    border-radius: 10.5px !important;
+    overflow: hidden !important;
+  }
+
+  .wsz-root .wsz-tab {
+    flex: 1 1 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    padding: 6px 8px !important;
+    min-height: 46px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--ws-muted) !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 14px !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    cursor: pointer !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  .wsz-root .wsz-tab + .wsz-tab { border-left: 1px solid var(--ws-line) !important; }
+  .wsz-root .wsz-tab:hover { background: rgba(0,0,0,0.02) !important; }
+
+  .wsz-root .wsz-tab svg {
+    width: 13px !important; height: 13px !important;
+    flex: 0 0 auto !important; color: var(--ws-muted) !important; display: block !important;
+  }
+
+  /* ======================= FIND MY SIZE (quiz) ======================= */
+  .wsz-fx.sf-overlay { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; font-family: var(--ws-font-ui); }
+  .wsz-fx.sf-overlay[hidden] { display: none; }
+  .wsz-fx .sf-scrim { display: block; position: absolute; inset: 0; background: rgba(26,26,26,.5); opacity: 0; transition: opacity .28s; }
+  .wsz-fx.sf-overlay.is-open .sf-scrim { opacity: 1; }
+  .wsz-fx .sf-sheet { position: relative; width: min(460px, 100% - 32px); margin: auto; max-height: 92vh; display: flex; flex-direction: column; background: var(--ws-white); border-radius: var(--wsst-sheet-radius); box-shadow: rgba(26,26,26,.32) 0 24px 64px; transform: translateY(18px) scale(.985); opacity: 0; transition: transform .3s cubic-bezier(.32,.72,0,1), opacity .26s; }
+  .wsz-fx.sf-overlay.is-open .sf-sheet { transform: translateY(0) scale(1); opacity: 1; }
+  .wsz-fx .sf-grab { display: block; width: 42px; height: 4px; margin: 10px auto 2px; border: 0; border-radius: var(--ws-r-pill); background: var(--ws-line); cursor: pointer; }
+  .wsz-fx .sf-head { padding: 6px 20px 0; }
+  .wsz-fx .sf-track { height: 4px; border-radius: var(--ws-r-pill); background: var(--ws-warm); overflow: hidden; }
+  .wsz-fx .sf-track__bar { display: block; height: 100%; width: 33%; background: var(--ws-navy); border-radius: var(--ws-r-pill); transition: width .3s; }
+  .wsz-fx .sf-head__row { display: flex; align-items: center; justify-content: space-between; margin-top: 9px; }
+  .wsz-fx .sf-step-label { font-family: var(--ws-font-ui); font-size: 11.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--ws-muted); }
+  .wsz-fx .sf-x { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: none; font-size: 26px; line-height: 1; color: var(--ws-muted); cursor: pointer; padding: 0; margin: -4px -8px -4px 0; }
+  .wsz-fx .sf-body { padding: 12px 20px 22px; overflow-y: auto; }
+  .wsz-fx .sf-q { margin: 6px 0 7px; font-family: var(--ws-font-display); font-size: 22px; font-weight: 700; line-height: 1.2; color: var(--ws-navy); }
+  .wsz-fx .sf-help { margin: 0 0 16px; font-family: var(--ws-font-ui); font-size: 13.5px; line-height: 1.45; color: var(--ws-muted); }
+  .wsz-fx .sf-list { display: flex; flex-direction: column; gap: 10px; }
+  .wsz-fx .sf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .wsz-fx .sf-opt { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 54px; padding: 12px 16px; border: 1.5px solid var(--ws-line); border-radius: var(--ws-r); background: var(--ws-white); color: var(--ws-ink); font-family: var(--ws-font-ui); font-size: 15px; font-weight: 600; line-height: 1.25; text-align: left; cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s, transform .14s; }
+  .wsz-fx .sf-opt:hover { border-color: var(--ws-navy); }
+  .wsz-fx .sf-opt__sub { font-weight: 500; color: var(--ws-muted); font-size: 12.5px; }
+  .wsz-fx .sf-opt__check { flex: 0 0 auto; width: 20px; height: 20px; border-radius: var(--ws-r-pill); border: 2px solid var(--ws-line); }
+  .wsz-fx .sf-back { margin: 16px 0 0; border: 0; background: none; padding: 6px 2px; font-family: var(--ws-font-ui); font-size: 13px; font-weight: 600; color: var(--ws-muted); text-decoration: underline; cursor: pointer; }
+  .wsz-fx .sf-cta { width: 100%; min-height: 54px; border: 0; border-radius: var(--ws-r); background: var(--ws-navy); color: var(--ws-on-dark); font-family: var(--ws-font-ui); font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .3px; cursor: pointer; transition: background .15s; }
+  .wsz-fx .sf-cta:hover { background: var(--ws-navy-deep); }
+  .wsz-fx .sf-cta:focus-visible, .wsz-fx .sf-opt:focus-visible, .wsz-fx .sf-back:focus-visible,
+  .wsz-fx .sf-x:focus-visible,
+  .wsz-fx .sf-grab:focus-visible, .wsz-fx .sc-close:focus-visible { outline: 3px solid var(--ws-navy); outline-offset: 2px; }
+  .wsz-fx .sf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wsz-fx .sf-opt--tile { justify-content: center; min-height: 52px; padding: 10px; font-size: 16px; font-weight: 700; }
+  .wsz-fx .sf-opt--card { flex-direction: column; align-items: center; justify-content: center; gap: 9px; min-height: 110px; padding: 16px 10px; text-align: center; box-shadow: rgba(44,58,85,.06) 0 1px 3px; }
+  .wsz-fx .sf-opt--card .sf-opt__label { font-size: 14px; }
+  .wsz-fx .sf-opt__ic { display: inline-flex; align-items: center; justify-content: center; color: var(--ws-navy); }
+  .wsz-fx .sf-opt--card .sf-opt__ic { width: 42px; height: 42px; }
+  .wsz-fx .sf-opt--card .sf-opt__ic svg, .wsz-fx .sf-opt--card .sf-opt__ic img { width: 100%; height: 100%; object-fit: contain; }
+  .wsz-fx .sf-opt--list .sf-opt__ic { width: 26px; height: 26px; flex: 0 0 auto; }
+  .wsz-fx .sf-opt--list .sf-opt__ic svg, .wsz-fx .sf-opt--list .sf-opt__ic img { width: 100%; height: 100%; object-fit: contain; }
+  .wsz-fx .sf-why { text-align: left; margin: 0 0 14px; padding: 14px 16px; background: var(--ws-white); border: 1px solid var(--ws-line); border-radius: var(--ws-r); }
+  .wsz-fx .sf-why__h { margin: 0 0 9px; font-family: var(--ws-font-display); font-size: 12.5px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--ws-navy); }
+  .wsz-fx .sf-why__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .wsz-fx .sf-why__list li { display: flex; align-items: flex-start; gap: 9px; font-family: var(--ws-font-ui); font-size: 13px; line-height: 1.4; color: var(--ws-ink); }
+  .wsz-fx .sf-why__c { flex: 0 0 auto; width: 18px; height: 18px; border-radius: var(--ws-r-pill); background: var(--ws-sage); color: var(--ws-green-dark); display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .wsz-fx .sf-result { text-align: center; padding: 4px 0 2px; }
+  .wsz-fx .sf-result__eyebrow { margin: 0 0 2px; font-family: var(--ws-font-ui); font-size: 13px; font-weight: 600; color: var(--ws-muted); }
+  .wsz-fx .sf-result__expect { margin: 0 0 12px; font-family: var(--ws-font-ui); font-size: 12.5px; line-height: 1.5; color: var(--ws-muted); }
+  .wsz-fx .sf-result__match { margin: 0 0 16px; font-family: var(--ws-font-ui); font-size: 14px; color: var(--ws-ink); }
+  .wsz-fx .sf-result__match strong { color: var(--ws-green-dark); font-weight: 800; }
+  .wsz-fx .sf-result__assure { display: flex; align-items: flex-start; gap: 8px; text-align: left; margin: 0 0 10px; padding: 11px 13px; background: var(--ws-warm); border-radius: var(--ws-r-sm); font-family: var(--ws-font-ui); font-size: 12.5px; line-height: 1.45; color: var(--ws-green-dark); }
+  .wsz-fx .sf-result__assure-ic { flex: 0 0 auto; color: var(--ws-green-dark); margin-top: 1px; }
+  .wsz-fx .sf-result__proof { margin: 0 0 16px; font-family: var(--ws-font-ui); font-size: 12px; line-height: 1.45; color: var(--ws-muted); }
+  .wsz-fx .sf-body.sf-busy { pointer-events: none; }
+  .wsz-fx .sf-opt.is-selected { border-color: var(--ws-green-dark); background: var(--ws-sage); color: var(--ws-green-dark); box-shadow: 0 0 0 2px var(--ws-green-dark), 0 6px 16px #1f33262e; }
+  .wsz-fx .sf-opt.is-selected .sf-opt__ic { color: var(--ws-green-dark); }
+  .wsz-fx .sf-opt--card.is-selected, .wsz-fx .sf-opt--tile.is-selected { transform: scale(1.03); }
+  .wsz-fx .sf-opt--list.is-selected .sf-opt__check { border-color: var(--ws-green-dark); background: var(--ws-green-dark); }
+  .wsz-fx .sf-intro { text-align: center; padding: 6px 4px 4px; }
+  .wsz-fx .sf-intro__badge { width: 72px; height: 72px; margin: 8px auto 16px; border-radius: var(--ws-r-pill); background: var(--ws-sage); color: var(--ws-navy); display: flex; align-items: center; justify-content: center; box-shadow: rgba(44,58,85,.16) 0 10px 26px; }
+  .wsz-fx .sf-intro__badge img { width: 58%; height: 58%; object-fit: contain; }
+  .wsz-fx .sf-intro__h { margin: 0 0 10px; font-family: var(--ws-font-display); font-size: 25px; font-weight: 700; line-height: 1.15; color: var(--ws-navy); }
+  .wsz-fx .sf-intro__p { margin: 0 auto 18px; max-width: 30em; font-family: var(--ws-font-ui); font-size: 14px; line-height: 1.55; color: var(--ws-muted); }
+  .wsz-fx .sf-intro__trust { display: flex; flex-direction: column; gap: 9px; align-items: center; margin: 0 0 18px; padding: 14px; background: var(--ws-warm); border-radius: var(--ws-r); }
+  .wsz-fx .sf-intro__stars, .wsz-fx .sf-intro__count { display: inline-flex; align-items: center; gap: 7px; font-family: var(--ws-font-ui); font-size: 13px; color: var(--ws-ink); }
+  .wsz-fx .sf-intro__stars strong { font-weight: 700; }
+  .wsz-fx .sf-stars { color: var(--ws-gold); letter-spacing: .5px; font-size: 14px; }
+  .wsz-fx .sf-avs { display: inline-flex; }
+  .wsz-fx .sf-avs i { width: 24px; height: 24px; border-radius: var(--ws-r-pill); background-size: cover; background-position: center; border: 2px solid var(--ws-warm); margin-left: -8px; }
+  .wsz-fx .sf-avs i:first-child { margin-left: 0; }
+  .wsz-fx .sf-intro__note { margin: 12px 0 2px; font-family: var(--ws-font-ui); font-size: 12px; color: var(--ws-muted); }
+  .wsz-fx .sf-ring { position: relative; width: 132px; height: 132px; margin: 8px auto 12px; }
+  .wsz-fx .sf-ring__svg { width: 100%; height: 100%; display: block; }
+  .wsz-fx .sf-ring__bg { fill: none; stroke: var(--ws-warm); stroke-width: 9; }
+  .wsz-fx .sf-ring__fg { fill: none; stroke: var(--ws-green-dark); stroke-width: 9; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 64px 64px; transition: stroke-dashoffset 1.1s cubic-bezier(.32,.72,0,1); }
+  .wsz-fx .sf-ring__c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .wsz-fx .sf-ring__size { font-family: var(--ws-font-display); font-size: 35px; font-weight: 800; line-height: 1; color: var(--ws-navy); }
+  .wsz-fx .sf-ring__sub { margin-top: 4px; font-family: var(--ws-font-ui); font-size: 11px; font-weight: 700; letter-spacing: .9px; text-transform: uppercase; color: var(--ws-muted); }
+  @media (min-width: 480px) { .wsz-fx .sf-sheet { width: 460px; } }
+
+  /* ======================= SIZE CHART ======================= */
+  .wsz-fx.sc-overlay { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch; font-family: var(--ws-font-ui); }
+  .wsz-fx.sc-overlay[hidden] { display: none; }
+  .wsz-fx .sc-backdrop { display: block; position: absolute; inset: 0; background: rgba(26,26,26,.55); opacity: 0; transition: opacity .25s; }
+  .wsz-fx.sc-overlay.is-open .sc-backdrop { opacity: 1; }
+  .wsz-fx .sc-modal { position: relative; width: min(680px, 100%); margin: auto; max-height: none; background: var(--ws-white); border-radius: var(--wsst-modal-radius); padding: 30px clamp(20px, 4vw, 40px) 28px; box-shadow: rgba(26,26,26,.3) 0 30px 80px; transform: translateY(14px) scale(.98); opacity: 0; transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .28s; }
+  .wsz-fx.sc-overlay.is-open .sc-modal { transform: none; opacity: 1; }
+  .wsz-fx .sc-close { position: absolute; top: 14px; right: 16px; width: 36px; height: 36px; border: 0; border-radius: var(--ws-r-pill); background: var(--ws-warm); color: var(--ws-ink); font-size: 24px; line-height: 1; cursor: pointer; }
+  .wsz-fx .sc-close:hover { background: var(--ws-line); }
+  .wsz-fx .sc-eyebrow { margin: 0 0 6px; font-family: var(--ws-font-display); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ws-navy); }
+  .wsz-fx .sc-title { margin: 0 0 8px; font-family: var(--ws-font-display); font-size: 26px; font-weight: 700; color: var(--ws-navy); }
+  .wsz-fx .sc-sub { margin: 0 0 22px; color: var(--ws-muted); font-family: var(--ws-font-ui); font-size: 15px; line-height: 1.5; }
+  .wsz-fx .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+  .wsz-fx .sc-h3 { margin: 0 0 12px; font-family: var(--ws-font-ui); font-size: 15px; font-weight: 700; color: var(--ws-ink); }
+  .wsz-fx .sc-steps { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .wsz-fx .sc-steps li { display: flex; gap: 10px; font-family: var(--ws-font-ui); font-size: 14px; line-height: 1.45; color: var(--ws-ink); }
+  .wsz-fx .sc-steps li span { flex: 0 0 auto; width: 22px; height: 22px; border-radius: var(--ws-r-pill); background: var(--ws-navy); color: var(--ws-white); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+  .wsz-fx .sc-tablewrap { overflow: hidden; border: 1px solid var(--ws-line); border-radius: 12px; }
+  .wsz-fx .sc-table { width: 100%; border-collapse: collapse; font-family: var(--ws-font-ui); font-size: 14px; }
+  .wsz-fx .sc-table th, .wsz-fx .sc-table td { padding: 10px 12px; text-align: center; }
+  .wsz-fx .sc-table thead th { background: var(--ws-navy); color: var(--ws-white); font-weight: 700; font-size: 12.5px; letter-spacing: .3px; }
+  .wsz-fx .sc-table tbody tr:nth-child(2n) { background: var(--ws-warm); }
+  .wsz-fx .sc-table tbody td { border-top: 1px solid var(--ws-line); color: var(--ws-ink); }
+  .wsz-fx .sc-note { margin: 20px 0 0; font-family: var(--ws-font-ui); font-size: 13px; color: var(--ws-muted); }
+  @media (max-width: 640px) {
+    .wsz-fx .sc-grid { grid-template-columns: 1fr; gap: 20px; }
+    .wsz-fx .sc-title { font-size: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wsz-fx .sf-scrim, .wsz-fx .sf-sheet, .wsz-fx .sf-track__bar, .wsz-fx .sf-ring__fg { transition: none; }
+  }
+</style>
+
+<div class="wsz-root">
+  <div class="wsz-tabs">
+    <button type="button" class="wsz-tab" id="sh-tab-find" data-sf-open aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="8" rx="2"></rect><path d="M8 8v3"></path><path d="M12 8v4"></path><path d="M16 8v3"></path></g></svg>Find My Size</button>
+    <button type="button" class="wsz-tab" id="sh-tab-chart" aria-haspopup="dialog" aria-controls="sc-overlay">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></rect><path d="M4 9.6h16M4 14.4h16M9.6 4v16M14.4 4v16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Size Chart</button>
+  </div>
+</div>
+
+<!-- Dados dos ícones do quiz (assets do CDN da loja) -->
+<script type="application/json" id="sf-icon-data">{
+  "badge": "//getwidestep.com/cdn/shop/t/29/assets/fit-badge.png?v=62465401142788716061783169902",
+  "foot_narrow": "//getwidestep.com/cdn/shop/t/29/assets/fit-foot-narrow.png?v=74237226987269878901783169902",
+  "foot_medium": "//getwidestep.com/cdn/shop/t/29/assets/fit-foot-medium.png?v=20902034681941153101783169902",
+  "foot_wide": "//getwidestep.com/cdn/shop/t/29/assets/fit-foot-wide.png?v=10119360448519191101783169902",
+  "foot_xwide": "//getwidestep.com/cdn/shop/t/29/assets/fit-foot-xwide.png?v=30724102467704231781783169902",
+  "sock_thin": "//getwidestep.com/cdn/shop/t/29/assets/fit-sock-thin.png?v=8258688613889281371783169902",
+  "sock_everyday": "//getwidestep.com/cdn/shop/t/29/assets/fit-sock-everyday.png?v=163727848446182159961783169902",
+  "sock_thick": "//getwidestep.com/cdn/shop/t/29/assets/fit-sock-thick.png?v=51198618074189105381783169902",
+  "fitter1": "//getwidestep.com/cdn/shop/t/29/assets/fitter-1.jpg?v=70107542534840182461783169902",
+  "fitter2": "//getwidestep.com/cdn/shop/t/29/assets/fitter-2.jpg?v=3438704826795424241783169902",
+  "fitter3": "//getwidestep.com/cdn/shop/t/29/assets/fitter-3.jpg?v=51126430047527311671783169902"
+}</script>
+
+<!-- FIND MY SIZE — sheet do quiz -->
+<div class="wsz-fx sf-overlay" id="sf-overlay" hidden>
+  <div class="sf-scrim" data-sf-close></div>
+  <section class="sf-sheet" id="sf-sheet" role="dialog" aria-modal="true" aria-labelledby="sf-q" aria-describedby="sf-step-label">
+    <button class="sf-grab" type="button" data-sf-close aria-label="Close size finder"></button>
+    <header class="sf-head">
+      <div class="sf-track"><span class="sf-track__bar" id="sf-bar"></span></div>
+      <div class="sf-head__row">
+        <span class="sf-step-label" id="sf-step-label">Step 1 of 3</span>
+        <button class="sf-x" type="button" data-sf-close aria-label="Close size finder">&times;</button>
+      </div>
+    </header>
+    <div class="sf-body" id="sf-body"
+      data-sf-intro-h="Let us find your perfect fit"
+      data-sf-intro-p="Three quick taps and our podiatrist built fit engine gives you the size that will actually feel right. About 20 seconds."
+      data-sf-rating="4.8" data-sf-rating-label="fit rating"
+      data-sf-count-label="Over 80,000 feet fitted"
+      data-sf-start-label="Start my fit finder"
+      data-sf-intro-note="Easy size exchanges, always. No risk."
+      data-sf-q1="What's your usual shoe size?"
+      data-sf-help1="Pick what you normally wear. We tune it to our wider, foot shaped fit for you."
+      data-sf-q2="How would you describe your feet?"
+      data-sf-help2="Tap the shape closest to yours. This is how we get the width right."
+      data-sf-q3="What will you wear them with?"
+      data-sf-help3="Last one. Sock thickness changes the fit, so we account for it."
+      data-sf-back-label="Back"
+      data-sf-result-eyebrow="Your perfect fit"
+      data-sf-result-sub="&lt;strong&gt;{conf}%&lt;/strong&gt; fit match for your feet"
+      data-sf-why-h="Why size {size}"
+      data-sf-expect="Expect room for your toes to spread with a secure heel, comfortable from the first step."
+      data-sf-assure="Easy size exchanges and 30 day returns. Try them on at home, risk free."
+      data-sf-proof="Podiatrist developed. Over 80,000 fitted. 94 percent kept their recommended size."
+      data-sf-cta="Close"
+      data-sf-your-size="your size"
+      data-sf-sizes="5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13"
+      data-sf-w1="Narrow" data-sf-w2="Medium" data-sf-w3="Wide" data-sf-w4="Extra wide"
+      data-sf-s1="Bare feet or thin socks" data-sf-s2="Everyday socks" data-sf-s3="Thick or cushioned socks"><!-- steps + result rendered by script --></div>
+  </section>
+</div>
+
+<!-- SIZE CHART — modal -->
+<div class="wsz-fx sc-overlay" id="sc-overlay" hidden>
+  <div class="sc-backdrop" data-sc-close></div>
+  <div class="sc-modal" role="dialog" aria-modal="true" aria-labelledby="sc-title">
+    <button class="sc-close" type="button" data-sc-close aria-label="Close size chart">&times;</button>
+    <p class="sc-eyebrow">WideStep Fit</p>
+    <h2 class="sc-title" id="sc-title">Size &amp; Fit Chart</h2>
+    <p class="sc-sub">Measure once and order with confidence. WideStep runs true to size with a roomy, wide toe box.</p>
+    <div class="sc-grid">
+      <div class="sc-measure">
+        <h3 class="sc-h3">How to measure your foot</h3>
+        <ol class="sc-steps">
+          <li><span>1</span>Place a sheet of paper against a wall and stand on it, heel to the wall.</li>
+          <li><span>2</span>Mark the tip of your longest toe on the paper.</li>
+          <li><span>3</span>Measure heel to mark in centimeters, then match it in the chart.</li>
+        </ol>
+        <p><strong>Between sizes?</strong> Size up for the roomiest wide fit.</p>
+      </div>
+      <div class="sc-tablewrap">
+        <table class="sc-table">
+          <thead>
+            <tr><th>US (W)</th><th>UK</th><th>EU</th><th>Foot length</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>6</td><td>4</td><td>37</td><td>23.9 cm</td></tr>
+            <tr><td>6.5</td><td>4.5</td><td>37.5</td><td>24.6 cm</td></tr>
+            <tr><td>7</td><td>5</td><td>38</td><td>25.3 cm</td></tr>
+            <tr><td>7.5</td><td>5.5</td><td>38.5</td><td>25.6 cm</td></tr>
+            <tr><td>8</td><td>6</td><td>39</td><td>25.9 cm</td></tr>
+            <tr><td>8.5</td><td>6.5</td><td>40</td><td>26.3 cm</td></tr>
+            <tr><td>9</td><td>7</td><td>40.5</td><td>26.6 cm</td></tr>
+            <tr><td>9.5</td><td>7.5</td><td>41</td><td>27.0 cm</td></tr>
+            <tr><td>10</td><td>8</td><td>41.5</td><td>27.3 cm</td></tr>
+            <tr><td>10.5</td><td>8.5</td><td>42</td><td>27.9 cm</td></tr>
+            <tr><td>11</td><td>9</td><td>42.5</td><td>28.3 cm</td></tr>
+            <tr><td>11.5</td><td>9.5</td><td>43</td><td>28.6 cm</td></tr>
+            <tr><td>12</td><td>10</td><td>43.5</td><td>29.3 cm</td></tr>
+            <tr><td>12.5</td><td>10.5</td><td>44</td><td>29.9 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="sc-note">Conversions are a guide. Still unsure? Use Find My Size for a 30 second, podiatrist developed fit.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* Move os overlays direto para o <body> para escapar de ancestrais do tema
+     com transform/filter/perspective, que quebram o position:fixed e cortam o modal. */
+  ["sf-overlay","sc-overlay"].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&el.parentNode!==document.body){document.body.appendChild(el);}
+  });
+  /* ================= FIND MY SIZE (quiz de 3 passos) ================= */
+  (function(){
+    var overlay=document.getElementById("sf-overlay"); if(!overlay) return;
+    var sheet=document.getElementById("sf-sheet"),body=document.getElementById("sf-body"),
+        bar=document.getElementById("sf-bar"),stepLabel=document.getElementById("sf-step-label"),
+        STORE="ws_fit_size",lastFocus=null,C=body.dataset||{},
+        DEFAULT_SIZES=[7,7.5,8,8.5,9];
+    var SIZES=(function(){var p=String(C.sfSizes||"").split(",").map(function(s){return Number(String(s).trim());}).filter(function(n){return isFinite(n);});p.sort(function(a,b){return a-b;});return p.length?p:DEFAULT_SIZES.slice();})();
+    function sizeLabel(n){return String(n);}
+    var LABELS=SIZES.map(sizeLabel);
+    function snap(score){for(var i=0;i<SIZES.length;i++)if(SIZES[i]>=score)return sizeLabel(SIZES[i]);return sizeLabel(SIZES[SIZES.length-1]);}
+    function sizeUp(label){var i=LABELS.indexOf(label);if(i<0)i=0;return LABELS[Math.min(i+1,LABELS.length-1)];}
+    function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+    var answers={},stepIdx=0,SFI={};
+    try{SFI=JSON.parse(document.getElementById("sf-icon-data").textContent);}catch(e){}
+    function sfImg(u){return u?'<img src="'+u+'" alt="" decoding="async">':"";}
+    function sfAv(u){return u?'<i style="background-image:url('+u+')"></i>':"<i></i>";}
+    var FOOT_N=sfImg(SFI.foot_narrow),FOOT_M=sfImg(SFI.foot_medium),FOOT_W=sfImg(SFI.foot_wide),FOOT_XW=sfImg(SFI.foot_xwide),
+        SOCK_THIN=sfImg(SFI.sock_thin),SOCK_MED=sfImg(SFI.sock_everyday),SOCK_THICK=sfImg(SFI.sock_thick);
+    var STEPS=[
+      {key:"size",q:C.sfQ1,help:C.sfHelp1,layout:"size"},
+      {key:"width",q:C.sfQ2,help:C.sfHelp2,layout:"cards",options:[
+        {icon:FOOT_N,label:C.sfW1||"Narrow",value:"narrow"},
+        {icon:FOOT_M,label:C.sfW2||"Medium",value:"medium"},
+        {icon:FOOT_W,label:C.sfW3||"Wide",value:"wide"},
+        {icon:FOOT_XW,label:C.sfW4||"Extra wide",value:"xwide"}]},
+      {key:"socks",q:C.sfQ3,help:C.sfHelp3,layout:"list",options:[
+        {icon:SOCK_THIN,label:C.sfS1||"Bare feet or thin socks",value:"thin"},
+        {icon:SOCK_MED,label:C.sfS2||"Everyday socks",value:"everyday"},
+        {icon:SOCK_THICK,label:C.sfS3||"Thick or cushioned socks",value:"thick"}]}
+    ];
+    function getSize(){try{return localStorage.getItem(STORE);}catch(e){return null;}}
+    function saveSize(s){try{localStorage.setItem(STORE,s);}catch(e){}}
+    /* best-effort: seleciona a variante no bundle do tema, se existir; nunca quebra */
+    function activeBody(){var r=document.querySelector(".custom-bundle__radio:checked"),card=r?r.closest("product-bundle-card, .custom-bundle"):null;return card?card.querySelector("[data-bundle-body]"):null;}
+    function normSize(s){return String(s).replace(/^\s*us\s*/i,"").trim();}
+    function applySize(size){saveSize(size);var bd=activeBody();if(!bd)return;var want=normSize(size);
+      [].forEach.call(bd.querySelectorAll(".custom-bundle__item"),function(item){var input=null;
+        [].forEach.call(item.querySelectorAll(".custom-bundle__option--pill input"),function(inp){if(!input&&normSize(inp.value)===want)input=inp;});
+        if(input){input.checked=true;input.dispatchEvent(new Event("change",{bubbles:true}));}});
+      bd.classList.add("sf-flash");setTimeout(function(){bd.classList.remove("sf-flash");},1200);}
+    function setProgress(n){var pct=n==="done"?100:n===0?7:n/3*100;bar.style.width=pct+"%";
+      stepLabel.textContent=n==="done"?(C.sfYourSize||"Your fit"):n===0?"Fit finder":"Step "+n+" of 3";}
+    function opt(icon,label,sub,selected,onClick,kind){var b=document.createElement("button");b.type="button";
+      b.className="sf-opt sf-opt--"+kind+(selected?" is-selected":"");
+      var inner=kind==="tile"?"":'<span class="sf-opt__ic" aria-hidden="true">'+(icon||"")+"</span>";
+      inner+='<span class="sf-opt__label">'+esc(label)+(sub?' <span class="sf-opt__sub">'+esc(sub)+"</span>":"")+"</span>";
+      if(kind==="list")inner+='<span class="sf-opt__check" aria-hidden="true"></span>';
+      b.innerHTML=inner;b.addEventListener("click",onClick);return b;}
+    function pick(btn,fn){if(body.classList.contains("sf-busy"))return;
+      [].forEach.call(body.querySelectorAll(".sf-opt"),function(o){if(o!==btn)o.classList.remove("is-selected");});
+      btn.classList.add("is-selected");body.classList.add("sf-busy");setTimeout(fn,300);}
+    function renderIntro(){setProgress(0);body.scrollTop=0;
+      body.innerHTML='<div class="sf-intro"><div class="sf-intro__badge" aria-hidden="true">'+sfImg(SFI.badge)+'</div><h2 class="sf-intro__h" id="sf-q">'+esc(C.sfIntroH)+'</h2><p class="sf-intro__p">'+esc(C.sfIntroP)+'</p><div class="sf-intro__trust"><div class="sf-intro__stars"><span class="sf-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <strong>'+esc(C.sfRating)+"</strong> "+esc(C.sfRatingLabel)+'</div><div class="sf-intro__count"><span class="sf-avs" aria-hidden="true">'+sfAv(SFI.fitter1)+sfAv(SFI.fitter2)+sfAv(SFI.fitter3)+"</span> "+esc(C.sfCountLabel)+'</div></div><button type="button" class="sf-cta sf-intro__start" id="sf-start">'+esc(C.sfStartLabel)+'</button><p class="sf-intro__note">'+esc(C.sfIntroNote)+"</p></div>";
+      document.getElementById("sf-start").addEventListener("click",function(){stepIdx=0;renderStep();});}
+    function renderStep(){body.classList.remove("sf-busy");if(stepIdx<0)return renderIntro();if(stepIdx>=STEPS.length)return renderResult();
+      var step=STEPS[stepIdx];setProgress(stepIdx+1);body.scrollTop=0;body.innerHTML="";
+      var h=document.createElement("h2");h.className="sf-q";h.id="sf-q";h.textContent=step.q||"";
+      var help=document.createElement("p");help.className="sf-help";help.textContent=step.help||"";
+      body.appendChild(h);body.appendChild(help);
+      if(step.layout==="size"){var grid=document.createElement("div");grid.className="sf-grid";
+        SIZES.forEach(function(sz){grid.appendChild(opt("",sizeLabel(sz),"",answers.size===sz,function(e){answers.size=sz;pick(e.currentTarget,function(){stepIdx++;renderStep();});},"tile"));});
+        body.appendChild(grid);
+      }else{var cards=step.layout==="cards",wrap=document.createElement("div");wrap.className=cards?"sf-cards":"sf-list";
+        step.options.forEach(function(o){wrap.appendChild(opt(o.icon,o.label,o.sub,answers[step.key]===o.value,function(e){answers[step.key]=o.value;pick(e.currentTarget,function(){stepIdx++;renderStep();});},cards?"card":"list"));});
+        body.appendChild(wrap);}
+      if(stepIdx>0){var back=document.createElement("button");back.type="button";back.className="sf-back";back.textContent=C.sfBackLabel||"Back";back.addEventListener("click",function(){stepIdx--;renderStep();});body.appendChild(back);}}
+    function recommend(){var base=answers.size,nudge=0;if(answers.width==="xwide")nudge+=.5;if(answers.socks==="thick")nudge+=.5;return snap(base+Math.min(nudge,.5));}
+    function renderResult(){setProgress("done");var size=recommend(),nudged=answers.width==="xwide"||answers.socks==="thick",conf=nudged?95:97,
+      widthMap={narrow:"Narrow feet, snug and secure where it counts.",medium:"Medium width, true to your size.",wide:"Wide feet, our roomy toe box has you covered.",xwide:"Extra wide feet, we left room so nothing pinches."},
+      sockMap={thin:"Thin socks, no extra room needed.",everyday:"Everyday socks, factored in.",thick:"Thick socks, we left room for them."},
+      chk='<svg viewBox="0 0 24 24" width="13" height="13" fill="none"><path d="M5 12.5l4.2 4.2L19 7.2" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      function li(t){return'<li><span class="sf-why__c" aria-hidden="true">'+chk+"</span><span>"+esc(t)+"</span></li>";}
+      var matchTpl=C.sfResultSub||"<strong>{conf}%</strong> fit match for your feet",
+          whyH=(C.sfWhyH||"Why size {size}").replace("{size}",esc(size)),
+          ctaTpl=(C.sfCta||"Add size {size} to my order").replace("{size}",esc(size));
+      body.scrollTop=0;
+      body.innerHTML='<div class="sf-result"><p class="sf-result__eyebrow">'+esc(C.sfResultEyebrow)+'</p><div class="sf-ring"><svg class="sf-ring__svg" viewBox="0 0 128 128" aria-hidden="true"><circle class="sf-ring__bg" cx="64" cy="64" r="54"/><circle class="sf-ring__fg" cx="64" cy="64" r="54"/></svg><div class="sf-ring__c"><span class="sf-ring__size" id="sf-q">'+esc(size)+'</span><span class="sf-ring__sub">'+esc(C.sfYourSize||"your size")+'</span></div></div><p class="sf-result__match">'+matchTpl.replace("{conf}",conf)+'</p><div class="sf-why"><p class="sf-why__h">'+whyH+'</p><ul class="sf-why__list">'+li("You usually wear a "+answers.size+".")+li(widthMap[answers.width]||"Matched to our foot shaped fit.")+li(sockMap[answers.socks]||"Sock thickness factored in.")+'</ul></div><p class="sf-result__expect">'+esc(C.sfExpect)+'</p><div class="sf-result__assure"><span class="sf-result__assure-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>'+esc(C.sfAssure)+'</span></div><p class="sf-result__proof">'+esc(C.sfProof)+'</p><button type="button" class="sf-cta" id="sf-cta">'+ctaTpl+"</button></div>";
+      var fg=body.querySelector(".sf-ring__fg");if(fg){var CR=2*Math.PI*54;fg.style.strokeDasharray=CR;fg.style.strokeDashoffset=CR;requestAnimationFrame(function(){requestAnimationFrame(function(){fg.style.strokeDashoffset=CR*(1-conf/100);});});}
+      document.getElementById("sf-cta").addEventListener("click",function(){close();});}
+    function open(){lastFocus=document.activeElement;answers={};stepIdx=-1;overlay.hidden=false;renderStep();
+      requestAnimationFrame(function(){overlay.classList.add("is-open");});
+      document.documentElement.style.overflow="hidden";
+      setTimeout(function(){var f=sheet.querySelector(".sf-opt, button");if(f)f.focus();},90);
+      document.addEventListener("keydown",onKey,true);}
+    function close(){overlay.classList.remove("is-open");document.removeEventListener("keydown",onKey,true);
+      document.documentElement.style.overflow="";setTimeout(function(){overlay.hidden=true;},320);
+      if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+    function onKey(e){if(e.key==="Escape")return close();
+      if(e.key==="Tab"){var f=[].filter.call(sheet.querySelectorAll("button"),function(el){return el.offsetParent!==null;});
+        if(!f.length)return;var first=f[0],last=f[f.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}
+    [].forEach.call(document.querySelectorAll("[data-sf-open]"),function(el){el.addEventListener("click",function(e){e.preventDefault();open();});});
+    [].forEach.call(overlay.querySelectorAll("[data-sf-close]"),function(el){el.addEventListener("click",close);});
+    overlay.addEventListener("click",function(e){if(e.target===overlay||e.target.classList.contains("sf-scrim"))close();});
+  })();
+
+  /* ================= SIZE CHART (modal) ================= */
+  (function(){
+    var overlay=document.getElementById("sc-overlay"),
+        openBtn=document.getElementById("sh-tab-chart")||document.querySelector('[aria-controls="sc-overlay"]');
+    if(!overlay||!openBtn)return;var lastFocus=null;
+    function open(){lastFocus=document.activeElement;overlay.hidden=false;
+      requestAnimationFrame(function(){overlay.classList.add("is-open");});
+      document.documentElement.style.overflow="hidden";document.addEventListener("keydown",onKey,true);
+      var c=overlay.querySelector(".sc-close");if(c)setTimeout(function(){c.focus();},60);}
+    function close(){overlay.classList.remove("is-open");document.removeEventListener("keydown",onKey,true);
+      document.documentElement.style.overflow="";setTimeout(function(){overlay.hidden=true;},300);
+      if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+    function onKey(e){if(e.key==="Escape")close();}
+    openBtn.addEventListener("click",open);
+    [].forEach.call(overlay.querySelectorAll("[data-sc-close]"),function(el){el.addEventListener("click",close);});
+    overlay.addEventListener("click",function(e){if(e.target===overlay||e.target.classList.contains("sc-backdrop"))close();});
+  })();
+})();
+</script>

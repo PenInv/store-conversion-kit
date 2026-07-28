@@ -1,0 +1,351 @@
+{%- comment -%}
+  Clone da seção "A SINGLE DEVICE FOR THE WHOLE BODY" + "Real stories" da Sculpiflex.
+  Inclui:
+    - Título superior + grid de 6 benefícios com ícones
+    - Estrelas + título "Real stories / Real transformation"
+    - Carrossel de vídeos estilo TikTok (Swiper)
+    - Botão CTA
+  Instalar em: sections/sculpiflex-real-stories.liquid
+  Adicionar no template (product.json, index.json, etc.) ou via Customizer.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id | replace: '_', '-'
+-%}
+
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+
+<style>
+  .sf-rs-{{ uid }} {
+    --sf-bg: {{ s.bg_color }};
+    --sf-text: {{ s.text_color }};
+    --sf-icon: {{ s.icon_color }};
+    --sf-cta-bg: {{ s.cta_bg }};
+    --sf-cta-text: {{ s.cta_text_color }};
+    --sf-font: {{ s.font_family }};
+    background: var(--sf-bg);
+    color: var(--sf-text);
+    font-family: var(--sf-font), 'Montserrat', sans-serif;
+    padding: 60px 16px 80px;
+  }
+  .sf-rs-{{ uid }} *,
+  .sf-rs-{{ uid }} *::before,
+  .sf-rs-{{ uid }} *::after { box-sizing: border-box; }
+
+  .sf-rs-{{ uid }} .sf-container { max-width: 1140px; margin: 0 auto; }
+
+  .sf-rs-{{ uid }} .sf-top-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: clamp(20px, 4vw, 34px);
+    letter-spacing: .5px;
+    margin: 0 0 40px;
+    color: var(--sf-text);
+  }
+
+  .sf-rs-{{ uid }} .sf-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+    margin-bottom: 70px;
+  }
+  @media (max-width: 749px) {
+    .sf-rs-{{ uid }} .sf-benefits { grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
+  }
+  .sf-rs-{{ uid }} .sf-benefit {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: clamp(13px, 2vw, 16px);
+    font-weight: 500;
+  }
+  .sf-rs-{{ uid }} .sf-benefit svg {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    fill: var(--sf-icon);
+    stroke: var(--sf-icon);
+  }
+
+  .sf-rs-{{ uid }} .sf-stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+  .sf-rs-{{ uid }} .sf-stars svg { width: 22px; height: 22px; fill: #f5b400; }
+
+  .sf-rs-{{ uid }} .sf-rs-title {
+    text-align: center;
+    font-size: clamp(22px, 3.4vw, 30px);
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 0 0 30px;
+  }
+  .sf-rs-{{ uid }} .sf-rs-title b { font-weight: 700; display: block; }
+
+  .sf-rs-{{ uid }} .sf-carousel { position: relative; padding: 0 30px; }
+  .sf-rs-{{ uid }} .sf-swiper { overflow: hidden; }
+  .sf-rs-{{ uid }} .sf-slide {
+    background: #000;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+    position: relative;
+  }
+  .sf-rs-{{ uid }} .sf-slide video,
+  .sf-rs-{{ uid }} .sf-slide img.sf-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .sf-rs-{{ uid }} .sf-placeholder-empty {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 14px;
+    background: linear-gradient(135deg, #2e4147, #4a6068);
+  }
+
+  .sf-rs-{{ uid }} .sf-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,.95);
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    cursor: pointer;
+    z-index: 5;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sf-rs-{{ uid }} .sf-nav:hover { background: #fff; }
+  .sf-rs-{{ uid }} .sf-nav.prev { left: 0; }
+  .sf-rs-{{ uid }} .sf-nav.next { right: 0; }
+  .sf-rs-{{ uid }} .sf-nav svg { width: 16px; height: 16px; }
+
+  .sf-rs-{{ uid }} .sf-pagination {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 18px;
+  }
+  .sf-rs-{{ uid }} .sf-pagination .swiper-pagination-bullet {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #ccc; opacity: 1; cursor: pointer;
+    border: none;
+  }
+  .sf-rs-{{ uid }} .sf-pagination .swiper-pagination-bullet-active {
+    background: var(--sf-text);
+  }
+
+  .sf-rs-{{ uid }} .sf-cta-wrap { text-align: center; margin-top: 48px; }
+  .sf-rs-{{ uid }} .sf-cta {
+    display: inline-block;
+    background: var(--sf-cta-bg);
+    color: var(--sf-cta-text);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(14px, 1.8vw, 16px);
+    letter-spacing: .5px;
+    padding: 20px 42px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .sf-rs-{{ uid }} .sf-cta:hover { transform: translateY(-2px); opacity: .92; }
+</style>
+
+<section class="sf-rs-{{ uid }}" id="sf-rs-{{ uid }}">
+  <div class="sf-container">
+
+    {%- if s.top_title != blank -%}
+      <h2 class="sf-top-title">{{ s.top_title }}</h2>
+    {%- endif -%}
+
+    {%- if s.show_benefits -%}
+      <div class="sf-benefits">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'benefit' -%}
+            <div class="sf-benefit" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                {{ block.settings.icon }}
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/>
+                </svg>
+              {%- endif -%}
+              <span>{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if s.show_stars -%}
+      <div class="sf-stars" aria-label="5 stars">
+        {%- for i in (1..5) -%}
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if s.rs_title != blank or s.rs_subtitle != blank -%}
+      <h3 class="sf-rs-title">
+        {%- if s.rs_title != blank -%}{{ s.rs_title }}{%- endif -%}
+        {%- if s.rs_subtitle != blank -%}<b>{{ s.rs_subtitle }}</b>{%- endif -%}
+      </h3>
+    {%- endif -%}
+
+    <div class="sf-carousel">
+      <button class="sf-nav prev" data-prev-{{ uid }} aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="sf-nav next" data-next-{{ uid }} aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <div class="swiper sf-swiper" data-swiper-{{ uid }}>
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'video' -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="sf-slide">
+                  {%- if block.settings.video_url != blank -%}
+                    <video
+                      src="{{ block.settings.video_url }}"
+                      {% if block.settings.poster != blank %}poster="{{ block.settings.poster | image_url: width: 600 }}"{% endif %}
+                      autoplay muted loop playsinline preload="metadata"></video>
+                  {%- elsif block.settings.video != blank -%}
+                    <video
+                      src="{{ block.settings.video.sources[0].url }}"
+                      {% if block.settings.poster != blank %}poster="{{ block.settings.poster | image_url: width: 600 }}"{% endif %}
+                      autoplay muted loop playsinline preload="metadata"></video>
+                  {%- elsif block.settings.poster != blank -%}
+                    <img class="sf-placeholder" src="{{ block.settings.poster | image_url: width: 600 }}" alt="{{ block.settings.poster.alt | escape }}">
+                  {%- else -%}
+                    <div class="sf-placeholder-empty">Slide {{ forloop.index }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="sf-pagination" data-pag-{{ uid }}></div>
+    </div>
+
+    {%- if s.cta_text != blank -%}
+      <div class="sf-cta-wrap">
+        <a class="sf-cta" href="{{ s.cta_link | default: '#' }}">{{ s.cta_text }}</a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" defer></script>
+<script>
+  (function() {
+    function init() {
+      if (typeof Swiper === 'undefined') { setTimeout(init, 100); return; }
+      var root = document.getElementById('sf-rs-{{ uid }}');
+      if (!root || root.dataset.sfInit) return;
+      root.dataset.sfInit = '1';
+      new Swiper(root.querySelector('[data-swiper-{{ uid }}]'), {
+        slidesPerView: 1.2,
+        spaceBetween: 12,
+        centeredSlides: true,
+        loop: true,
+        autoplay: { delay: {{ s.autoplay_delay }}, disableOnInteraction: false },
+        pagination: { el: root.querySelector('[data-pag-{{ uid }}]'), clickable: true },
+        navigation: {
+          nextEl: root.querySelector('[data-next-{{ uid }}]'),
+          prevEl: root.querySelector('[data-prev-{{ uid }}]')
+        },
+        breakpoints: {
+          640: { slidesPerView: 2.2, spaceBetween: 16 },
+          990: { slidesPerView: 3, spaceBetween: 20 }
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sculpiflex Real Stories",
+  "tag": "section",
+  "class": "section-sculpiflex-real-stories",
+  "settings": [
+    { "type": "header", "content": "Bloco superior" },
+    { "type": "text", "id": "top_title", "label": "Título superior", "default": "A SINGLE DEVICE FOR THE WHOLE BODY" },
+    { "type": "checkbox", "id": "show_benefits", "label": "Mostrar grid de benefícios", "default": true },
+
+    { "type": "header", "content": "Título Real stories" },
+    { "type": "checkbox", "id": "show_stars", "label": "Mostrar estrelas", "default": true },
+    { "type": "text", "id": "rs_title", "label": "Linha 1", "default": "Real stories" },
+    { "type": "text", "id": "rs_subtitle", "label": "Linha 2 (destaque)", "default": "Real transformation" },
+
+    { "type": "header", "content": "Carrossel" },
+    { "type": "range", "id": "autoplay_delay", "label": "Autoplay (ms)", "min": 2000, "max": 8000, "step": 500, "default": 3500 },
+
+    { "type": "header", "content": "Botão CTA" },
+    { "type": "text", "id": "cta_text", "label": "Texto do botão", "default": "GET 60% OFF TODAY! ➞" },
+    { "type": "url", "id": "cta_link", "label": "Link do botão" },
+
+    { "type": "header", "content": "Cores e fonte" },
+    { "type": "color", "id": "bg_color", "label": "Fundo", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Texto / título", "default": "#333333" },
+    { "type": "color", "id": "icon_color", "label": "Cor dos ícones", "default": "#abd3ce" },
+    { "type": "color", "id": "cta_bg", "label": "Fundo do botão", "default": "#2e4147" },
+    { "type": "color", "id": "cta_text_color", "label": "Texto do botão", "default": "#ffffff" },
+    { "type": "text", "id": "font_family", "label": "Font-family (CSS)", "default": "Montserrat" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "limit": 12,
+      "settings": [
+        { "type": "html", "id": "icon", "label": "SVG do ícone (cole inline)" },
+        { "type": "text", "id": "label", "label": "Texto", "default": "Benefit name" }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Vídeo do carrossel",
+      "limit": 20,
+      "settings": [
+        { "type": "video", "id": "video", "label": "Upload de vídeo (Shopify)" },
+        { "type": "url", "id": "video_url", "label": "Ou URL externa (.mp4)" },
+        { "type": "image_picker", "id": "poster", "label": "Imagem poster / fallback" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sculpiflex Real Stories",
+      "blocks": [
+        { "type": "benefit", "settings": { "label": "Eliminates Cellulite" } },
+        { "type": "benefit", "settings": { "label": "Breaks Down Fat Cells" } },
+        { "type": "benefit", "settings": { "label": "Tones Hips" } },
+        { "type": "benefit", "settings": { "label": "Firms Loose Skin" } },
+        { "type": "benefit", "settings": { "label": "Fades Stretch Marks" } },
+        { "type": "benefit", "settings": { "label": "Tones Flabby Arms" } },
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}

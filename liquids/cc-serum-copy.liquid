@@ -1,0 +1,385 @@
+<style>
+  /* ============================================================
+     CC SERUM — SEÇÃO DE COPY + VÍDEO
+     Prefixo exclusivo: ccsc-
+     Blindado contra o CSS do tema (Impact e afins)
+     ============================================================ */
+
+  /* Inter (400 + 700). O @import precisa ser a 1ª regra do <style>. */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  .ccsc-root,
+  .ccsc-root *,
+  .ccsc-root *::before,
+  .ccsc-root *::after {
+    box-sizing: border-box !important;
+  }
+
+  .ccsc-root {
+    --ccsc-bg: #FDF9F9;
+    --ccsc-ink: #4F4343;   /* todos os textos */
+    --ccsc-muted: #4F4343; /* corpo — mesmo tom, sem hierarquia por cor */
+    --ccsc-line: #E4DBDB;
+    --ccsc-accent: #512A69; /* só nos destaques */
+
+    /* chips positivos (verde) */
+    --ccsc-yes: #2E6B4F;
+    --ccsc-yes-bg: #EDF6F1;
+    --ccsc-yes-line: #C6E2D4;
+
+    /* chips negativos (vermelho) */
+    --ccsc-no: #A33B3B;
+    --ccsc-no-bg: #FBEEEE;
+    --ccsc-no-line: #EFD0D0;
+
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 64px 20px !important;
+    background: var(--ccsc-bg) !important;
+    color: var(--ccsc-ink) !important;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !important;
+    font-weight: 400 !important;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  .ccsc-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 36px !important;
+    width: 100% !important;
+    max-width: 1140px !important;
+    margin: 0 auto !important;
+  }
+
+  /* mobile: título vem antes do vídeo, mesmo estando depois no HTML */
+  .ccsc-head {
+    order: -1 !important;
+    width: 100% !important;
+    max-width: 560px !important;
+    text-align: center !important;
+  }
+
+  /* ---------- MÍDIA (vídeo vertical 9:16) ---------- */
+
+  .ccsc-media {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    aspect-ratio: 9 / 16 !important;
+    margin: 0 auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    background: #EFE7F4 !important;
+    box-shadow: 0 18px 40px -18px rgba(81, 42, 105, 0.35) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .ccsc-media video {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+  }
+
+  /* botão de som — canto do vídeo */
+  .ccsc-sound {
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    z-index: 2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: rgba(36, 21, 54, 0.55) !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: background 0.2s ease;
+  }
+
+  .ccsc-sound:hover { background: rgba(36, 21, 54, 0.78) !important; }
+  .ccsc-sound svg { width: 18px !important; height: 18px !important; display: block !important; }
+  .ccsc-sound .ccsc-ico-on { display: none !important; }
+  .ccsc-sound[data-on="true"] .ccsc-ico-on { display: block !important; }
+  .ccsc-sound[data-on="true"] .ccsc-ico-off { display: none !important; }
+
+  /* ---------- TEXTO ---------- */
+
+  .ccsc-copy {
+    width: 100% !important;
+    max-width: 560px !important;
+    text-align: center !important;
+  }
+
+  .ccsc-headline {
+    margin: 0 !important;
+    font-family: inherit !important; /* Inter */
+    font-size: clamp(25px, 6.4vw, 42px) !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
+    color: var(--ccsc-ink) !important;
+    text-transform: none !important;
+    /* sem <br> fixo: o texto quebra sozinho e o balance distribui as linhas.
+       hyphens/word-break travados p/ nenhuma palavra ser partida ao meio. */
+    text-wrap: balance;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+
+  .ccsc-headline em {
+    font-style: normal !important; /* sans bold: itálico não cai bem */
+    font-weight: 700 !important;
+    color: var(--ccsc-accent) !important;
+  }
+
+  .ccsc-rule {
+    width: 40px !important;
+    height: 1px !important;
+    margin: 0 auto 24px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: var(--ccsc-line) !important;
+  }
+
+  .ccsc-body p {
+    margin: 0 0 18px !important;
+    font-family: inherit !important; /* Inter */
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.65 !important;
+    color: var(--ccsc-muted) !important;
+  }
+
+  .ccsc-body p:last-child { margin-bottom: 0 !important; }
+
+  /* chips — usados nas linhas de ritmo e nos "No ..." */
+  .ccsc-beats,
+  .ccsc-nos {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin: 4px 0 22px !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .ccsc-beats li,
+  .ccsc-nos li {
+    margin: 0 !important;
+    padding: 7px 14px !important;
+    list-style: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    font-family: inherit !important; /* Inter */
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  /* positivos — o que ela quer sentir */
+  .ccsc-beats li {
+    border-color: var(--ccsc-yes-line) !important;
+    background: var(--ccsc-yes-bg) !important;
+    color: var(--ccsc-yes) !important;
+  }
+
+  /* negativos — o que o produto dispensa */
+  .ccsc-nos li {
+    border-color: var(--ccsc-no-line) !important;
+    background: var(--ccsc-no-bg) !important;
+    color: var(--ccsc-no) !important;
+  }
+
+  .ccsc-beats li::marker,
+  .ccsc-nos li::marker { content: none !important; }
+
+  .ccsc-kicker {
+    margin: 0 !important;
+    font-family: inherit !important; /* Inter */
+    font-size: clamp(18px, 4.4vw, 22px) !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.01em !important;
+    color: var(--ccsc-ink) !important;
+  }
+
+  /* ---------- DESKTOP ---------- */
+
+  @media screen and (min-width: 900px) {
+    .ccsc-root { padding: 96px 40px !important; }
+
+    /* desktop: grid 2 colunas — vídeo à esquerda (ocupa as 2 linhas),
+       título e corpo empilhados na coluna da direita */
+    .ccsc-wrap {
+      display: grid !important;
+      grid-template-columns: 380px minmax(0, 520px) !important;
+      grid-template-rows: auto auto !important;
+      align-content: center !important;
+      justify-content: center !important;
+      align-items: center !important;
+      column-gap: 72px !important;
+      row-gap: 0 !important;
+    }
+
+    .ccsc-media {
+      grid-column: 1 !important;
+      grid-row: 1 / span 2 !important;
+      max-width: 380px !important;
+      margin: 0 !important;
+    }
+
+    .ccsc-head {
+      order: 0 !important;
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+      align-self: end !important;
+      max-width: none !important;
+      text-align: left !important;
+    }
+
+    .ccsc-copy {
+      grid-column: 2 !important;
+      grid-row: 2 !important;
+      align-self: start !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      text-align: left !important;
+    }
+
+    .ccsc-rule { margin: 26px 0 24px !important; }
+    .ccsc-beats,
+    .ccsc-nos { justify-content: flex-start !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ccsc-sound { transition: none !important; }
+  }
+</style>
+
+<section class="ccsc-root" aria-labelledby="ccsc-title">
+  <div class="ccsc-wrap">
+
+    <!-- MÍDIA: o vídeo só baixa quando a seção entra na tela (ver script).
+         data-src em vez de src = zero bytes para quem nunca rola até aqui. -->
+    <div class="ccsc-media">
+      <video
+        class="ccsc-video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        data-src="https://cdn.shopify.com/videos/c/o/v/751cea1a9cbb4c58b9ccccb5c9b25a59.mp4"></video>
+
+      <button type="button" class="ccsc-sound" data-on="false" aria-label="Ativar som do vídeo">
+        <svg class="ccsc-ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <svg class="ccsc-ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- TÍTULO: no mobile aparece acima do vídeo (order: -1) -->
+    <div class="ccsc-head">
+      <h2 class="ccsc-headline" id="ccsc-title">
+        <!-- &#8209; = hífen NÃO-quebrável: impede "put-" / "together" em telas estreitas -->
+        Feel more put&#8209;together without a <em>full face of makeup.</em>
+      </h2>
+    </div>
+
+    <!-- COPY -->
+    <div class="ccsc-copy">
+      <hr class="ccsc-rule">
+
+      <div class="ccsc-body">
+        <p>Some mornings, you don't want primer, color corrector, foundation, concealer, powder and setting spray.</p>
+
+        <ul class="ccsc-beats">
+          <li>You just want to look a little more awake.</li>
+          <li>A little more even.</li>
+          <li>A little more ready for the day.</li>
+        </ul>
+
+        <p>Dot on the CC Color-Correcting Tinted Serum with your fingers, wait for the color to reveal, and get on with your morning.</p>
+
+        <ul class="ccsc-nos">
+          <li>No brush</li>
+          <li>No complicated technique</li>
+          <li>No seven-step routine</li>
+        </ul>
+
+        <p class="ccsc-kicker">Looking natural shouldn't take this much work.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    document.querySelectorAll('.ccsc-root').forEach(function (root) {
+      var video = root.querySelector('.ccsc-video');
+      var btn = root.querySelector('.ccsc-sound');
+      if (!video || !btn) return;
+
+      function play() {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+
+      // O src só é atribuído quando a seção chega perto da viewport:
+      // antes disso o navegador não baixa 1 byte do vídeo.
+      var loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        video.src = video.dataset.src;
+        video.load();
+        play();
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              load();
+              play();
+            } else if (loaded) {
+              video.pause(); // fora da tela não gasta CPU/bateria
+            }
+          });
+        }, { rootMargin: '200px' }); // começa a baixar um pouco antes de aparecer
+        io.observe(root);
+      } else {
+        load(); // navegador antigo: carrega direto
+      }
+
+      btn.addEventListener('click', function () {
+        load();
+        video.muted = !video.muted;
+        var on = !video.muted;
+        btn.setAttribute('data-on', on ? 'true' : 'false');
+        btn.setAttribute('aria-label', on ? 'Desativar som do vídeo' : 'Ativar som do vídeo');
+        if (on) play();
+      });
+    });
+  })();
+</script>

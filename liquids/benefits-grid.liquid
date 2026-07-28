@@ -1,0 +1,106 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  .marini-beneficios {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+    width: 100%;
+  }
+
+  .marini-beneficios__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    padding: 18px 6px 14px;
+    text-align: center;
+    color: #000;
+    gap: 8px;
+  }
+
+  .marini-beneficios__icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+  }
+
+  .marini-beneficios__text {
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  @media screen and (max-width: 768px) {
+    .marini-beneficios {
+      gap: 6px;
+      margin: -3px 0 12px;
+    }
+    .marini-beneficios__card {
+      padding: 12px 4px 8px;
+      gap: 4px;
+      border-radius: 12px;
+    }
+    .marini-beneficios__icon {
+      width: 25px;
+      height: 25px;
+    }
+    .marini-beneficios__text {
+      font-size: 10px;
+      line-height: 1.25;
+    }
+  }
+</style>
+
+<div class="marini-beneficios">
+  <div class="marini-beneficios__card">
+    <img
+      class="marini-beneficios__icon"
+      src="https://cdn.shopify.com/s/files/1/0590/3872/8265/files/feather-thin.svg?v=1761518610"
+      alt="Cloud-Light Feel"
+      loading="lazy"
+      width="32"
+      height="32">
+    <div class="marini-beneficios__text">Cloud-Light Feel</div>
+  </div>
+
+  <div class="marini-beneficios__card">
+    <img
+      class="marini-beneficios__icon"
+      src="https://cdn.shopify.com/s/files/1/0590/3872/8265/files/sneaker-move-thin.svg?v=1761518120"
+      alt="Stable Platform"
+      loading="lazy"
+      width="32"
+      height="32">
+    <div class="marini-beneficios__text">Stable Platform</div>
+  </div>
+
+  <div class="marini-beneficios__card">
+    <img
+      class="marini-beneficios__icon"
+      src="https://cdn.shopify.com/s/files/1/0590/3872/8265/files/waves-thin.svg?v=1761521085"
+      alt="Non-Slip Sole"
+      loading="lazy"
+      width="32"
+      height="32">
+    <div class="marini-beneficios__text">Non-Slip Sole</div>
+  </div>
+
+  <div class="marini-beneficios__card">
+    <img
+      class="marini-beneficios__icon"
+      src="https://cdn.shopify.com/s/files/1/0590/3872/8265/files/stack-thin.svg?v=1761520826"
+      alt="Easy to Clean"
+      loading="lazy"
+      width="32"
+      height="32">
+    <div class="marini-beneficios__text">Easy to Clean</div>
+  </div>
+</div>

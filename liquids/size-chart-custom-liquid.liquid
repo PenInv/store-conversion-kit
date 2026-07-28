@@ -1,0 +1,305 @@
+<style>
+  /* ====== SIZE CHART CLONE — Custom Liquid isolado (prefixo ccsc-) ====== */
+  /* Blindagem contra o CSS do tema: tudo resetado dentro do escopo */
+  .ccsc-root, .ccsc-root * { box-sizing: border-box; }
+
+  .ccsc-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #3a3a3a !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .ccsc-trigger:hover { color: #000 !important; }
+  .ccsc-trigger svg {
+    width: 22px; height: 22px;
+    flex: 0 0 auto;
+    stroke-width: 1.5;
+  }
+
+  /* Overlay + modal */
+  .ccsc-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,.45);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 2147483647; /* máximo — fica acima de qualquer header do tema */
+    padding: 16px;
+  }
+  .ccsc-overlay.ccsc-open { display: flex; }
+
+  .ccsc-modal {
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    border-radius: 10px;
+    color: #232323 !important;
+    width: 70%; max-width: 720px;
+    max-height: 80vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    font-family: inherit;
+    font-size: 14px;
+  }
+  @media (max-width: 600px) { .ccsc-modal { width: 95%; max-height: 88vh; } }
+
+  .ccsc-header {
+    display: flex; flex-direction: column;
+    padding: 12px 32px 12px 16px;
+    align-items: center;
+    position: relative;
+  }
+  .ccsc-header h2 {
+    margin: 0 !important;
+    color: #303030 !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    text-align: center;
+  }
+  .ccsc-header span {
+    color: #303030 !important;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .ccsc-close {
+    position: absolute; top: 8px; right: 10px;
+    background: transparent !important;
+    border: 0 !important;
+    font-size: 20px;
+    line-height: 1;
+    color: #232323 !important;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+
+  .ccsc-content {
+    overflow: auto;
+    padding: 16px;
+    flex: 1 1 0%;
+  }
+
+  .ccsc-title {
+    font-weight: 600;
+    font-size: 1.8rem;
+    text-align: center;
+    line-height: 1.1;
+    margin: 0 0 20px;
+    color: #232323 !important;
+  }
+
+  /* Toggle de unidade */
+  .ccsc-unit-wrap {
+    width: fit-content;
+    display: flex; align-items: center; justify-content: center;
+    margin: 8px auto 16px;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    color: #616161;
+  }
+  .ccsc-unit-btn {
+    flex: 1 1 0%;
+    text-align: center;
+    word-break: keep-all; white-space: nowrap;
+    font-size: 14px; line-height: 20px;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: transparent;
+    color: #616161;
+    font-weight: 600;
+    border: 0;
+    font-family: inherit;
+  }
+  .ccsc-unit-btn.ccsc-active {
+    color: #303030;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+  }
+
+  /* Tabela */
+  .ccsc-table-wrap { width: 100%; overflow-x: auto; margin-bottom: 20px; }
+  .ccsc-table {
+    width: auto; min-width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+    color: #232323 !important;
+  }
+  .ccsc-table th {
+    text-align: center;
+    background-color: #e7e7e8;
+    padding: 6px; height: 28px; min-width: 60px;
+    border: 2px solid #fbfbfb;
+    font-weight: 600; font-size: 14px;
+  }
+  .ccsc-table td {
+    vertical-align: middle; text-align: center;
+    padding: 4px; height: 20px;
+    border: 1px solid #fbfbfb;
+    font-size: 14px;
+    background-color: #fbfbfb;
+  }
+  .ccsc-table tr:nth-child(odd) td { background-color: #e7e7e8; }
+  .ccsc-table td:first-child { font-weight: 600; }
+
+  .ccsc-rich {
+    color: #232323 !important;
+    margin-bottom: 20px;
+    line-height: 20px;
+  }
+  .ccsc-rich ul { margin: 8px 0 0; padding-left: 20px; }
+  .ccsc-rich li { margin-bottom: 4px; }
+  .ccsc-rich .ccsc-howto { font-weight: 650; }
+
+  .ccsc-img-wrap { text-align: center; margin-bottom: 20px; }
+  .ccsc-img-wrap img { width: 50%; max-width: 320px; height: auto; }
+</style>
+
+<div class="ccsc-root">
+  <!-- Botão que abre o modal -->
+  <div class="ccsc-trigger" data-ccsc-open role="button" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5l7 7-12 12-7-7 12-12z"/><path d="M6.5 10.5l2 2"/><path d="M9.5 7.5l2 2"/><path d="M12.5 4.5l2 2"/><path d="M3.5 13.5l2 2"/></svg>
+    Size chart
+  </div>
+
+  <!-- Modal -->
+  <div class="ccsc-overlay" data-ccsc-overlay>
+    <div class="ccsc-modal" role="dialog" aria-modal="true" aria-label="Size guides">
+      <div class="ccsc-header">
+        <h2>{{ product.title | default: 'Size guides' }}</h2>
+        <span>Size guides</span>
+        <button class="ccsc-close" type="button" data-ccsc-close aria-label="Close">✕</button>
+      </div>
+
+      <div class="ccsc-content">
+        <p class="ccsc-title">Men's Top Size Chart</p>
+
+        <div class="ccsc-unit-wrap">
+          <button type="button" class="ccsc-unit-btn ccsc-active" data-ccsc-unit="cm">CM</button>
+          <button type="button" class="ccsc-unit-btn" data-ccsc-unit="in">IN</button>
+        </div>
+
+        <div class="ccsc-table-wrap">
+          <table class="ccsc-table">
+            <thead>
+              <tr><th>Size</th><th>Chest</th><th>Waist</th><th>Length</th></tr>
+            </thead>
+            <tbody>
+              <!-- Valores em CM; IN é convertido por JS (cm/2.54) -->
+              <tr>
+                <td>S</td>
+                <td data-cm="86 - 91">86 - 91</td>
+                <td data-cm="71 - 76">71 - 76</td>
+                <td data-cm="60 - 61">60 - 61</td>
+              </tr>
+              <tr>
+                <td>M</td>
+                <td data-cm="92 - 99">92 - 99</td>
+                <td data-cm="77 - 84">77 - 84</td>
+                <td data-cm="62 - 64">62 - 64</td>
+              </tr>
+              <tr>
+                <td>L</td>
+                <td data-cm="100 - 107">100 - 107</td>
+                <td data-cm="85 - 91">85 - 91</td>
+                <td data-cm="65 - 67">65 - 67</td>
+              </tr>
+              <tr>
+                <td>XL</td>
+                <td data-cm="108 - 114">108 - 114</td>
+                <td data-cm="92 - 99">92 - 99</td>
+                <td data-cm="67 - 69">67 - 69</td>
+              </tr>
+              <tr>
+                <td>XXL</td>
+                <td data-cm="115 - 122">115 - 122</td>
+                <td data-cm="100 - 107">100 - 107</td>
+                <td data-cm="70 - 72">70 - 72</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ccsc-rich">
+          Finding the perfect fit for your tops is all about your chest, waist, and length. The right size makes your clothes look good and feel great, whether it's a casual tee or a dress shirt. For a fitted look, stick with your measurements. Want more room? Size up!
+        </div>
+
+        <div class="ccsc-img-wrap">
+          <img src="https://firebasestorage.googleapis.com/v0/b/avada-size-chart-stag.appspot.com/o/charts_content%2F4hHyREkCY9Q2c5Nmhuj0%2F1746691017550-1_2_7922c945-3682-437d-a0f4-c8245342adad%201.png?alt=media&token=ad7158e7-2b4c-4506-a213-158b112039a2" alt="Size chart illustration" loading="lazy">
+        </div>
+
+        <div class="ccsc-rich">
+          <p><span class="ccsc-howto">How to Measure:</span></p>
+          <ul>
+            <li>Chest: Measure around the fullest part of your chest.</li>
+            <li>Waist: Measure around the narrowest part of your waist.</li>
+            <li>Length: Measure from the highest point of the shoulder down to the hem.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript ? document.currentScript.previousElementSibling : null;
+  // fallback: pegar o último .ccsc-root da página (cada Custom Liquid é independente)
+  var roots = document.querySelectorAll('.ccsc-root');
+  root = roots[roots.length - 1];
+  if (!root || root.dataset.ccscInit) return;
+  root.dataset.ccscInit = '1';
+
+  var overlay = root.querySelector('[data-ccsc-overlay]');
+  var openBtn = root.querySelector('[data-ccsc-open]');
+  var closeBtn = root.querySelector('[data-ccsc-close]');
+
+  // Move o overlay direto para o <body> para escapar de qualquer ancestral
+  // com transform/filter/z-index que prenderia o position:fixed (ex.: header sticky do tema)
+  if (overlay && overlay.parentElement !== document.body) {
+    document.body.appendChild(overlay);
+  }
+
+  function open() { overlay.classList.add('ccsc-open'); document.body.style.overflow = 'hidden'; }
+  function close() { overlay.classList.remove('ccsc-open'); document.body.style.overflow = ''; }
+
+  openBtn.addEventListener('click', open);
+  openBtn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+  // Toggle CM <-> IN
+  function toInches(text) {
+    return text.replace(/[\d.]+/g, function (n) {
+      var v = parseFloat(n) / 2.54;
+      return (Math.round(v * 10) / 10).toString();
+    });
+  }
+  // Busca a partir do overlay (que foi movido para o body), não do root
+  var unitBtns = overlay.querySelectorAll('[data-ccsc-unit]');
+  var cells = overlay.querySelectorAll('.ccsc-table td[data-cm]');
+  unitBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      unitBtns.forEach(function (b) { b.classList.remove('ccsc-active'); });
+      btn.classList.add('ccsc-active');
+      var unit = btn.getAttribute('data-ccsc-unit');
+      cells.forEach(function (td) {
+        var cm = td.getAttribute('data-cm');
+        td.textContent = unit === 'in' ? toInches(cm) : cm;
+      });
+    });
+  });
+})();
+</script>

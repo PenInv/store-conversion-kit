@@ -1,0 +1,41 @@
+<style>
+  .stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e02b20;
+  }
+
+  .stock-badge-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #e02b20;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .stock-badge-text {
+    white-space: nowrap;
+  }
+
+  .stock-badge-dot {
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>
+
+<div class="stock-badge">
+  <span class="stock-badge-dot"></span>
+  <span class="stock-badge-text">Mother's Day Drop — Limited Stock!</span>
+</div>

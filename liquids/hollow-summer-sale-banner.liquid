@@ -1,0 +1,288 @@
+<style>
+  @font-face {
+    font-family: "hssb-Graphik-Condensed";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1229ddfd-460c-48a6-b37f-c277dc5503a4_Graphik_XX_Condensed_Bold.woff") format("woff");
+    font-style: normal;
+    font-weight: 700 900;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hssb-Neue-Haas";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1aed3e07-2686-4a32-becf-7deac2a5f494_NeueHaasGroteskText-65Medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hssb-GT-America-Mono";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/787a4c5b-7bbf-431a-9359-67ce6dd4e65a_GT-America-Mono-Medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  .hssb-root,
+  .hssb-root * {
+    box-sizing: border-box !important;
+  }
+
+  .hssb-root {
+    position: relative !important;
+    left: 50% !important;
+    width: 100vw !important;
+    max-width: none !important;
+    min-height: 66px !important;
+    margin: 0 0 0 -50vw !important;
+    padding: 7px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    color: #ffffff !important;
+    background: #041E3A !important;
+    border: 0 !important;
+    border-top: 2px solid #777b79 !important;
+  }
+
+  .hssb-root .hssb-inner {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 50px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  .hssb-root .hssb-copy {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+  }
+
+  .hssb-root .hssb-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-family: "hssb-Graphik-Condensed", "Arial Narrow", sans-serif !important;
+    font-size: 36px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 36px !important;
+    letter-spacing: 0.02em !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hssb-root .hssb-subtitle {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "hssb-Neue-Haas", Arial, sans-serif !important;
+    font-size: 15px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 15px !important;
+    letter-spacing: 0.05em !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hssb-root .hssb-timer {
+    flex: 0 0 auto !important;
+    min-width: 107px !important;
+    height: 43px !important;
+    margin: 0 !important;
+    padding: 4px 6px !important;
+    display: inline-flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    color: #282828 !important;
+    background: #f8f6f2 !important;
+    border: 0 !important;
+    border-radius: 4px !important;
+  }
+
+  .hssb-root .hssb-segment {
+    min-width: 0 !important;
+    height: 35px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    color: #282828 !important;
+  }
+
+  .hssb-root .hssb-digit {
+    min-width: 20px !important;
+    height: 23px !important;
+    margin: 0 !important;
+    padding: 0 0 3px !important;
+    display: block !important;
+    font-family: "hssb-Graphik-Condensed", "Arial Narrow", sans-serif !important;
+    font-size: 28px !important;
+    font-style: normal !important;
+    font-weight: 900 !important;
+    line-height: 19.6px !important;
+    letter-spacing: 0 !important;
+    color: #282828 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  .hssb-root .hssb-unit {
+    height: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    font-family: "hssb-GT-America-Mono", monospace !important;
+    font-size: 12px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 12px !important;
+    letter-spacing: 0.04em !important;
+    color: #282828 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hssb-root .hssb-separator {
+    width: 10px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: "hssb-GT-America-Mono", monospace !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 16px !important;
+    color: #282828 !important;
+  }
+
+  @media (min-width: 1024px) {
+    .hssb-root {
+      min-height: 68px !important;
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hssb-root {
+      padding-right: 10px !important;
+      padding-left: 10px !important;
+    }
+
+    .hssb-root .hssb-inner {
+      gap: 8px !important;
+    }
+
+    .hssb-root .hssb-title {
+      font-size: 32px !important;
+      line-height: 32px !important;
+    }
+
+    .hssb-root .hssb-subtitle {
+      font-size: 13px !important;
+      line-height: 13px !important;
+    }
+
+    .hssb-root .hssb-timer {
+      transform: scale(0.92) !important;
+      transform-origin: center left !important;
+      margin-right: -9px !important;
+    }
+  }
+</style>
+
+<section class="hssb-root" aria-label="Summer sale countdown">
+  <div class="hssb-inner">
+    <div class="hssb-copy">
+      <h2 class="hssb-title">Summer Sale</h2>
+      <p class="hssb-subtitle">Buy 2 Get 2 Free</p>
+    </div>
+
+    <div class="hssb-timer" role="timer" aria-live="off" aria-label="Time remaining in the promotion">
+      <div class="hssb-segment">
+        <span class="hssb-digit" data-hssb-hours>00</span>
+        <span class="hssb-unit">HR</span>
+      </div>
+      <span class="hssb-separator" aria-hidden="true">:</span>
+      <div class="hssb-segment">
+        <span class="hssb-digit" data-hssb-minutes>00</span>
+        <span class="hssb-unit">MIN</span>
+      </div>
+      <span class="hssb-separator" aria-hidden="true">:</span>
+      <div class="hssb-segment">
+        <span class="hssb-digit" data-hssb-seconds>00</span>
+        <span class="hssb-unit">SEC</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var script = document.currentScript;
+    var root = script && script.previousElementSibling;
+
+    if (!root || !root.classList.contains("hssb-root") || root.dataset.hssbReady) return;
+    root.dataset.hssbReady = "true";
+
+    var hours = root.querySelector("[data-hssb-hours]");
+    var minutes = root.querySelector("[data-hssb-minutes]");
+    var seconds = root.querySelector("[data-hssb-seconds]");
+    var timer = root.querySelector(".hssb-timer");
+
+    function twoDigits(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      var now = new Date();
+      var nextMidnight = new Date(now);
+      nextMidnight.setHours(24, 0, 0, 0);
+
+      var remaining = Math.max(0, nextMidnight.getTime() - now.getTime());
+      var totalSeconds = Math.floor(remaining / 1000);
+      var h = Math.floor(totalSeconds / 3600);
+      var m = Math.floor((totalSeconds % 3600) / 60);
+      var s = totalSeconds % 60;
+
+      hours.textContent = twoDigits(h);
+      minutes.textContent = twoDigits(m);
+      seconds.textContent = twoDigits(s);
+      timer.setAttribute(
+        "aria-label",
+        twoDigits(h) + " hours, " + twoDigits(m) + " minutes and " + twoDigits(s) + " seconds remaining"
+      );
+    }
+
+    updateCountdown();
+    var interval = window.setInterval(updateCountdown, 1000);
+
+    document.addEventListener("shopify:section:unload", function (event) {
+      if (event.target && event.target.contains(root)) window.clearInterval(interval);
+    });
+  })();
+</script>

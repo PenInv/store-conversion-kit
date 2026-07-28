@@ -1,0 +1,233 @@
+﻿{%- comment -%}
+  ============================================================
+  TOMMY HILFIGER — CATEGORY GRID (Custom Liquid)
+  Grid de categorias com imagem + título + links "Shop".
+  Desktop: 4 colunas | Mobile: 2 colunas.
+
+  COMO EDITAR:
+  - Troque os valores dentro de "assign" no bloco CONFIG abaixo.
+  - Cada cartão tem: imagem, título e até 2 links (label + url).
+  - Para usar imagens da Shopify: faça upload em
+    Configurações > Arquivos e cole a URL no campo "img".
+
+  ISOLAMENTO: tudo prefixado com .thcg- e resetado com :where()
+  + !important nos pontos críticos para blindar contra o tema.
+  ============================================================
+{%- endcomment -%}
+
+{%- comment -%} ===================== CONFIG ===================== {%- endcomment -%}
+
+{%- comment -%}
+  IMAGENS: suba os 4 arquivos da pasta IMAGENS em
+  Shopify > Configurações > Arquivos, copie a URL (cdn.shopify.com/...)
+  de cada um e cole no campo cN_img correspondente abaixo.
+  (Dica: converta PRIMEIRA.avif para .jpg antes de subir.)
+{%- endcomment -%}
+
+{%- comment -%} Cartão 1 — arquivo: PRIMEIRA (Summer Shirts) {%- endcomment -%}
+{%- assign c1_img    = 'https://cdn.shopify.com/s/files/1/0961/6660/9211/files/PRIMEIRA.avif?v=1781803974' -%}
+{%- assign c1_title  = 'Summer Shirts' -%}
+{%- assign c1_l1_txt = 'Shop Men'   -%}{%- assign c1_l1_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+{%- assign c1_l2_txt = 'Shop Women' -%}{%- assign c1_l2_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+
+{%- comment -%} Cartão 2 — arquivo: 11_HP_Tile04_dt (Short Haul) {%- endcomment -%}
+{%- assign c2_img    = 'https://cdn.shopify.com/s/files/1/0961/6660/9211/files/11_HP_Tile04_dt.jpg?v=1781803975' -%}
+{%- assign c2_title  = 'Short Haul' -%}
+{%- assign c2_l1_txt = 'Shop Men'   -%}{%- assign c2_l1_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+{%- assign c2_l2_txt = 'Shop Women' -%}{%- assign c2_l2_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+
+{%- comment -%} Cartão 3 — arquivo: 11_HP_Tile05_dt (All Linen Everything) {%- endcomment -%}
+{%- assign c3_img    = 'https://cdn.shopify.com/s/files/1/0961/6660/9211/files/11_HP_Tile05_dt.jpg?v=1781803975' -%}
+{%- assign c3_title  = 'All Linen Everything' -%}
+{%- assign c3_l1_txt = 'Shop Men'   -%}{%- assign c3_l1_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+{%- assign c3_l2_txt = 'Shop Women' -%}{%- assign c3_l2_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+
+{%- comment -%} Cartão 4 — arquivo: 11_HP_Tile06_dt (Pier-to-Party Dresses) {%- endcomment -%}
+{%- assign c4_img    = 'https://cdn.shopify.com/s/files/1/0961/6660/9211/files/11_HP_Tile06_dt.jpg?v=1781803975' -%}
+{%- assign c4_title  = 'Pier-to-Party Dresses' -%}
+{%- assign c4_l1_txt = 'Shop Women' -%}{%- assign c4_l1_url = 'https://devvc8-tt.myshopify.com/products/polo-shirt' -%}
+{%- assign c4_l2_txt = ''           -%}{%- assign c4_l2_url = '' -%}
+
+{%- comment -%} ===================== /CONFIG ===================== {%- endcomment -%}
+
+<section class="thcg-section">
+  <div class="thcg-wrap">
+    <ul class="thcg-grid" role="list">
+
+      {%- assign idx = 1 -%}
+      {%- for n in (1..4) -%}
+        {%- case n -%}
+          {%- when 1 -%}
+            {%- assign img = c1_img -%}{%- assign title = c1_title -%}
+            {%- assign l1t = c1_l1_txt -%}{%- assign l1u = c1_l1_url -%}
+            {%- assign l2t = c1_l2_txt -%}{%- assign l2u = c1_l2_url -%}
+          {%- when 2 -%}
+            {%- assign img = c2_img -%}{%- assign title = c2_title -%}
+            {%- assign l1t = c2_l1_txt -%}{%- assign l1u = c2_l1_url -%}
+            {%- assign l2t = c2_l2_txt -%}{%- assign l2u = c2_l2_url -%}
+          {%- when 3 -%}
+            {%- assign img = c3_img -%}{%- assign title = c3_title -%}
+            {%- assign l1t = c3_l1_txt -%}{%- assign l1u = c3_l1_url -%}
+            {%- assign l2t = c3_l2_txt -%}{%- assign l2u = c3_l2_url -%}
+          {%- when 4 -%}
+            {%- assign img = c4_img -%}{%- assign title = c4_title -%}
+            {%- assign l1t = c4_l1_txt -%}{%- assign l1u = c4_l1_url -%}
+            {%- assign l2t = c4_l2_txt -%}{%- assign l2u = c4_l2_url -%}
+        {%- endcase -%}
+
+        {%- if title != blank -%}
+        <li class="thcg-card">
+          {%- if img != blank -%}
+            <a class="thcg-media" href="{{ l1u | default: '#' }}" aria-label="{{ title | escape }}">
+              <img class="thcg-img" src="{{ img }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="450" height="600">
+            </a>
+          {%- endif -%}
+          <h3 class="thcg-title">{{ title }}</h3>
+          <div class="thcg-links">
+            {%- if l1t != blank -%}
+              <a class="thcg-link" href="{{ l1u | default: '#' }}">{{ l1t }}</a>
+            {%- endif -%}
+            {%- if l2t != blank -%}
+              <a class="thcg-link" href="{{ l2u | default: '#' }}">{{ l2t }}</a>
+            {%- endif -%}
+          </div>
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* ===== RESET DE ISOLAMENTO (baixa especificidade, sem vazar) ===== */
+  .thcg-section :where(ul, li, h3, a, img, div) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    background: none;
+  }
+
+  .thcg-section {
+    --thcg-font: "Futura Std", -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, roboto, "segoe ui", arial, sans-serif;
+    --thcg-ink: #000;
+    --thcg-gap: 12px;
+    --thcg-radius: 0px;
+    display: block;
+    width: 100%;
+    padding: 32px 0;
+    font-family: var(--thcg-font);
+    color: var(--thcg-ink);
+  }
+
+  .thcg-wrap {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  /* DESKTOP: 4 colunas */
+  .thcg-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--thcg-gap);
+    width: 100%;
+  }
+
+  .thcg-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .thcg-media {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--thcg-radius);
+    aspect-ratio: 3 / 4;
+    background: #f3f3f3;
+  }
+
+  .thcg-img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+
+  .thcg-media:hover .thcg-img {
+    transform: scale(1.04);
+  }
+
+  .thcg-title {
+    font-size: clamp(20px, 1.6vw, 28px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-top: 16px !important;
+    color: var(--thcg-ink);
+  }
+
+  .thcg-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 10px;
+  }
+
+  .thcg-link {
+    position: relative;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--thcg-ink) !important;
+    text-decoration: none;
+    padding-bottom: 2px;
+  }
+
+  .thcg-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transition: opacity .2s ease;
+  }
+
+  .thcg-link:hover::after {
+    opacity: 0.45;
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1024px) {
+    .thcg-grid { gap: 20px; }
+  }
+
+  /* ===== MOBILE: 2 colunas ===== */
+  @media (max-width: 749px) {
+    .thcg-section { padding: 20px 0; }
+    .thcg-wrap { padding: 0 16px; }
+    .thcg-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 16px 12px;
+    }
+    .thcg-title {
+      font-size: 16px;
+      margin-top: 10px !important;
+      letter-spacing: 0;
+    }
+    .thcg-links {
+      gap: 14px;
+      margin-top: 6px;
+    }
+    .thcg-link { font-size: 13px; }
+  }
+</style>

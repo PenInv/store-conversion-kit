@@ -1,0 +1,535 @@
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  /* ================================================================
+     VIDEO REVIEWS — BLOCO ISOLADO
+     Todos os seletores usam o prefixo .vrx- para evitar colisão
+     com CSS do tema Shopify. Variáveis ficam no próprio escopo.
+     ================================================================ */
+  .vrx-section,
+  .vrx-section *,
+  .vrx-section *::before,
+  .vrx-section *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ================================================================
+     >>> PAINEL DE CONFIGURAÇÃO — edite os valores abaixo <<<
+     Tamanhos de texto, cards e espaçamentos ficam aqui.
+     ================================================================ */
+  .vrx-section {
+    /* TEXTO DO TÍTULO */
+    --vrx-title-size-desktop: 16px;   /* tamanho do título no desktop */
+    --vrx-title-size-mobile: 22px;    /* tamanho do título no mobile  */
+    --vrx-title-weight: 700;          /* peso da fonte (400, 500, 600, 700) */
+    --vrx-title-margin: 12px;         /* espaço abaixo do título */
+    --vrx-title-color: #111;          /* cor do título */
+
+    /* CARDS */
+    --vrx-card-width-desktop: 240px;
+    --vrx-card-height-desktop: 380px;
+    --vrx-card-width-mobile: 180px;
+    --vrx-card-height-mobile: 300px;
+
+    /* LAYOUT */
+    --vrx-gap: 20px;
+    --vrx-arrow-size: 44px;
+    --vrx-bg: #F0F0F0;
+    /* ============================================================== */
+
+    width: 100%;
+    padding: 20px 0 24px;
+    background: var(--vrx-bg);
+    overflow: hidden;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.4;
+  }
+
+  .vrx-section .vrx-title {
+    text-align: center;
+    font-size: var(--vrx-title-size-desktop);
+    font-weight: var(--vrx-title-weight);
+    color: var(--vrx-title-color);
+    margin-bottom: var(--vrx-title-margin);
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+  }
+
+  .vrx-section .vrx-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vrx-section .vrx-carousel-track {
+    display: flex;
+    gap: var(--vrx-gap);
+    overflow-x: auto;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 20px calc(50% - (var(--vrx-card-width-desktop) / 2));
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    align-items: center;
+  }
+
+  .vrx-section .vrx-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vrx-section .vrx-card {
+    flex: 0 0 var(--vrx-card-width-desktop);
+    height: var(--vrx-card-height-desktop);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: #f2f2f2;
+    scroll-snap-align: center;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* will-change só no card ativo: evita custo de GPU em todos os cards */
+  .vrx-section .vrx-card.vrx-active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.1);
+    will-change: transform, opacity;
+  }
+
+  .vrx-section .vrx-card img,
+  .vrx-section .vrx-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 0;
+  }
+
+  /* ---- Header estilo stories (avatar + username) ---- */
+  .vrx-section .vrx-userbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 12px 24px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .vrx-section .vrx-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    flex: 0 0 30px;
+    background: linear-gradient(135deg, #feda75, #d62976, #4f5bd5);
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vrx-section .vrx-avatar span {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #fff;
+    color: #111;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+
+  .vrx-section .vrx-username {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .vrx-section .vrx-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  .vrx-section .vrx-play svg {
+    width: 18px;
+    height: 18px;
+    fill: #000;
+    margin-left: 4px;
+  }
+
+  .vrx-section .vrx-card.vrx-playing .vrx-play {
+    opacity: 0;
+  }
+
+  .vrx-section .vrx-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--vrx-arrow-size);
+    height: var(--vrx-arrow-size);
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .vrx-section .vrx-nav:hover {
+    background: #000;
+    border-color: #000;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .vrx-section .vrx-nav:hover svg {
+    stroke: #fff;
+  }
+
+  .vrx-section .vrx-nav svg {
+    width: 20px;
+    height: 20px;
+    stroke: #000;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s ease;
+  }
+
+  .vrx-section .vrx-nav.vrx-prev { left: 16px; }
+  .vrx-section .vrx-nav.vrx-next { right: 16px; }
+
+  @media (max-width: 768px) {
+    .vrx-section .vrx-title {
+      font-size: var(--vrx-title-size-mobile);
+    }
+
+    .vrx-section .vrx-carousel-track {
+      padding: 20px calc(50% - (var(--vrx-card-width-mobile) / 2));
+      gap: 15px;
+    }
+
+    .vrx-section .vrx-card {
+      flex: 0 0 var(--vrx-card-width-mobile);
+      height: var(--vrx-card-height-mobile);
+    }
+
+    .vrx-section .vrx-nav {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .vrx-section .vrx-nav.vrx-prev { left: 8px; }
+    .vrx-section .vrx-nav.vrx-next { right: 8px; }
+  }
+</style>
+
+<section class="vrx-section" data-vrx-root>
+
+  <p class="vrx-title">Trusted by Users</p>
+
+  <div class="vrx-carousel-container">
+
+    <button type="button" class="vrx-nav vrx-prev" data-vrx-prev aria-label="Anterior">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+
+    <!-- ============================================================
+         >>> MÍDIAS DO CARROSSEL — edite a lista abaixo <<<
+         type: "video" ou "image". Os cards e os clones de loop
+         são gerados automaticamente pelo JS a partir desta lista.
+         ============================================================ -->
+    <div class="vrx-carousel-track" data-vrx-track>
+      <script type="application/json" data-vrx-media>
+        [
+          { "type": "video", "src": "https://cdn.shopify.com/s/files/1/0814/9454/0514/files/7648040931324742925.mkv?v=1783027566", "user": "mike_reviews" },
+          { "type": "video", "src": "https://cdn.shopify.com/videos/c/o/v/bf37f35649ec49b28610d00b5696be17.mp4", "user": "sarah.home" },
+          { "type": "video", "src": "https://cdn.shopify.com/videos/c/o/v/0567cc516b9340a08c805a723f1bd452.mp4", "user": "the_dailyfix" },
+          { "type": "image", "src": "https://cdn.shopify.com/s/files/1/0814/9454/0514/files/videoframe_12531.png?v=1783027765", "alt": "Review 4", "user": "james_garage" },
+          { "type": "image", "src": "https://cdn.shopify.com/s/files/1/0814/9454/0514/files/videoframe_1863.png?v=1783027765", "alt": "Review 5", "user": "emma_diy" }
+        ]
+      </script>
+    </div>
+
+    <button type="button" class="vrx-nav vrx-next" data-vrx-next aria-label="Próximo">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var PLAY_ICON = '<div class="vrx-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>';
+
+  // Escapa texto para inserção segura em HTML
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // Header estilo stories: avatar com inicial + username
+  function userBarHTML(user) {
+    if (!user) return '';
+    var initial = esc(user.charAt(0));
+    return '<div class="vrx-userbar">' +
+             '<div class="vrx-avatar"><span>' + initial + '</span></div>' +
+             '<div class="vrx-username">' + esc(user) + '</div>' +
+           '</div>';
+  }
+
+  // ---- Construção dos cards a partir da lista de mídias -------------
+  function buildCard(item, index, isClone) {
+    var card = document.createElement('div');
+    card.className = 'vrx-card';
+    card.setAttribute('data-index', String(index));
+    if (isClone) card.setAttribute('data-vrx-clone', isClone);
+
+    var media;
+    if (item.type === 'video') {
+      media = document.createElement('video');
+      media.muted = true;
+      media.loop = true;
+      media.playsInline = true;
+      media.setAttribute('playsinline', '');
+      media.preload = 'metadata';        // carrega o 1º frame (poster) sem baixar o vídeo todo
+      // #t=0.1 força o navegador a renderizar um frame inicial em vez de tela preta
+      media.src = item.src + (item.src.indexOf('#') === -1 ? '#t=0.1' : '');
+    } else {
+      media = document.createElement('img');
+      media.src = item.src;
+      media.alt = item.alt || ('Review ' + index);
+      media.decoding = 'async';
+      // sem loading="lazy": as imagens aparecem de imediato (evita card preto)
+    }
+
+    card.appendChild(media);
+    card.insertAdjacentHTML('beforeend', PLAY_ICON);
+    card.insertAdjacentHTML('beforeend', userBarHTML(item.user));
+    return card;
+  }
+
+  function renderTrack(track) {
+    var dataEl = track.querySelector('[data-vrx-media]');
+    var media;
+    try {
+      media = JSON.parse(dataEl.textContent);
+    } catch (e) {
+      return [];
+    }
+    if (!media.length) return [];
+
+    var frag = document.createDocumentFragment();
+
+    // Clone do último item (antes do primeiro real) — para loop suave
+    frag.appendChild(buildCard(media[media.length - 1], media.length, 'end'));
+
+    // Itens reais
+    media.forEach(function (item, i) {
+      frag.appendChild(buildCard(item, i + 1, false));
+    });
+
+    // Clone do primeiro item (depois do último real) — para loop suave
+    frag.appendChild(buildCard(media[0], 1, 'start'));
+
+    if (dataEl) dataEl.remove();
+    track.appendChild(frag);
+
+    return Array.prototype.slice.call(track.querySelectorAll('.vrx-card'));
+  }
+
+  // ---- Inicialização isolada por instância -------------------------
+  function initVrx(root) {
+    if (!root || root.dataset.vrxReady === '1') return;
+
+    var track = root.querySelector('[data-vrx-track]');
+    if (!track) return;
+
+    var allCards = renderTrack(track);
+    if (!allCards.length) return;
+
+    root.dataset.vrxReady = '1';
+
+    var prevBtn = root.querySelector('[data-vrx-prev]');
+    var nextBtn = root.querySelector('[data-vrx-next]');
+    var firstReal = allCards[1];
+    var lastReal = allCards[allCards.length - 2];
+    var scrollTicking = false;
+    var resizeTimer = null;
+
+    function getCenteredScrollLeft(card) {
+      return card.offsetLeft - track.offsetLeft - (track.clientWidth / 2) + (card.offsetWidth / 2);
+    }
+
+    function setSmoothScroll() {
+      track.style.scrollBehavior = 'smooth';
+    }
+
+    function setAutoScrollThenSmooth() {
+      track.style.scrollBehavior = 'auto';
+      setTimeout(setSmoothScroll, 50);
+    }
+
+    function pauseCardVideo(card) {
+      if (!card.classList.contains('vrx-playing')) return;
+      var video = card.querySelector('video');
+      if (video) video.pause();
+      card.classList.remove('vrx-playing');
+    }
+
+    function initCarousel() {
+      if (!firstReal) return;
+      track.scrollLeft = getCenteredScrollLeft(firstReal);
+      updateActiveClasses();
+    }
+
+    function handleScroll() {
+      if (scrollTicking) return;
+      scrollTicking = true;
+
+      window.requestAnimationFrame(function () {
+        updateActiveClasses();
+
+        var maxScroll = track.scrollWidth - track.clientWidth;
+
+        if (track.scrollLeft >= maxScroll - 5) {
+          setAutoScrollThenSmooth();
+          track.scrollLeft = getCenteredScrollLeft(firstReal);
+        } else if (track.scrollLeft <= 5) {
+          setAutoScrollThenSmooth();
+          track.scrollLeft = getCenteredScrollLeft(lastReal);
+        }
+
+        scrollTicking = false;
+      });
+    }
+
+    function updateActiveClasses() {
+      var center = track.scrollLeft + (track.clientWidth / 2);
+
+      allCards.forEach(function (card) {
+        var cardCenter = card.offsetLeft + (card.offsetWidth / 2) - track.offsetLeft;
+        var isActive = Math.abs(center - cardCenter) < card.offsetWidth / 2;
+
+        if (isActive) {
+          card.classList.add('vrx-active');
+        } else if (card.classList.contains('vrx-active')) {
+          card.classList.remove('vrx-active');
+          pauseCardVideo(card);
+        }
+      });
+    }
+
+    function scrollCarousel(direction) {
+      var gap = parseFloat(window.getComputedStyle(track).columnGap) || 20;
+      var amount = firstReal.offsetWidth + gap;
+      setSmoothScroll();
+      track.scrollLeft += direction === 'next' ? amount : -amount;
+    }
+
+    function toggleVideo(card) {
+      var video = card.querySelector('video');
+      if (!video) return;
+
+      if (video.paused) {
+        // Pausa qualquer outro vídeo em reprodução
+        allCards.forEach(function (c) {
+          if (c !== card) pauseCardVideo(c);
+        });
+
+        card.classList.add('vrx-playing');
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function () {
+            card.classList.remove('vrx-playing');
+          });
+        }
+      } else {
+        card.classList.remove('vrx-playing');
+        video.pause();
+      }
+    }
+
+    // ---- Listeners -------------------------------------------------
+    if (nextBtn) nextBtn.addEventListener('click', function () { scrollCarousel('next'); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { scrollCarousel('prev'); });
+
+    allCards.forEach(function (card) {
+      card.addEventListener('click', function () { toggleVideo(card); });
+    });
+
+    track.addEventListener('scroll', handleScroll, { passive: true });
+
+    // resize com debounce — evita rajada de reposicionamentos
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(initCarousel, 150);
+    });
+
+    setTimeout(initCarousel, 100);
+  }
+
+  function bootVrx() {
+    document.querySelectorAll('[data-vrx-root]').forEach(initVrx);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootVrx);
+  } else {
+    bootVrx();
+  }
+})();
+</script>

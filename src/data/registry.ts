@@ -1,0 +1,314 @@
+import type { Category } from '@/types/script';
+
+/**
+ * Registro dos scripts da biblioteca.
+ *
+ * Para adicionar um script novo:
+ *   1. salve o codigo em liquids/<slug>.liquid
+ *   2. adicione a entrada aqui com o mesmo slug
+ *   3. (opcional) coloque um preview em public/previews/<slug>.png
+ *
+ * O campo `code` nao mora aqui: e lido do arquivo .liquid em build time
+ * por src/data/scripts.ts, para o codigo ficar versionavel e editavel a parte.
+ */
+export interface ScriptMeta {
+  slug: string;
+  title: string;
+  shortDescription: string;
+  category: Category;
+  tags: string[];
+  compatibilityNotes?: string;
+}
+
+export const SCRIPT_REGISTRY: ScriptMeta[] = [
+  {
+    slug: "reviews-01",
+    title: "Rating Inline Compacto",
+    shortDescription: "Mostra nota média com estrelas em uma linha só.",
+    category: "social-proof",
+    tags: ["reviews", "rating", "estrelas", "inline"],
+    compatibilityNotes: "Edite os valores \"4.9/5\" e \"3,423\" diretamente no HTML conforme seus dados reais.",
+  },
+  {
+    slug: "stock-scarcity-bar",
+    title: "Barra de Escassez",
+    shortDescription: "Indica estoque limitado com bolinha piscando.",
+    category: "urgency",
+    tags: ["escassez", "estoque", "limitado", "product page"],
+    compatibilityNotes: "Edite o texto \"Mother's Day Drop — Limited Stock!\" para sua campanha.",
+  },
+  {
+    slug: "payment-cards",
+    title: "Selos de Pagamento + Garantia",
+    shortDescription: "Exibe bandeiras de cartão e selo de garantia.",
+    category: "payment",
+    tags: ["pagamento", "cartões", "garantia", "badges"],
+    compatibilityNotes: "Aceita variáveis Liquid: guarantee_text, alignment, gap, padding, background_color, border_radius, icon_height, mobile_icon_height, mobile_gap, mobile_padding, margin_top, margin_bottom.",
+  },
+  {
+    slug: "reviews-trustpilot",
+    title: "Grid de Reviews estilo Trustpilot",
+    shortDescription: "Grid completo de avaliações com fotos, modal e formulário.",
+    category: "social-proof",
+    tags: ["reviews", "trustpilot", "grid", "modal", "formulário"],
+    compatibilityNotes: "Bloco isolado com prefixo .rvx-. Edite o array DATA dentro do <script> para inserir suas próprias avaliações.",
+  },
+  {
+    slug: "reviews-02",
+    title: "Rating com Selo Verified",
+    shortDescription: "Mostra nota, estrelas, contagem e selo \"Verified\".",
+    category: "social-proof",
+    tags: ["reviews", "rating", "verified", "estrelas"],
+    compatibilityNotes: "Edite os valores \"4.9\" e \"3,423\" diretamente no HTML.",
+  },
+  {
+    slug: "size-chart",
+    title: "Size Chart Drawer com Fit Guide",
+    shortDescription: "Drawer lateral com guia de medidas e tabela IN/CM.",
+    category: "size",
+    tags: ["tamanho", "drawer", "guia", "medidas", "bra"],
+    compatibilityNotes: "Drawer com prefixo .sc-. Edite as tabelas de medidas e o texto do tip conforme seu produto.",
+  },
+  {
+    slug: "benefits-grid",
+    title: "Grid de Benefícios com Ícones",
+    shortDescription: "Grid responsivo de 4 cards com ícones SVG e textos curtos.",
+    category: "product",
+    tags: ["benefícios", "ícones", "product page", "grid", "features"],
+    compatibilityNotes: "Edite as URLs dos ícones SVG (hospede no Shopify Files) e os textos dos 4 cards. Layout fixo em 4 colunas — ajuste grid-template-columns para mudar a quantidade.",
+  },
+  {
+    slug: "video-reviews-carousel",
+    title: "Carrossel de Video Reviews",
+    shortDescription: "Carrossel infinito com cards de vídeo e imagem, scale no card ativo e setas de navegação.",
+    category: "social-proof",
+    tags: ["reviews", "vídeo", "carrossel", "ugc", "product page"],
+    compatibilityNotes: "Bloco isolado com prefixo .vrx-. Edite a lista JSON de mídias (type, src, user) — os clones de loop são gerados automaticamente pelo JS. Header estilo stories com avatar/username por card. Variáveis CSS no topo controlam tamanhos, cores e gaps.",
+  },
+  {
+    slug: "versos",
+    title: "Subtitle Box com Destaque Lateral",
+    shortDescription: "Caixa de subtítulo/descrição em itálico com borda lateral colorida.",
+    category: "product",
+    tags: ["subtítulo", "descrição", "destaque", "product page", "texto"],
+    compatibilityNotes: "Edite o texto dentro de .capri-subtitle. Ajuste cor de fundo (#eef3f8) e borda lateral (#2f465f) para combinar com sua paleta.",
+  },
+  {
+    slug: "bundle-crocs",
+    title: "Bundle Crocs com Tamanhos e Cores",
+    shortDescription: "Widget de bundle com seleção de tamanho/cor por unidade e checkout via Storefront API.",
+    category: "offer",
+    tags: ["bundle", "combo", "crocs", "storefront-api", "cores", "tamanho"],
+    compatibilityNotes: "Bloco isolado com prefixo .spk-. Altere SHOPIFY_DOMAIN, STOREFRONT_TOKEN e PRODUCT_ID_NUMBER no <script> para sua loja e produto. Ajuste combos/preços conforme sua oferta.",
+  },
+  {
+    slug: "dermatologist-endorsement",
+    title: "Recomendado por Dermatologistas",
+    shortDescription: "Bloco de credibilidade com título, descrição, assinatura e foto de especialista.",
+    category: "social-proof",
+    tags: ["dermatologista", "credibilidade", "assinatura", "especialista", "product page"],
+    compatibilityNotes: "Bloco isolado com prefixo #srnv-experts. Edite o título, a descrição e troque as imagens de assinatura e foto pelas suas.",
+  },
+  {
+    slug: "category-grid",
+    title: "Category Grid estilo Tommy Hilfiger",
+    shortDescription: "Grid de categorias com imagem, título e links \"Shop\" (4 colunas no desktop, 2 no mobile).",
+    category: "banner",
+    tags: ["categorias", "grid", "home", "coleções", "links", "tommy"],
+    compatibilityNotes: "Bloco isolado com prefixo .thcg-. Edite o bloco CONFIG no topo (assigns cN_img, cN_title e os links). Suba as imagens em Configurações > Arquivos e cole a URL do CDN em cada cN_img.",
+  },
+
+  // ── Lote 28/07 ────────────────────────────────────────────────────────────
+  {
+    slug: "trustpilot-badge",
+    title: "Selo Trustpilot Compacto",
+    shortDescription: "Selo \"Excellent\" com estrelas verdes e contagem de avaliações.",
+    category: "social-proof",
+    tags: ["trustpilot", "selo", "estrelas", "reviews", "compacto"],
+    compatibilityNotes: "Edite o texto \"Excellent\" e a contagem \"10,541 reviews\" com seus números reais.",
+  },
+  {
+    slug: "hollow-customer-reviews",
+    title: "Customer Reviews com Filtros e Fotos",
+    shortDescription: "Bloco completo de avaliações com nota, barras por estrela, filtros e fotos.",
+    category: "social-proof",
+    tags: ["reviews", "avaliações", "filtros", "fotos", "rating"],
+    compatibilityNotes: "Edite o array de reviews dentro do <script> com suas avaliações reais.",
+  },
+  {
+    slug: "better-sleepers-everywhere",
+    title: "Depoimentos em Grid com Fotos",
+    shortDescription: "Grid de depoimentos com aspas em destaque, foto e nome do cliente.",
+    category: "social-proof",
+    tags: ["depoimentos", "testimonials", "grid", "fotos", "social proof"],
+    compatibilityNotes: "Troque os textos dos depoimentos e as URLs das fotos pelas suas.",
+  },
+  {
+    slug: "real-customers-real-relief",
+    title: "Antes e Depois de Clientes",
+    shortDescription: "Bloco de prova social com imagens de clientes reais e legendas.",
+    category: "social-proof",
+    tags: ["antes e depois", "clientes", "resultados", "prova social"],
+    compatibilityNotes: "Substitua as imagens e legendas pelos resultados dos seus clientes.",
+  },
+  {
+    slug: "no1-household-fan",
+    title: "Barra de Números de Autoridade",
+    shortDescription: "Destaque de métricas grandes (300+, 11.000+, 25 milhões+) em linha.",
+    category: "social-proof",
+    tags: ["métricas", "números", "autoridade", "estatísticas"],
+    compatibilityNotes: "Edite os números e rótulos diretamente no HTML.",
+  },
+  {
+    slug: "hollow-metric-bar",
+    title: "Barra de Métricas com Reviews",
+    shortDescription: "Faixa com contagem de reviews 5 estrelas e volume de vendas.",
+    category: "social-proof",
+    tags: ["métricas", "reviews", "5 estrelas", "faixa", "números"],
+    compatibilityNotes: "Ajuste os valores \"21,000+\" e \"3 MILLION+\" para os seus dados.",
+  },
+  {
+    slug: "formulated-by-experts",
+    title: "Formulado por Especialistas",
+    shortDescription: "Selo de credibilidade com assinatura e endosso de especialistas.",
+    category: "social-proof",
+    tags: ["especialistas", "credibilidade", "endosso", "autoridade"],
+    compatibilityNotes: "Troque os nomes, credenciais e a imagem de assinatura.",
+  },
+  {
+    slug: "sculpiflex-real-stories",
+    title: "Real Stories (Section com Schema)",
+    shortDescription: "Seção de histórias reais configurável pelo editor de temas.",
+    category: "social-proof",
+    tags: ["section", "schema", "histórias", "depoimentos", "editor"],
+    compatibilityNotes: "Este é um arquivo de SECTION, não Custom Liquid: salve em sections/ do tema e adicione pelo editor. Os textos são editáveis pelo painel.",
+  },
+  {
+    slug: "sellout-risk-offer",
+    title: "Oferta com Contagem Regressiva",
+    shortDescription: "Banner de urgência com timer, oferta BOGO e aviso de risco de esgotar.",
+    category: "urgency",
+    tags: ["contagem regressiva", "timer", "urgência", "bogo", "escassez"],
+    compatibilityNotes: "Ajuste a duração do timer e o texto da oferta no <script>. O timer reinicia a cada visita.",
+  },
+  {
+    slug: "hollow-summer-sale-banner",
+    title: "Banner de Summer Sale",
+    shortDescription: "Banner promocional de campanha sazonal com destaque de desconto.",
+    category: "banner",
+    tags: ["banner", "promoção", "sale", "campanha", "sazonal"],
+    compatibilityNotes: "Edite o título, o percentual de desconto e as cores da campanha.",
+  },
+  {
+    slug: "tarte-quiz-banners",
+    title: "Banners de Quiz por Categoria",
+    shortDescription: "Grid de banners que levam a quizzes (concealer, mascara, lip).",
+    category: "banner",
+    tags: ["quiz", "banners", "categorias", "grid", "engajamento"],
+    compatibilityNotes: "Troque as imagens e aponte cada link para a URL do seu quiz.",
+  },
+  {
+    slug: "badge-buy-2-get-2-free",
+    title: "Badge Buy 2 Get 2 Free",
+    shortDescription: "Selo de oferta compacto para destacar promoção leve-mais-pague-menos.",
+    category: "offer",
+    tags: ["badge", "oferta", "bogo", "promoção", "selo"],
+    compatibilityNotes: "Edite o texto da oferta e as cores do selo direto no HTML.",
+  },
+  {
+    slug: "marquee-beneficios",
+    title: "Marquee de Benefícios",
+    shortDescription: "Faixa animada em loop infinito com benefícios e ícones.",
+    category: "product",
+    tags: ["marquee", "benefícios", "animação", "loop", "faixa"],
+    compatibilityNotes: "Edite os textos dos benefícios e os ícones. A animação é CSS puro, sem dependências.",
+  },
+  {
+    slug: "benefit-chips",
+    title: "Chips de Benefícios",
+    shortDescription: "Linha de chips com ícone e texto curto para benefícios do produto.",
+    category: "product",
+    tags: ["chips", "benefícios", "ícones", "product page"],
+    compatibilityNotes: "Troque os ícones e os textos de cada chip.",
+  },
+  {
+    slug: "elevated-comfort",
+    title: "Bloco Editorial de Conforto",
+    shortDescription: "Bloco editorial com destaque de design e especificações do produto.",
+    category: "product",
+    tags: ["editorial", "conforto", "design", "especificações"],
+    compatibilityNotes: "Edite os títulos, textos e a imagem principal.",
+  },
+  {
+    slug: "hollow-feature-editorial",
+    title: "Feature by Feature Editorial",
+    shortDescription: "Comparativo editorial de diferenciais, um recurso por linha.",
+    category: "product",
+    tags: ["features", "editorial", "diferenciais", "comparativo"],
+    compatibilityNotes: "Edite os recursos e as descrições de cada linha.",
+  },
+  {
+    slug: "air-power-sublime-taste",
+    title: "Banner Duplo de Destaque",
+    shortDescription: "Dois blocos lado a lado com imagem e título em destaque.",
+    category: "product",
+    tags: ["banner duplo", "destaque", "imagem", "editorial"],
+    compatibilityNotes: "Troque as imagens e os títulos dos dois blocos.",
+  },
+  {
+    slug: "cc-serum-copy",
+    title: "Copy Longa com Vídeo",
+    shortDescription: "Bloco de copy narrativa com vídeo vertical e botão de som.",
+    category: "product",
+    tags: ["copy", "vídeo", "narrativa", "storytelling"],
+    compatibilityNotes: "Substitua a URL do vídeo e edite o texto da copy.",
+  },
+  {
+    slug: "tarte-video-carousel",
+    title: "Carrossel de Vídeos Verticais",
+    shortDescription: "Carrossel de vídeos em formato vertical com navegação por setas.",
+    category: "product",
+    tags: ["carrossel", "vídeo", "vertical", "navegação"],
+    compatibilityNotes: "Troque as URLs dos vídeos e as thumbnails no array do <script>.",
+  },
+  {
+    slug: "comfortwear-comparison",
+    title: "Comparativo Nós vs. Eles",
+    shortDescription: "Tabela comparativa entre o seu produto e a concorrência.",
+    category: "product",
+    tags: ["comparativo", "tabela", "concorrência", "diferenciais"],
+    compatibilityNotes: "Edite as linhas de comparação e os rótulos das colunas.",
+  },
+  {
+    slug: "seranova-comparison-table",
+    title: "Tabela Comparativa de Fórmula",
+    shortDescription: "Comparativo detalhado de ingredientes e benefícios por coluna.",
+    category: "product",
+    tags: ["comparativo", "tabela", "ingredientes", "fórmula"],
+    compatibilityNotes: "Edite as colunas e os itens comparados conforme o seu produto.",
+  },
+  {
+    slug: "size-help-tabs",
+    title: "Guia de Tamanho com Abas",
+    shortDescription: "Guia de medidas em abas, com instruções de como medir o pé.",
+    category: "size",
+    tags: ["tamanho", "abas", "medidas", "guia", "fit"],
+    compatibilityNotes: "Edite a tabela de medidas e os textos das abas no objeto de configuração do <script>.",
+  },
+  {
+    slug: "hollow-size-chart",
+    title: "Size Chart Simples",
+    shortDescription: "Tabela de tamanhos enxuta, pronta para colar na página de produto.",
+    category: "size",
+    tags: ["tamanho", "tabela", "medidas", "size chart"],
+    compatibilityNotes: "Substitua as medidas da tabela pelas do seu produto.",
+  },
+  {
+    slug: "size-chart-custom-liquid",
+    title: "Size Chart com Título do Produto",
+    shortDescription: "Guia de tamanhos que puxa o nome do produto automaticamente.",
+    category: "size",
+    tags: ["tamanho", "medidas", "product.title", "dinâmico"],
+    compatibilityNotes: "Usa {{ product.title }} com fallback: dentro da página de produto exibe o nome real; fora dele mostra \"Size guides\".",
+  },
+];

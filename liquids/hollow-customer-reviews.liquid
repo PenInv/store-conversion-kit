@@ -1,0 +1,1186 @@
+<style>
+  @font-face {
+    font-family: "hcr-graphik-cond";
+    src: url("https://hollowsocks.com/cdn/shop/t/413/assets/GraphikXXCond-Bold.woff2?v=131287753912708631821782403668") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hcr-din";
+    src: url("https://cdn.shopify.com/s/files/1/0270/6509/0108/files/DIN_2014_Demi.woff?v=1741842934") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  .hcr-reviews,
+  .hcr-reviews *,
+  .hcr-reviews *::before,
+  .hcr-reviews *::after {
+    box-sizing: border-box !important;
+  }
+
+  .hcr-reviews {
+    --hcr-ink: #18191b;
+    --hcr-green: #041e3a;
+    --hcr-star: #f6b943;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 40px 20px 0 !important;
+    color: var(--hcr-ink) !important;
+    background: #ffffff !important;
+    font-family: "hcr-din", Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  .hcr-reviews__inner {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 32px 16px !important;
+  }
+
+  .hcr-reviews__title {
+    margin: 0 0 32px !important;
+    padding: 0 !important;
+    color: var(--hcr-ink) !important;
+    font-family: "hcr-graphik-cond", "Arial Narrow", sans-serif !important;
+    font-size: 72px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+  }
+
+  .hcr-reviews__summary {
+    width: 100% !important;
+    min-height: 112px !important;
+    margin: 0 0 16px !important;
+    display: grid !important;
+    grid-template-columns: 417px 275px minmax(136px, 1fr) !important;
+    align-items: center !important;
+    gap: 48px !important;
+  }
+
+  .hcr-reviews__rating-summary {
+    display: flex !important;
+    align-items: center !important;
+    gap: 32px !important;
+  }
+
+  .hcr-reviews__average {
+    width: 135px !important;
+    flex: 0 0 135px !important;
+    text-align: center !important;
+  }
+
+  .hcr-reviews__score {
+    margin: 0 0 8px !important;
+    font-size: 48px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-reviews__stars {
+    color: var(--hcr-star) !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    letter-spacing: 1px !important;
+    white-space: nowrap !important;
+  }
+
+  .hcr-reviews__count {
+    margin-top: 8px !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-reviews__distribution {
+    width: 250px !important;
+    display: grid !important;
+    gap: 6px !important;
+  }
+
+  .hcr-reviews__bar-row {
+    display: grid !important;
+    grid-template-columns: 14px 1fr !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-reviews__bar {
+    height: 8px !important;
+    overflow: hidden !important;
+    background: #e9e9e9 !important;
+  }
+
+  .hcr-reviews__bar-fill {
+    display: block !important;
+    height: 100% !important;
+    background: var(--hcr-green) !important;
+  }
+
+  .hcr-reviews__comfort {
+    width: 100% !important;
+    max-width: 275px !important;
+  }
+
+  .hcr-reviews__comfort-label {
+    margin: 0 0 10px !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-reviews__comfort-track {
+    position: relative !important;
+    height: 8px !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4px !important;
+  }
+
+  .hcr-reviews__comfort-track span {
+    display: block !important;
+    background: #ececec !important;
+  }
+
+  .hcr-reviews__comfort-marker {
+    position: absolute !important;
+    top: -4px !important;
+    left: var(--marker, 94%) !important;
+    width: 10px !important;
+    height: 16px !important;
+    transform: translateX(-50%) !important;
+    background: var(--hcr-green) !important;
+  }
+
+  .hcr-reviews__comfort-ends {
+    margin-top: 8px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-reviews__write-wrap {
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+
+  .hcr-reviews__button {
+    min-height: 40px !important;
+    margin: 0 !important;
+    padding: 12px 20px !important;
+    border: 1px solid var(--hcr-green) !important;
+    border-radius: 5px !important;
+    color: #ffffff !important;
+    background: var(--hcr-green) !important;
+    font: 400 14px/1 "hcr-din", Arial, sans-serif !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-reviews__separator {
+    width: 100% !important;
+    height: 1px !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .hcr-reviews__gallery-shell {
+    position: relative !important;
+    width: 100% !important;
+  }
+
+  .hcr-reviews__gallery {
+    width: 100% !important;
+    padding: 16px 0 0 !important;
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-behavior: smooth !important;
+    scrollbar-width: none !important;
+  }
+
+  .hcr-reviews__gallery::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .hcr-reviews__thumb {
+    width: 130px !important;
+    height: 130px !important;
+    min-width: 130px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    background: #eeeeee !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-reviews__thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .hcr-reviews__gallery-next {
+    position: absolute !important;
+    right: 0 !important;
+    top: 16px !important;
+    width: 42px !important;
+    height: 130px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    color: #ffffff !important;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.42)) !important;
+    font-size: 38px !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-reviews__filters {
+    width: 100% !important;
+    margin: 16px 0 0 !important;
+    display: grid !important;
+    grid-template-columns: minmax(220px, 312px) 200px 200px auto !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+
+  .hcr-reviews__control {
+    width: 100% !important;
+    height: 42px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 3px !important;
+    color: var(--hcr-ink) !important;
+    background: #ffffff !important;
+    font: 400 14px/1 "hcr-din", Arial, sans-serif !important;
+  }
+
+  .hcr-reviews__check {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-reviews__check input {
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    accent-color: var(--hcr-green) !important;
+  }
+
+  .hcr-reviews__list {
+    width: 100% !important;
+    padding-top: 32px !important;
+  }
+
+  .hcr-review {
+    width: 100% !important;
+    padding: 0 0 32px !important;
+    display: grid !important;
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+    gap: 16px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .hcr-review[hidden] {
+    display: none !important;
+  }
+
+  .hcr-review + .hcr-review {
+    padding-top: 32px !important;
+  }
+
+  .hcr-review__customer {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .hcr-review__avatar {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    display: grid !important;
+    place-items: center !important;
+    border: 1px solid #d8d8d8 !important;
+    border-radius: 50% !important;
+    font-size: 14px !important;
+  }
+
+  .hcr-review__name {
+    margin: 1px 0 2px !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hcr-review__verified {
+    color: var(--hcr-ink) !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hcr-review__verified::before {
+    content: "●" !important;
+    margin-right: 5px !important;
+    color: var(--hcr-green) !important;
+    font-size: 10px !important;
+  }
+
+  .hcr-review__content {
+    min-width: 0 !important;
+  }
+
+  .hcr-review__top {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 275px !important;
+    gap: 32px !important;
+  }
+
+  .hcr-review__stars {
+    margin-bottom: 14px !important;
+    color: var(--hcr-star) !important;
+    font: 400 22px/1 Arial, sans-serif !important;
+    letter-spacing: 1px !important;
+  }
+
+  .hcr-review__time {
+    margin-bottom: 14px !important;
+    text-align: right !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  .hcr-review__title {
+    margin: 0 0 12px !important;
+    color: var(--hcr-ink) !important;
+    font-family: "hcr-din", Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+  }
+
+  .hcr-review__body {
+    margin: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+  }
+
+  .hcr-review__product {
+    margin-top: 18px !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+  }
+
+  .hcr-review__recommend {
+    margin-top: 18px !important;
+    font-size: 13px !important;
+  }
+
+  .hcr-review__recommend::before {
+    content: "♥" !important;
+    margin-right: 8px !important;
+    color: #f08c72 !important;
+  }
+
+  .hcr-review__actions {
+    margin-top: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+    font-size: 12px !important;
+  }
+
+  .hcr-review__vote {
+    margin: 0 !important;
+    padding: 2px !important;
+    border: 0 !important;
+    color: var(--hcr-ink) !important;
+    background: transparent !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-reviews__empty {
+    display: none !important;
+    padding: 48px 0 !important;
+    text-align: center !important;
+  }
+
+  .hcr-reviews__modal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    display: none !important;
+    place-items: center !important;
+    padding: 20px !important;
+    background: rgba(0, 0, 0, 0.58) !important;
+  }
+
+  .hcr-reviews__modal[aria-hidden="false"] {
+    display: grid !important;
+  }
+
+  .hcr-reviews__modal-card {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    padding: 32px !important;
+    background: #ffffff !important;
+  }
+
+  .hcr-reviews__modal-title {
+    margin: 0 0 20px !important;
+    font: 700 42px/1 "hcr-graphik-cond", sans-serif !important;
+    text-transform: uppercase !important;
+  }
+
+  .hcr-reviews__modal-note {
+    margin: 0 !important;
+    font-size: 16px !important;
+  }
+
+  .hcr-reviews__modal-close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 12px !important;
+    border: 0 !important;
+    background: transparent !important;
+    font-size: 28px !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 100000 !important;
+    display: none !important;
+    place-items: center !important;
+    padding: 32px !important;
+    background: rgba(4, 30, 58, 0.38) !important;
+  }
+
+  .hcr-lightbox[aria-hidden="false"] {
+    display: grid !important;
+  }
+
+  .hcr-lightbox__dialog {
+    position: relative !important;
+    width: min(1048px, 100%) !important;
+    height: min(625px, calc(100vh - 64px)) !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(390px, 1.04fr) !important;
+    overflow: hidden !important;
+    border-radius: 7px !important;
+    background: #ffffff !important;
+    box-shadow: 0 24px 70px rgba(4, 30, 58, 0.28) !important;
+  }
+
+  .hcr-lightbox__media {
+    position: relative !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    overflow: hidden !important;
+    background: #030303 !important;
+  }
+
+  .hcr-lightbox__image {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: contain !important;
+  }
+
+  .hcr-lightbox__arrow {
+    position: absolute !important;
+    top: 50% !important;
+    z-index: 2 !important;
+    width: 42px !important;
+    height: 54px !important;
+    display: grid !important;
+    place-items: center !important;
+    transform: translateY(-50%) !important;
+    border: 0 !important;
+    color: #ffffff !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    font: 400 38px/1 Arial, sans-serif !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-lightbox__arrow--prev {
+    left: 0 !important;
+  }
+
+  .hcr-lightbox__arrow--next {
+    right: 0 !important;
+  }
+
+  .hcr-lightbox__details {
+    min-width: 0 !important;
+    padding: 18px 16px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    color: var(--hcr-ink) !important;
+    background: #ffffff !important;
+  }
+
+  .hcr-lightbox__customer {
+    padding: 0 38px 16px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09) !important;
+  }
+
+  .hcr-lightbox__avatar {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    display: grid !important;
+    place-items: center !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 50% !important;
+    box-shadow: inset 0 0 0 3px #f6f6f6 !important;
+    font-size: 14px !important;
+  }
+
+  .hcr-lightbox__name {
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hcr-lightbox__verified {
+    margin-top: 3px !important;
+    font-size: 14px !important;
+  }
+
+  .hcr-lightbox__verified::before {
+    content: "◆" !important;
+    margin-right: 6px !important;
+    color: var(--hcr-green) !important;
+    font-size: 11px !important;
+  }
+
+  .hcr-lightbox__close {
+    position: absolute !important;
+    top: 14px !important;
+    right: 16px !important;
+    z-index: 3 !important;
+    width: 34px !important;
+    height: 34px !important;
+    border: 0 !important;
+    color: #555555 !important;
+    background: transparent !important;
+    font: 300 30px/1 Arial, sans-serif !important;
+    cursor: pointer !important;
+  }
+
+  .hcr-lightbox__review {
+    padding-top: 16px !important;
+  }
+
+  .hcr-lightbox__meta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+
+  .hcr-lightbox__stars {
+    color: var(--hcr-star) !important;
+    font: 400 24px/1 Arial, sans-serif !important;
+    letter-spacing: 1px !important;
+  }
+
+  .hcr-lightbox__date {
+    font-size: 14px !important;
+  }
+
+  .hcr-lightbox__title {
+    margin: 18px 0 10px !important;
+    font: 400 21px/1.25 "hcr-din", Arial, sans-serif !important;
+  }
+
+  .hcr-lightbox__body {
+    margin: 0 0 16px !important;
+    font-size: 17px !important;
+    line-height: 1.45 !important;
+  }
+
+  .hcr-lightbox__mini {
+    width: 54px !important;
+    height: 54px !important;
+    margin-top: 18px !important;
+    border: 2px solid #aeb8c2 !important;
+    object-fit: cover !important;
+  }
+
+  .hcr-lightbox__product {
+    margin-top: 16px !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+  }
+
+  .hcr-lightbox__footer {
+    margin-top: auto !important;
+    padding-top: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    font-size: 15px !important;
+  }
+
+  .hcr-lightbox__recommend::before {
+    content: "♥" !important;
+    margin-right: 7px !important;
+    color: #f08c72 !important;
+  }
+
+  .hcr-lightbox__counter {
+    color: #60666c !important;
+    font-size: 13px !important;
+  }
+
+  @media screen and (max-width: 900px) {
+    .hcr-reviews__summary {
+      grid-template-columns: 1fr 275px !important;
+    }
+
+    .hcr-reviews__write-wrap {
+      grid-column: 1 / -1 !important;
+      justify-content: flex-start !important;
+    }
+
+    .hcr-review__top {
+      grid-template-columns: 1fr 240px !important;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .hcr-reviews__title {
+      font-size: 48px !important;
+      line-height: 48px !important;
+    }
+
+    .hcr-reviews__summary {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    .hcr-reviews__rating-summary {
+      width: 100% !important;
+      gap: 16px !important;
+    }
+
+    .hcr-reviews__average {
+      width: 108px !important;
+      flex-basis: 108px !important;
+    }
+
+    .hcr-reviews__score {
+      font-size: 42px !important;
+    }
+
+    .hcr-reviews__stars {
+      font-size: 18px !important;
+    }
+
+    .hcr-reviews__distribution {
+      width: auto !important;
+      flex: 1 1 auto !important;
+    }
+
+    .hcr-reviews__comfort {
+      max-width: none !important;
+    }
+
+    .hcr-reviews__write-wrap,
+    .hcr-reviews__button {
+      width: 100% !important;
+    }
+
+    .hcr-reviews__thumb {
+      width: calc((100% - 8px) / 2) !important;
+      height: auto !important;
+      min-width: calc((100% - 8px) / 2) !important;
+      flex: 0 0 calc((100% - 8px) / 2) !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    .hcr-reviews__gallery-next {
+      height: min(164px, calc((100vw - 95px) / 2)) !important;
+    }
+
+    .hcr-reviews__filters {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    .hcr-reviews__filters .hcr-reviews__control:first-child {
+      grid-column: 1 / -1 !important;
+    }
+
+    .hcr-reviews__check {
+      grid-column: 1 / -1 !important;
+    }
+
+    .hcr-review {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    .hcr-review__top {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    .hcr-review__time {
+      position: absolute !important;
+      right: 0 !important;
+      top: 0 !important;
+    }
+
+    .hcr-review__content {
+      position: relative !important;
+    }
+
+    .hcr-lightbox {
+      align-items: stretch !important;
+      padding: 0 !important;
+    }
+
+    .hcr-lightbox__dialog {
+      width: 100% !important;
+      max-width: none !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      max-height: none !important;
+      grid-template-columns: 1fr !important;
+      grid-template-rows: minmax(230px, 44dvh) minmax(0, 1fr) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .hcr-lightbox__media {
+      min-height: 230px !important;
+    }
+
+    .hcr-lightbox__image {
+      object-fit: cover !important;
+      object-position: center 42% !important;
+    }
+
+    .hcr-lightbox__details {
+      min-height: 0 !important;
+      padding: 16px 16px 28px !important;
+      overscroll-behavior: contain !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .hcr-lightbox__close {
+      position: fixed !important;
+      top: 12px !important;
+      right: 12px !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.86) !important;
+      border-radius: 4px !important;
+      background: rgba(4, 30, 58, 0.78) !important;
+    }
+
+    .hcr-lightbox__customer {
+      padding-right: 0 !important;
+    }
+
+    .hcr-lightbox__title {
+      margin-top: 14px !important;
+      font-size: 19px !important;
+    }
+
+    .hcr-lightbox__body {
+      font-size: 15px !important;
+    }
+
+    .hcr-lightbox__footer {
+      margin-top: 24px !important;
+    }
+  }
+</style>
+
+<section class="hcr-reviews" aria-labelledby="hcr-reviews-title">
+  <div class="hcr-reviews__inner">
+    <h2 class="hcr-reviews__title" id="hcr-reviews-title">Customer Reviews</h2>
+
+    <div class="hcr-reviews__summary">
+      <div class="hcr-reviews__rating-summary">
+        <div class="hcr-reviews__average">
+          <div class="hcr-reviews__score">4.83</div>
+          <div class="hcr-reviews__stars" aria-label="4.83 out of 5 stars">★★★★★</div>
+          <div class="hcr-reviews__count">7,689 reviews</div>
+        </div>
+        <div class="hcr-reviews__distribution" aria-label="Rating distribution">
+          <div class="hcr-reviews__bar-row"><span>5</span><span class="hcr-reviews__bar"><span class="hcr-reviews__bar-fill" style="width:85.2%"></span></span></div>
+          <div class="hcr-reviews__bar-row"><span>4</span><span class="hcr-reviews__bar"><span class="hcr-reviews__bar-fill" style="width:13.8%"></span></span></div>
+          <div class="hcr-reviews__bar-row"><span>3</span><span class="hcr-reviews__bar"><span class="hcr-reviews__bar-fill" style="width:1.2%"></span></span></div>
+          <div class="hcr-reviews__bar-row"><span>2</span><span class="hcr-reviews__bar"><span class="hcr-reviews__bar-fill" style="width:0.8%"></span></span></div>
+          <div class="hcr-reviews__bar-row"><span>1</span><span class="hcr-reviews__bar"><span class="hcr-reviews__bar-fill" style="width:1.4%"></span></span></div>
+        </div>
+      </div>
+
+      <div class="hcr-reviews__comfort">
+        <div class="hcr-reviews__comfort-label">Comfort</div>
+        <div class="hcr-reviews__comfort-track" style="--marker:94%">
+          <span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i>
+        </div>
+        <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="hcr-reviews__write-wrap">
+        <button class="hcr-reviews__button" type="button" data-hcr-open-review>Write a review</button>
+      </div>
+    </div>
+
+    <div class="hcr-reviews__separator"></div>
+
+    <div class="hcr-reviews__gallery-shell">
+      <div class="hcr-reviews__gallery" data-hcr-gallery>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/apcve9tbefyreceo76uiyz0wfjm9"><img src="https://d44nbjjo4iet8.cloudfront.net/hdfhnw0mfs69xdk74y97wu3nugfj" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/akqxvzosigxin7dnsoi26x08jxj5"><img src="https://d44nbjjo4iet8.cloudfront.net/0zkjxdyfsrxga9yn3h8n12lgukiw" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/xxais5xumm2whnfmq1ghwennpz0h"><img src="https://d44nbjjo4iet8.cloudfront.net/y3za6rak1us9j8pbl5ew4pl95w5k" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/1u7e5rz9uqzsrjz970cyb6aer4mq"><img src="https://d44nbjjo4iet8.cloudfront.net/deyvy27bsrvhq033ks3jt8s43n86" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/y9c2ott0df3l97d0w3r0c5e3zxjo"><img src="https://d44nbjjo4iet8.cloudfront.net/pzd5zacqiukugndm07jqo6uhl51y" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/mhbr2gogr502q8m4mgxzl7r1s8pj"><img src="https://d44nbjjo4iet8.cloudfront.net/l3zm80i2d7gwgzw8c7hknnwrb7rh" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/8g2s83y8gl415uufz24f79hzrd26"><img src="https://d44nbjjo4iet8.cloudfront.net/safz691zqgsy9dngnxjpdrlz2nqi" alt="Customer review photo" loading="lazy" decoding="async"></button>
+        <button class="hcr-reviews__thumb" type="button" data-hcr-full="https://d44nbjjo4iet8.cloudfront.net/fz7t6slmc7r1p2yqnctjex4o2r9b"><img src="https://d44nbjjo4iet8.cloudfront.net/5smgttdtoojd2o0iemxhqmlzgz7i" alt="Customer review photo" loading="lazy" decoding="async"></button>
+      </div>
+      <button class="hcr-reviews__gallery-next" type="button" data-hcr-gallery-next aria-label="Show more customer photos">›</button>
+    </div>
+
+    <div class="hcr-reviews__filters">
+      <input class="hcr-reviews__control" type="search" placeholder="Search" aria-label="Search reviews" data-hcr-search>
+      <select class="hcr-reviews__control" aria-label="Sort reviews" data-hcr-sort>
+        <option value="latest">Sort by: Latest</option>
+        <option value="oldest">Sort by: Oldest</option>
+        <option value="highest">Sort by: Highest rated</option>
+        <option value="lowest">Sort by: Lowest rated</option>
+      </select>
+      <select class="hcr-reviews__control" aria-label="Filter reviews by rating" data-hcr-rating>
+        <option value="all">Rating</option>
+        <option value="5">5 stars</option>
+        <option value="4">4 stars</option>
+        <option value="3">3 stars</option>
+        <option value="2">2 stars</option>
+        <option value="1">1 star</option>
+      </select>
+      <label class="hcr-reviews__check"><input type="checkbox" data-hcr-photos> Photos &amp; videos</label>
+    </div>
+
+    <div class="hcr-reviews__list" data-hcr-list>
+      <article class="hcr-review" data-rating="5" data-order="1" data-photos="true">
+        <div class="hcr-review__customer">
+          <div class="hcr-review__avatar">RL</div>
+          <div><div class="hcr-review__name">Richard L</div><div class="hcr-review__verified">Verified buyer</div></div>
+        </div>
+        <div class="hcr-review__content">
+          <div class="hcr-review__top">
+            <div>
+              <div class="hcr-review__stars" aria-label="5 stars">★★★★★</div>
+              <h3 class="hcr-review__title">So sar it seems I have much more energy in my legs!</h3>
+              <p class="hcr-review__body">So far it seems I have much more energy in my legs!!</p>
+              <div class="hcr-review__product">Review for Compression Socks - Grey / WIDE / Large</div>
+              <div class="hcr-review__recommend">Would recommend</div>
+            </div>
+            <div>
+              <div class="hcr-review__time">41 minutes ago</div>
+              <div class="hcr-reviews__comfort">
+                <div class="hcr-reviews__comfort-label">Comfort</div>
+                <div class="hcr-reviews__comfort-track" style="--marker:98%"><span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i></div>
+                <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+              </div>
+              <div class="hcr-review__actions"><span>Helpful</span><button class="hcr-review__vote" type="button" aria-label="Up vote">△</button><button class="hcr-review__vote" type="button" aria-label="Down vote">▽</button></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="hcr-review" data-rating="4" data-order="2" data-photos="false">
+        <div class="hcr-review__customer">
+          <div class="hcr-review__avatar">MD</div>
+          <div><div class="hcr-review__name">Merlin D</div><div class="hcr-review__verified">Verified buyer</div></div>
+        </div>
+        <div class="hcr-review__content">
+          <div class="hcr-review__top">
+            <div>
+              <div class="hcr-review__stars" aria-label="4 stars">★★★★☆</div>
+              <h3 class="hcr-review__title">Good compression but hard...</h3>
+              <p class="hcr-review__body">Good compression but hard to get on and off</p>
+              <div class="hcr-review__product">Review for Compression Socks - Grey / WIDE / X-Large</div>
+              <div class="hcr-review__recommend">Would recommend</div>
+            </div>
+            <div>
+              <div class="hcr-review__time">1 hour ago</div>
+              <div class="hcr-reviews__comfort">
+                <div class="hcr-reviews__comfort-label">Comfort</div>
+                <div class="hcr-reviews__comfort-track" style="--marker:74%"><span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i></div>
+                <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+              </div>
+              <div class="hcr-review__actions"><span>Helpful</span><button class="hcr-review__vote" type="button">△</button><button class="hcr-review__vote" type="button">▽</button></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="hcr-review" data-rating="5" data-order="3" data-photos="false">
+        <div class="hcr-review__customer">
+          <div class="hcr-review__avatar">MD</div>
+          <div><div class="hcr-review__name">Merlin D</div><div class="hcr-review__verified">Verified buyer</div></div>
+        </div>
+        <div class="hcr-review__content">
+          <div class="hcr-review__top">
+            <div>
+              <div class="hcr-review__stars" aria-label="5 stars">★★★★★</div>
+              <h3 class="hcr-review__title">Good fit and compression...</h3>
+              <p class="hcr-review__body">Good fit and compression but hard to get on and off</p>
+              <div class="hcr-review__product">Review for Compression Socks - Black / STANDARD / X-Large</div>
+              <div class="hcr-review__recommend">Would recommend</div>
+            </div>
+            <div>
+              <div class="hcr-review__time">1 hour ago</div>
+              <div class="hcr-reviews__comfort">
+                <div class="hcr-reviews__comfort-label">Comfort</div>
+                <div class="hcr-reviews__comfort-track" style="--marker:98%"><span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i></div>
+                <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+              </div>
+              <div class="hcr-review__actions"><span>Helpful</span><button class="hcr-review__vote" type="button">△</button><button class="hcr-review__vote" type="button">▽</button></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="hcr-review" data-rating="5" data-order="4" data-photos="false">
+        <div class="hcr-review__customer">
+          <div class="hcr-review__avatar">DD</div>
+          <div><div class="hcr-review__name">Doug D</div><div class="hcr-review__verified">Verified buyer</div></div>
+        </div>
+        <div class="hcr-review__content">
+          <div class="hcr-review__top">
+            <div>
+              <div class="hcr-review__stars" aria-label="5 stars">★★★★★</div>
+              <h3 class="hcr-review__title">Great not hot when...</h3>
+              <p class="hcr-review__body">Great not hot when it is 100 degrees</p>
+              <div class="hcr-review__product">Review for Compression Socks - Grey / STANDARD / Large</div>
+              <div class="hcr-review__recommend">Would recommend</div>
+            </div>
+            <div>
+              <div class="hcr-review__time">1 hour ago</div>
+              <div class="hcr-reviews__comfort">
+                <div class="hcr-reviews__comfort-label">Comfort</div>
+                <div class="hcr-reviews__comfort-track" style="--marker:98%"><span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i></div>
+                <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+              </div>
+              <div class="hcr-review__actions"><span>Helpful</span><button class="hcr-review__vote" type="button">△</button><button class="hcr-review__vote" type="button">▽</button></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="hcr-reviews__empty" data-hcr-empty>No reviews match the selected filters.</div>
+  </div>
+
+  <div class="hcr-reviews__modal" aria-hidden="true" data-hcr-modal>
+    <div class="hcr-reviews__modal-card" role="dialog" aria-modal="true" aria-labelledby="hcr-modal-title">
+      <button class="hcr-reviews__modal-close" type="button" aria-label="Close review form" data-hcr-close>×</button>
+      <h3 class="hcr-reviews__modal-title" id="hcr-modal-title">Write a review</h3>
+      <p class="hcr-reviews__modal-note">Connect this button to your review platform’s form when publishing. The visual clone does not submit customer data.</p>
+    </div>
+  </div>
+  <div class="hcr-lightbox" aria-hidden="true" data-hcr-lightbox>
+    <div class="hcr-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Customer review photo">
+      <div class="hcr-lightbox__media">
+        <img class="hcr-lightbox__image" src="" alt="Customer review photo enlarged" data-hcr-lightbox-image>
+        <button class="hcr-lightbox__arrow hcr-lightbox__arrow--prev" type="button" aria-label="Previous review photo" data-hcr-lightbox-prev>&lsaquo;</button>
+        <button class="hcr-lightbox__arrow hcr-lightbox__arrow--next" type="button" aria-label="Next review photo" data-hcr-lightbox-next>&rsaquo;</button>
+      </div>
+      <div class="hcr-lightbox__details">
+        <button class="hcr-lightbox__close" type="button" aria-label="Close customer review" data-hcr-lightbox-close>&times;</button>
+        <div class="hcr-lightbox__customer">
+          <div class="hcr-lightbox__avatar" data-hcr-lightbox-avatar>MC</div>
+          <div>
+            <div class="hcr-lightbox__name" data-hcr-lightbox-name>meredith c</div>
+            <div class="hcr-lightbox__verified">Verified buyer</div>
+          </div>
+        </div>
+        <div class="hcr-lightbox__review">
+          <div class="hcr-lightbox__meta">
+            <div class="hcr-lightbox__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="hcr-lightbox__date" data-hcr-lightbox-date>2 days ago</div>
+          </div>
+          <h3 class="hcr-lightbox__title" data-hcr-lightbox-title>Glad I ordered! Great for deadlifting!</h3>
+          <p class="hcr-lightbox__body" data-hcr-lightbox-body>Easy to pull up but still wonderfully compressive. Plus natural fibers don&rsquo;t stink like my old socks.</p>
+          <div class="hcr-reviews__comfort">
+            <div class="hcr-reviews__comfort-label"><strong>Comfort</strong></div>
+            <div class="hcr-reviews__comfort-track" style="--marker:96%"><span></span><span></span><span></span><i class="hcr-reviews__comfort-marker"></i></div>
+            <div class="hcr-reviews__comfort-ends"><span>Poor</span><span>Excellent</span></div>
+          </div>
+          <img class="hcr-lightbox__mini" src="" alt="" data-hcr-lightbox-mini>
+          <div class="hcr-lightbox__product" data-hcr-lightbox-product>Review for Compression Socks - Black / WIDE / Medium</div>
+        </div>
+        <div class="hcr-lightbox__footer">
+          <span class="hcr-lightbox__recommend">Would recommend</span>
+          <span class="hcr-lightbox__counter" data-hcr-lightbox-counter>1 / 8</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.currentScript.previousElementSibling;
+    if (!root || !root.classList.contains("hcr-reviews")) return;
+
+    const list = root.querySelector("[data-hcr-list]");
+    const cards = Array.from(list.querySelectorAll(".hcr-review"));
+    const search = root.querySelector("[data-hcr-search]");
+    const rating = root.querySelector("[data-hcr-rating]");
+    const sort = root.querySelector("[data-hcr-sort]");
+    const photos = root.querySelector("[data-hcr-photos]");
+    const empty = root.querySelector("[data-hcr-empty]");
+
+    const applyFilters = () => {
+      const term = search.value.trim().toLowerCase();
+      const selectedRating = rating.value;
+      const onlyPhotos = photos.checked;
+
+      cards.forEach((card) => {
+        const matchesText = !term || card.textContent.toLowerCase().includes(term);
+        const matchesRating = selectedRating === "all" || card.dataset.rating === selectedRating;
+        const matchesPhotos = !onlyPhotos || card.dataset.photos === "true";
+        card.hidden = !(matchesText && matchesRating && matchesPhotos);
+      });
+
+      const direction = sort.value;
+      const ordered = [...cards].sort((a, b) => {
+        if (direction === "highest") return Number(b.dataset.rating) - Number(a.dataset.rating);
+        if (direction === "lowest") return Number(a.dataset.rating) - Number(b.dataset.rating);
+        if (direction === "oldest") return Number(b.dataset.order) - Number(a.dataset.order);
+        return Number(a.dataset.order) - Number(b.dataset.order);
+      });
+      ordered.forEach((card) => list.appendChild(card));
+      empty.style.setProperty("display", cards.some((card) => !card.hidden) ? "none" : "block", "important");
+    };
+
+    [search, rating, sort, photos].forEach((control) => {
+      control.addEventListener(control === search ? "input" : "change", applyFilters);
+    });
+
+    root.querySelector("[data-hcr-gallery-next]").addEventListener("click", () => {
+      root.querySelector("[data-hcr-gallery]").scrollBy({ left: 414, behavior: "smooth" });
+    });
+
+    const galleryItems = [
+      { name: "meredith c", avatar: "MC", date: "2 days ago", title: "Glad I ordered! Great for deadlifting!", body: "Easy to pull up but still wonderfully compressive. Plus natural fibers don’t stink like my old socks.", product: "Review for Compression Socks - Black / WIDE / Medium" },
+      { name: "Richard L", avatar: "RL", date: "41 minutes ago", title: "So far I have much more energy in my legs!", body: "So far it seems I have much more energy in my legs!!", product: "Review for Compression Socks - Grey / WIDE / Large" },
+      { name: "Merlin D", avatar: "MD", date: "1 hour ago", title: "Good compression but hard...", body: "Good compression but hard to get on and off.", product: "Review for Compression Socks - Grey / WIDE / X-Large" },
+      { name: "Doug D", avatar: "DD", date: "1 hour ago", title: "Great fit and compression", body: "Comfortable compression that stays in place throughout the day.", product: "Review for Compression Socks - Black / STANDARD / X-Large" },
+      { name: "Susan P", avatar: "SP", date: "3 days ago", title: "Comfortable all day", body: "Soft, supportive, and much easier to wear than my old compression socks.", product: "Review for Compression Socks - Grey / STANDARD / Medium" },
+      { name: "James R", avatar: "JR", date: "4 days ago", title: "Excellent support", body: "The compression feels balanced and keeps my legs comfortable for hours.", product: "Review for Compression Socks - Grey / WIDE / Large" },
+      { name: "Laura B", avatar: "LB", date: "5 days ago", title: "Exactly what I needed", body: "They feel soft against my skin and provide excellent support.", product: "Review for Compression Socks - White / STANDARD / Medium" },
+      { name: "Karen T", avatar: "KT", date: "1 week ago", title: "Very happy with these socks", body: "Great quality, comfortable fit, and no uncomfortable marks around the cuff.", product: "Review for Compression Socks - Natural / WIDE / Large" }
+    ];
+    const thumbs = Array.from(root.querySelectorAll(".hcr-reviews__thumb"));
+    const lightbox = root.querySelector("[data-hcr-lightbox]");
+    const lightboxImage = root.querySelector("[data-hcr-lightbox-image]");
+    const lightboxMini = root.querySelector("[data-hcr-lightbox-mini]");
+    const lightboxName = root.querySelector("[data-hcr-lightbox-name]");
+    const lightboxAvatar = root.querySelector("[data-hcr-lightbox-avatar]");
+    const lightboxDate = root.querySelector("[data-hcr-lightbox-date]");
+    const lightboxTitle = root.querySelector("[data-hcr-lightbox-title]");
+    const lightboxBody = root.querySelector("[data-hcr-lightbox-body]");
+    const lightboxProduct = root.querySelector("[data-hcr-lightbox-product]");
+    const lightboxCounter = root.querySelector("[data-hcr-lightbox-counter]");
+    let activeGalleryIndex = 0;
+    let previousBodyOverflow = "";
+
+    const renderLightbox = (index) => {
+      activeGalleryIndex = (index + thumbs.length) % thumbs.length;
+      const thumbImage = thumbs[activeGalleryIndex].querySelector("img");
+      const item = galleryItems[activeGalleryIndex];
+      lightboxImage.src = thumbs[activeGalleryIndex].dataset.hcrFull || thumbImage.currentSrc || thumbImage.src;
+      lightboxMini.src = thumbImage.currentSrc || thumbImage.src;
+      lightboxName.textContent = item.name;
+      lightboxAvatar.textContent = item.avatar;
+      lightboxDate.textContent = item.date;
+      lightboxTitle.textContent = item.title;
+      lightboxBody.textContent = item.body;
+      lightboxProduct.textContent = item.product;
+      lightboxCounter.textContent = `${activeGalleryIndex + 1} / ${thumbs.length}`;
+    };
+
+    const openLightbox = (index) => {
+      renderLightbox(index);
+      previousBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      lightbox.setAttribute("aria-hidden", "false");
+      root.querySelector("[data-hcr-lightbox-close]").focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = previousBodyOverflow;
+      thumbs[activeGalleryIndex].focus();
+    };
+
+    thumbs.forEach((thumb, index) => {
+      thumb.setAttribute("aria-label", `Open customer review photo ${index + 1}`);
+      thumb.addEventListener("click", () => openLightbox(index));
+    });
+
+    root.querySelector("[data-hcr-lightbox-prev]").addEventListener("click", () => renderLightbox(activeGalleryIndex - 1));
+    root.querySelector("[data-hcr-lightbox-next]").addEventListener("click", () => renderLightbox(activeGalleryIndex + 1));
+    root.querySelector("[data-hcr-lightbox-close]").addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    root.querySelectorAll(".hcr-review__vote").forEach((button) => {
+      button.addEventListener("click", () => {
+        button.style.color = "#041e3a";
+        button.setAttribute("aria-pressed", "true");
+      });
+    });
+
+    const modal = root.querySelector("[data-hcr-modal]");
+    root.querySelector("[data-hcr-open-review]").addEventListener("click", () => modal.setAttribute("aria-hidden", "false"));
+    root.querySelector("[data-hcr-close]").addEventListener("click", () => modal.setAttribute("aria-hidden", "true"));
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) modal.setAttribute("aria-hidden", "true");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.getAttribute("aria-hidden") === "false") {
+        if (event.key === "Escape") closeLightbox();
+        if (event.key === "ArrowLeft") renderLightbox(activeGalleryIndex - 1);
+        if (event.key === "ArrowRight") renderLightbox(activeGalleryIndex + 1);
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,255 @@
+<style>
+  /* ============================================================
+     Marquee de benefícios — clone Hollow Socks
+     Escopo exclusivo: .hbmq-strip  (blindado contra CSS do tema)
+     Faixa bege com ícones + rótulos deslizando infinitamente.
+     ============================================================ */
+
+  @font-face {
+    font-family: "HBMQ GT America Mono";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/787a4c5b-7bbf-431a-9359-67ce6dd4e65a_GT-America-Mono-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .hbmq-strip,
+  .hbmq-strip *,
+  .hbmq-strip *::before,
+  .hbmq-strip *::after {
+    box-sizing: border-box !important;
+  }
+
+  /* FULL-BLEED — o Impact prende o Custom Liquid dentro de um container com
+     max-width + padding lateral, então a faixa ficaria ilhada no meio da tela.
+     Aqui a strip assume a largura da viewport e é recentrada com margem
+     negativa, escapando de QUALQUER container do tema, seja qual for a
+     largura dele. Os dois blocos abaixo fazem a mesma coisa: o primeiro é o
+     fallback universal, o segundo usa a unidade que ignora a barra de rolagem
+     (evita alguns px de overflow horizontal onde a barra ocupa espaço). */
+  .hbmq-strip {
+    display: block !important;
+    position: relative !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 50% !important;
+    right: auto !important;
+    margin-left: -50vw !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background: #e5dcca !important;
+    padding: 26px 0 !important;
+    overflow: hidden !important;
+    /* Se o container do tema for flex/grid (o Impact usa em vários pontos),
+       sem isto a faixa seria centralizada como item e sairia do lugar mesmo
+       tendo 100vw de largura. */
+    align-self: stretch !important;
+    justify-self: stretch !important;
+    flex: 0 0 auto !important;
+  }
+
+  @supports (width: 100dvw) {
+    .hbmq-strip {
+      width: 100dvw !important;
+      max-width: 100dvw !important;
+      margin-left: -50dvw !important;
+    }
+  }
+
+  /* Janela: recorta o trilho e esconde a parte que já passou */
+  .hbmq-strip .hbmq-viewport {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Trilho: dois grupos idênticos lado a lado. A animação desloca exatamente
+     a largura de UM grupo (--hbmq-shift, medida no load) e reinicia — por isso
+     a emenda cai no lugar certo e o loop não mostra buraco.
+     Fallback -50% cobre o instante antes do JS medir. */
+  .hbmq-strip .hbmq-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: max-content !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    /* Zera os nós de texto (quebras de linha do HTML) entre os grupos:
+       com nowrap eles virariam um espaço largo e abririam um vão na emenda.
+       Os filhos restauram o próprio font-size. */
+    font-size: 0 !important;
+    will-change: transform !important;
+    animation: hbmq-scroll 50s linear infinite !important;
+  }
+
+  /* Um grupo = a lista de benefícios repetida algumas vezes,
+     larga o bastante para cobrir telas grandes sem buraco. */
+  .hbmq-strip .hbmq-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 40px !important;
+    margin: 0 !important;
+    padding: 0 40px 0 0 !important; /* mantém o gap na emenda entre os grupos */
+    flex: 0 0 auto !important;
+  }
+
+  .hbmq-strip .hbmq-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hbmq-strip .hbmq-ico {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    flex: 0 0 20px !important;
+    object-fit: contain !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .hbmq-strip .hbmq-label {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "HBMQ GT America Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 14px !important;
+    letter-spacing: 0.56px !important;
+    text-transform: uppercase !important;
+    color: #282828 !important;
+    white-space: nowrap !important;
+  }
+
+  @keyframes hbmq-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(var(--hbmq-shift, 50%) * -1)); }
+  }
+
+  /* Mobile: mesma faixa, itens um pouco mais juntos (como no original) */
+  @media (max-width: 767px) {
+    .hbmq-strip .hbmq-group {
+      gap: 24px !important;
+      padding-right: 24px !important;
+    }
+  }
+
+  /* Respeita quem pediu menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    .hbmq-strip .hbmq-track {
+      animation: none !important;
+    }
+    .hbmq-strip .hbmq-viewport {
+      overflow-x: auto !important;
+    }
+  }
+</style>
+
+<div class="hbmq-strip" role="marquee" aria-label="Benefícios do produto">
+  <div class="hbmq-viewport">
+    <div class="hbmq-track">
+
+      {%- comment -%} Grupo 1 (visível) {%- endcomment -%}
+      <div class="hbmq-group">
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+      </div>
+
+      {%- comment -%} Grupo 2 — cópia exata do grupo 1, só para o loop emendar sem corte. Oculto de leitores de tela. {%- endcomment -%}
+      <div class="hbmq-group" aria-hidden="true">
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/3e8f3d93-0842-415f-980d-8c2339426715" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">temperature regulating</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/2e3af8ec-c704-4e48-aa4d-83d02d09c050" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">breathable &amp; light</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/474413fa-6896-4d19-a825-5c0cea6c952d" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">super soft</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/900adad0-0e03-4dfe-99b4-aaa89e5a3be2" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">moisture wicking</p></div>
+        <div class="hbmq-item"><img class="hbmq-ico" src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/000d6627-f069-4e3e-a5e1-6dfd7f11e281" width="40" height="40" alt="" loading="eager" decoding="async"><p class="hbmq-label">odor resistant</p></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* Mede a largura real de um grupo e usa esse valor como deslocamento da
+     animação. Sem isso, um translateX(-50%) erra a emenda sempre que a
+     largura do track muda (fontes/ícones carregando depois, resize), e
+     aparece um vão vazio no loop. Também mantém a velocidade constante
+     (~66 px/s, a mesma do original) em qualquer largura de tela. */
+  (function () {
+    var strip = document.currentScript && document.currentScript.previousElementSibling;
+    if (!strip || !strip.classList.contains('hbmq-strip')) {
+      strip = document.querySelector('.hbmq-strip');
+    }
+    if (!strip) return;
+
+    var track = strip.querySelector('.hbmq-track');
+    var group = strip.querySelector('.hbmq-group');
+    if (!track || !group) return;
+
+    var SPEED = 66; /* px por segundo, medido no site original */
+
+    function sync() {
+      var w = group.getBoundingClientRect().width;
+      if (!w) return;
+      track.style.setProperty('--hbmq-shift', w + 'px');
+      track.style.animationDuration = (w / SPEED).toFixed(2) + 's';
+    }
+
+    sync();
+
+    /* Remede quando fontes e ícones terminam de carregar — é aí que a
+       largura muda e a emenda sairia do lugar. */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+    window.addEventListener('load', sync);
+
+    var t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(sync, 150);
+    });
+  })();
+</script>

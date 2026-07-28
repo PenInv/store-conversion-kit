@@ -1,0 +1,307 @@
+<style>
+  @font-face {
+    font-family: "hsc-Graphik-XXCond";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1229ddfd-460c-48a6-b37f-c277dc5503a4_Graphik_XX_Condensed_Bold.woff") format("woff");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hsc-Haas-Grot";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1aed3e07-2686-4a32-becf-7deac2a5f494_NeueHaasGroteskText-65Medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hsc-GT-America-Mono";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/787a4c5b-7bbf-431a-9359-67ce6dd4e65a_GT-America-Mono-Medium.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  .hsc-root,
+  .hsc-root * {
+    box-sizing: border-box !important;
+  }
+
+  .hsc-root {
+    width: 100% !important;
+    max-width: 432px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #282828 !important;
+    background: #ffffff !important;
+  }
+
+  .hsc-root .hsc-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-height: 29.52px !important;
+    margin: 0 !important;
+    padding: 0 0 4px !important;
+  }
+
+  .hsc-root .hsc-title,
+  .hsc-root .hsc-subtitle {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #282828 !important;
+    text-align: left !important;
+  }
+
+  .hsc-root .hsc-title {
+    flex: 0 0 auto !important;
+    font-family: "hsc-Graphik-XXCond", "Arial Narrow", sans-serif !important;
+    font-size: 29px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 25.52px !important;
+    letter-spacing: 0.02em !important;
+    text-transform: uppercase !important;
+  }
+
+  .hsc-root .hsc-subtitle {
+    flex: 1 1 auto !important;
+    font-family: "hsc-Haas-Grot", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 14px !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+  }
+
+  .hsc-root .hsc-table {
+    width: 100% !important;
+    margin: 4px 0 0 !important;
+    border: 0 !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    table-layout: fixed !important;
+  }
+
+  .hsc-root .hsc-table col:first-child {
+    width: 90px !important;
+  }
+
+  .hsc-root .hsc-table col:not(:first-child) {
+    width: calc((100% - 90px) / 4) !important;
+  }
+
+  .hsc-root .hsc-table th,
+  .hsc-root .hsc-table td {
+    height: 39px !important;
+    margin: 0 !important;
+    padding: 12px 7px !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+    color: #282828 !important;
+    background: #ffffff !important;
+    border: 1px solid #282828 !important;
+  }
+
+  .hsc-root .hsc-table th {
+    height: 40px !important;
+    color: #ffffff !important;
+    background: #282828 !important;
+    font-family: "hsc-GT-America-Mono", monospace !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 14px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hsc-root .hsc-table td {
+    font-family: "hsc-GT-America-Mono", monospace !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 14px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hsc-root .hsc-table td:first-child {
+    font-family: "hsc-Haas-Grot", Arial, sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    text-transform: capitalize !important;
+    white-space: normal !important;
+  }
+
+  .hsc-root .hsc-table tr.hsc-measure-row td {
+    height: 57px !important;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+  }
+
+  .hsc-root .hsc-table tr.hsc-wide-row td {
+    height: 67px !important;
+  }
+
+  @media (max-width: 640px) {
+    .hsc-root .hsc-heading {
+      min-height: 32px !important;
+    }
+
+    .hsc-root .hsc-title {
+      font-size: 26px !important;
+      line-height: 23px !important;
+    }
+
+    .hsc-root .hsc-table col:first-child {
+      width: 21% !important;
+    }
+
+    .hsc-root .hsc-table col:not(:first-child) {
+      width: 19.75% !important;
+    }
+
+    .hsc-root .hsc-table th,
+    .hsc-root .hsc-table td {
+      padding: 7px 6px !important;
+      font-size: 14px !important;
+      line-height: 14px !important;
+    }
+
+    .hsc-root .hsc-table th {
+      height: 36px !important;
+      font-size: 13px !important;
+      line-height: 13px !important;
+      letter-spacing: 0.04em !important;
+    }
+
+    .hsc-root .hsc-table td {
+      height: 35px !important;
+      letter-spacing: 0.04em !important;
+    }
+
+    .hsc-root .hsc-table tr.hsc-measure-row td {
+      height: 52px !important;
+      padding-top: 4px !important;
+      padding-bottom: 4px !important;
+    }
+
+    .hsc-root .hsc-table tr.hsc-wide-row td {
+      height: 61px !important;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .hsc-root .hsc-table col:first-child {
+      width: 90px !important;
+    }
+
+    .hsc-root .hsc-table col:not(:first-child) {
+      width: calc((100% - 90px) / 4) !important;
+    }
+
+    .hsc-root .hsc-table th,
+    .hsc-root .hsc-table td {
+      padding-right: 4px !important;
+      padding-left: 4px !important;
+      font-size: 12px !important;
+      line-height: 12px !important;
+    }
+
+    .hsc-root .hsc-table tr.hsc-wide-row td {
+      height: 49px !important;
+    }
+
+    .hsc-root .hsc-mobile-hide-break {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 359px) {
+    .hsc-root .hsc-heading {
+      gap: 6px !important;
+    }
+
+    .hsc-root .hsc-title {
+      font-size: 26px !important;
+    }
+
+    .hsc-root .hsc-subtitle {
+      font-size: 13px !important;
+    }
+
+    .hsc-root .hsc-table col:first-child {
+      width: 82px !important;
+    }
+
+    .hsc-root .hsc-table th,
+    .hsc-root .hsc-table td {
+      padding-right: 3px !important;
+      padding-left: 3px !important;
+      font-size: 11px !important;
+    }
+  }
+</style>
+
+<section class="hsc-root" aria-labelledby="hsc-title">
+  <div class="hsc-heading">
+    <h2 class="hsc-title" id="hsc-title">Size Chart</h2>
+    <p class="hsc-subtitle">Show Size (US)</p>
+  </div>
+
+  <table class="hsc-table" aria-label="Hollow Socks size chart">
+    <colgroup>
+      <col>
+      <col>
+      <col>
+      <col>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Small</th>
+        <th scope="col">Medium</th>
+        <th scope="col">Large</th>
+        <th scope="col">XL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Men</td>
+        <td>-</td>
+        <td>6-9</td>
+        <td>9.5-12</td>
+        <td>12.5-15</td>
+      </tr>
+      <tr>
+        <td>Women</td>
+        <td>4-6.5</td>
+        <td>7-9.5</td>
+        <td>10-13</td>
+        <td>-</td>
+      </tr>
+      <tr class="hsc-measure-row">
+        <td>Standard<br>Calf Max<br>Stretch</td>
+        <td>14”</td>
+        <td>16”</td>
+        <td>18”</td>
+        <td>20”</td>
+      </tr>
+      <tr class="hsc-wide-row">
+        <td>Wide Calf<br>Max<br class="hsc-mobile-hide-break">Stretch</td>
+        <td>18”</td>
+        <td>20”</td>
+        <td>22”</td>
+        <td>24”</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

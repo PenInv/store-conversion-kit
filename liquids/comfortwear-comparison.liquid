@@ -1,0 +1,291 @@
+<div class="cw-compare">
+  <div class="cw-compare__inner">
+
+    <div class="cw-compare__intro">
+      <h2 class="cw-compare__title">Siente la diferencia en cada afeitado</h2>
+      <p class="cw-compare__desc">Hecho para cortar el vello, no la piel. Mientras la cuchilla com&uacute;n rapa demasiado al ras y deja el cuello enrojecido, OneBlade ofrece un look limpio y controlado. Sin ardor, sin granitos y sin los vellos encarnados que aparecen al d&iacute;a siguiente.</p>
+    </div>
+
+    <div class="cw-compare__table">
+
+      <div class="cw-compare__head">
+        <div class="cw-compare__head-label"></div>
+        <div class="cw-compare__head-theirs">Cuchilla com&uacute;n</div>
+        <div class="cw-compare__head-ours">OneBlade</div>
+      </div>
+
+      <div class="cw-compare__row">
+        <div class="cw-compare__feature">Acabado</div>
+        <div class="cw-compare__theirs">
+          <span class="cw-ico cw-ico--x">&times;</span>
+          <span class="cw-cell-text">Rapa demasiado al ras</span>
+        </div>
+        <div class="cw-compare__ours">
+          <span class="cw-ico cw-ico--check">&#10003;</span>
+          <span class="cw-cell-text">Corta el vello, no la piel</span>
+        </div>
+      </div>
+
+      <div class="cw-compare__row">
+        <div class="cw-compare__feature">Cuello sensible</div>
+        <div class="cw-compare__theirs">
+          <span class="cw-ico cw-ico--x">&times;</span>
+          <span class="cw-cell-text">Rojo y con ardor</span>
+        </div>
+        <div class="cw-compare__ours">
+          <span class="cw-ico cw-ico--check">&#10003;</span>
+          <span class="cw-cell-text">Menos roce en la piel</span>
+        </div>
+      </div>
+
+      <div class="cw-compare__row">
+        <div class="cw-compare__feature">Vellos encarnados</div>
+        <div class="cw-compare__theirs">
+          <span class="cw-ico cw-ico--x">&times;</span>
+          <span class="cw-cell-text">Granitos y encarnados</span>
+        </div>
+        <div class="cw-compare__ours">
+          <span class="cw-ico cw-ico--check">&#10003;</span>
+          <span class="cw-cell-text">Sin el ras que encarna</span>
+        </div>
+      </div>
+
+      <div class="cw-compare__row">
+        <div class="cw-compare__feature">Aspecto</div>
+        <div class="cw-compare__theirs">
+          <span class="cw-ico cw-ico--x">&times;</span>
+          <span class="cw-cell-text">Al ras o descuidado</span>
+        </div>
+        <div class="cw-compare__ours">
+          <span class="cw-ico cw-ico--check">&#10003;</span>
+          <span class="cw-cell-text">Limpio y controlado</span>
+        </div>
+      </div>
+
+      <div class="cw-compare__row cw-compare__row--last">
+        <div class="cw-compare__feature">Funciones</div>
+        <div class="cw-compare__theirs">
+          <span class="cw-ico cw-ico--x">&times;</span>
+          <span class="cw-cell-text">Solo afeita</span>
+        </div>
+        <div class="cw-compare__ours">
+          <span class="cw-ico cw-ico--check">&#10003;</span>
+          <span class="cw-cell-text">Recorta, perfila y afeita</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .cw-compare {
+    /* Identidade visual — White elegante com destaque verde-limao */
+    --cw-ours-bg: rgba(0,0,0,0.85);  /* coluna ours -> preto 85% (#000000D9) */
+    --cw-lime: #A8C900;           /* verde-limao -> detalhes / check */
+    --cw-gray-ico: #C2C8CE;       /* x -> cinza claro */
+    --cw-bg: #E9EDF1;             /* fundo -> cinza claro */
+    --cw-card: #FFFFFF;           /* coluna theirs -> branco */
+    --cw-text-dark: #1A2230;      /* texto principal */
+    --cw-text-muted: #7A828C;     /* texto secundario -> cinza medio */
+    --cw-border: rgba(26,34,48,0.08);
+    background:
+      linear-gradient(180deg, #FFFFFF 0%, var(--cw-bg) 14%, var(--cw-bg) 86%, #FFFFFF 100%);
+    padding: 64px 24px;
+    box-sizing: border-box;
+    font-family: "Poppins", "Montserrat", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .cw-compare *,
+  .cw-compare *::before,
+  .cw-compare *::after { box-sizing: border-box; }
+
+  .cw-compare__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .cw-compare__title {
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--cw-text-dark);
+    margin: 0 0 18px;
+  }
+  .cw-compare__desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cw-text-muted);
+    margin: 0;
+    max-width: 420px;
+  }
+
+  /* Tabela */
+  .cw-compare__table {
+    display: block;
+  }
+  .cw-compare__head,
+  .cw-compare__row {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    align-items: stretch;
+  }
+
+  .cw-compare__head-label,
+  .cw-compare__head-theirs,
+  .cw-compare__head-ours {
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    padding: 20px 12px;
+  }
+  .cw-compare__head-theirs {
+    color: var(--cw-text-muted);
+    background: var(--cw-card);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+  }
+  .cw-compare__head-ours {
+    color: #FFFFFF;
+    background: var(--cw-ours-bg);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    box-shadow: 0 16px 40px rgba(20,32,43,0.22);
+  }
+
+  .cw-compare__feature {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cw-text-dark);
+    padding: 18px 16px 18px 0;
+    border-top: 1px solid var(--cw-border);
+  }
+
+  .cw-compare__theirs,
+  .cw-compare__ours {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    padding: 18px 14px;
+  }
+  .cw-compare__theirs {
+    background: var(--cw-card);
+    color: var(--cw-text-muted);
+  }
+  .cw-compare__ours {
+    background: var(--cw-ours-bg);
+    color: #FFFFFF;
+    box-shadow: 0 16px 40px rgba(20,32,43,0.22);
+  }
+  .cw-compare__row--last .cw-compare__theirs {
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+  .cw-compare__row--last .cw-compare__ours {
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+
+  .cw-cell-text {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .cw-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .cw-ico--x {
+    background: transparent;
+    border: 2px solid var(--cw-gray-ico);
+    color: var(--cw-gray-ico);
+  }
+  .cw-ico--check {
+    background: var(--cw-lime);
+    color: var(--cw-ours-bg);
+    box-shadow: 0 0 0 4px rgba(168,201,0,0.18);
+  }
+
+  /* Mobile — replica a loja: empilha texto/tabela mas mantem as 3 colunas */
+  @media (max-width: 749px) {
+    .cw-compare { padding: 32px 14px; }
+    .cw-compare__inner {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    .cw-compare__title {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .cw-compare__desc {
+      font-size: 15px;
+      max-width: none;
+    }
+
+    /* Tabela ocupa largura total, 3 colunas mantidas */
+    .cw-compare__head,
+    .cw-compare__row {
+      grid-template-columns: 0.95fr 1fr 1fr;
+    }
+
+    .cw-compare__head-label,
+    .cw-compare__head-theirs,
+    .cw-compare__head-ours {
+      font-size: 14px;
+      padding: 16px 4px;
+    }
+
+    .cw-compare__feature {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px 8px 14px 4px;
+      line-height: 1.25;
+    }
+
+    .cw-compare__theirs,
+    .cw-compare__ours {
+      padding: 16px 6px;
+      gap: 8px;
+    }
+
+    .cw-cell-text {
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .cw-ico {
+      width: 24px;
+      height: 24px;
+      font-size: 15px;
+    }
+  }
+
+  /* Telas muito estreitas */
+  @media (max-width: 380px) {
+    .cw-compare__head-label,
+    .cw-compare__head-theirs,
+    .cw-compare__head-ours { font-size: 13px; }
+    .cw-compare__feature { font-size: 12px; }
+    .cw-cell-text { font-size: 12px; }
+    .cw-compare__theirs,
+    .cw-compare__ours { padding: 14px 4px; }
+  }
+</style>

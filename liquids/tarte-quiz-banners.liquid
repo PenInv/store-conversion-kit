@@ -1,0 +1,104 @@
+<!-- CUSTOM LIQUID - Tarte Quiz Banners Clone (concealer / mascara / lip) -->
+<div class="edps-qb-root">
+  <style>
+    .edps-qb-root, .edps-qb-root * { box-sizing: border-box !important; }
+    .edps-qb-root {
+      max-width: 1560px !important;
+      margin: 0 auto !important;
+      padding: 16px 40px !important;
+    }
+    .edps-qb-track {
+      display: flex !important;
+      gap: 24px !important;
+      overflow-x: auto !important;
+      overflow-y: visible !important;
+      scroll-snap-type: x proximity !important;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      scrollbar-width: none !important;
+    }
+    .edps-qb-track::-webkit-scrollbar { display: none !important; }
+
+    .edps-qb-item {
+      flex: 0 0 auto !important;
+      width: 411px !important;
+      aspect-ratio: 411 / 548 !important;
+      scroll-snap-align: start !important;
+    }
+
+    .edps-qb-card {
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      text-decoration: none !important;
+    }
+    .edps-qb-card img {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      transition: transform 0.3s ease !important;
+    }
+    .edps-qb-card:hover img { transform: scale(1.05) !important; }
+
+    .edps-qb-btn {
+      position: absolute !important;
+      bottom: 18px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: #fff !important;
+      border: 1px solid rgb(74,68,78) !important;
+      border-radius: 2000px !important;
+      padding: 10px 16px !important;
+      white-space: nowrap !important;
+    }
+    .edps-qb-btn span {
+      font-family: Helvetica, Arial, sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
+      color: rgb(74,68,78) !important;
+    }
+
+    /* O original usa um swiper com slidesPerView 1.05 e spaceBetween 16 dentro
+       de um container com padding lateral de 24px, então o card escala com a
+       viewport: (100vw - 48px - 0.8px) / 1.05. O 0.05 de slide extra é o
+       "peek" do próximo card. */
+    @media screen and (max-width: 1022px) {
+      .edps-qb-root { padding: 16px 24px !important; }
+      .edps-qb-track { gap: 16px !important; }
+      .edps-qb-item { width: calc((100vw - 48px - 0.8px) / 1.05) !important; }
+    }
+  </style>
+
+  <ul class="edps-qb-track">
+
+    <li class="edps-qb-item">
+      <a class="edps-qb-card" href="/pages/concealer-quiz" title="concealer quiz link">
+        <img src="https://tartecosmetics.com/cdn/shop/files/quizzes-concealer.jpg?v=1747341791" alt="concealer">
+        <span class="edps-qb-btn"><span>Concealer Quiz</span></span>
+      </a>
+    </li>
+
+    <li class="edps-qb-item">
+      <a class="edps-qb-card" href="/pages/mascara-quiz" title="mascara quiz link">
+        <img src="https://tartecosmetics.com/cdn/shop/files/quizzes-mascara.jpg?v=1747341792" alt="mascara">
+        <span class="edps-qb-btn"><span>Mascara Quiz</span></span>
+      </a>
+    </li>
+
+    <li class="edps-qb-item">
+      <a class="edps-qb-card" href="/pages/lip-quiz" title="lip quiz link">
+        <img src="https://tartecosmetics.com/cdn/shop/files/quizzes-lip.jpg?v=1747341792" alt="lip">
+        <span class="edps-qb-btn"><span>Lip Quiz</span></span>
+      </a>
+    </li>
+
+  </ul>
+</div>

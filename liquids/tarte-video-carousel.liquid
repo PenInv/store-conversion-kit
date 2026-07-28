@@ -1,0 +1,389 @@
+<!-- CUSTOM LIQUID - Tarte Video Carousel Clone -->
+<div class="edps-vc-root">
+  <style>
+    .edps-vc-root, .edps-vc-root * { box-sizing: border-box !important; }
+    .edps-vc-root {
+      max-width: 1560px !important;
+      margin: 0 auto !important;
+      padding: 16px 40px !important;
+      font-family: Helvetica, Arial, sans-serif !important;
+      position: relative !important;
+    }
+    .edps-vc-viewport {
+      overflow: hidden !important;
+      padding: 10px 0 !important;
+    }
+    .edps-vc-track {
+      display: flex !important;
+      align-items: center !important;
+      gap: 20px !important;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      will-change: transform !important;
+      transition: transform 0.5s ease !important;
+    }
+
+    /* A largura do item troca sem transição: o JS a usa para centralizar o
+       slide ativo, e um valor interpolado daria uma posição errada. */
+    .edps-vc-item {
+      flex: 0 0 auto !important;
+      width: 220px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 15px !important;
+    }
+    .edps-vc-item--center { width: 321px !important; }
+
+    .edps-vc-media {
+      position: relative !important;
+      width: 100% !important;
+      height: 293px !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      background: #eee !important;
+      cursor: pointer !important;
+      transition: height 0.5s ease !important;
+    }
+    .edps-vc-item--center .edps-vc-media {
+      height: 427px !important;
+    }
+    .edps-vc-media img,
+    .edps-vc-media video {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 16px !important;
+    }
+
+    .edps-vc-playbtn {
+      position: absolute !important;
+      bottom: 12px !important;
+      right: 12px !important;
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50% !important;
+      background: rgba(0,0,0,0.3) !important;
+      border: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      cursor: pointer !important;
+    }
+    .edps-vc-playbtn svg { width: 20px !important; height: 20px !important; }
+    .edps-vc-playbtn .edps-vc-icon-play { display: block !important; }
+    .edps-vc-playbtn .edps-vc-icon-pause { display: none !important; }
+    .edps-vc-playbtn.is-playing .edps-vc-icon-play { display: none !important; }
+    .edps-vc-playbtn.is-playing .edps-vc-icon-pause { display: block !important; }
+
+    .edps-vc-product {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      background: #fff !important;
+      border: 1px solid rgb(216,216,216) !important;
+      border-radius: 5px !important;
+      padding: 12px !important;
+      min-height: 110px !important;
+    }
+
+    .edps-vc-product img {
+      width: 55px !important;
+      height: 86px !important;
+      object-fit: cover !important;
+      flex: 0 0 auto !important;
+    }
+    .edps-vc-product-info {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 4px !important;
+      overflow: hidden !important;
+    }
+    .edps-vc-product-title {
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      line-height: 1.4 !important;
+      color: rgb(74,68,78) !important;
+      margin: 0 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+    .edps-vc-product-price {
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      color: rgb(74,68,78) !important;
+      margin: 0 !important;
+    }
+
+    .edps-vc-nav {
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 36px !important;
+      height: 36px !important;
+      border-radius: 50% !important;
+      background: #fff !important;
+      border: 1px solid #ddd !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      z-index: 2 !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+    }
+    .edps-vc-nav--prev { left: 0px !important; }
+    .edps-vc-nav--next { right: 0px !important; }
+    .edps-vc-nav svg { width: 16px !important; height: 16px !important; }
+
+    @media screen and (max-width: 749px) {
+      .edps-vc-root { padding: 16px 0 !important; }
+      .edps-vc-track { gap: 0 !important; }
+      .edps-vc-item { gap: 12px !important; }
+
+      /* Medidas do original (viewport 390px): lateral 210x280, centro 297x366. */
+      .edps-vc-item { width: 53.85vw !important; }
+      .edps-vc-item--center { width: 76.15vw !important; }
+      .edps-vc-media { height: 71.8vw !important; }
+      .edps-vc-item--center .edps-vc-media { height: 93.85vw !important; }
+
+      /* No mobile o original só mostra o card de produto do slide central,
+         e ele é mais estreito que o vídeo (279px contra 297px). */
+      .edps-vc-product { display: none !important; }
+      .edps-vc-item--center .edps-vc-product {
+        display: flex !important;
+        width: 93.94% !important;
+      }
+
+      /* Os vídeos ficam centrados entre si, não o conjunto vídeo + card. */
+      .edps-vc-track { align-items: flex-start !important; }
+      .edps-vc-item { margin-top: 11.03vw !important; }
+      .edps-vc-item--center { margin-top: 0 !important; }
+
+      .edps-vc-nav--prev { left: 8px !important; }
+      .edps-vc-nav--next { right: 8px !important; }
+    }
+  </style>
+
+  <button class="edps-vc-nav edps-vc-nav--prev" type="button" aria-label="Anterior">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#4A444E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="edps-vc-nav edps-vc-nav--next" type="button" aria-label="Próximo">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#4A444E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div class="edps-vc-viewport">
+  <ul class="edps-vc-track">
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/f7ccad1516ab42e8b414707230e3be5a.thumbnail.0000000000.jpg?v=1781801305&width=800" src="https://cdn.shopify.com/videos/c/vp/f7ccad1516ab42e8b414707230e3be5a/f7ccad1516ab42e8b414707230e3be5a.HD-720p-1.6Mbps-86879975.mp4" loop muted playsinline preload="none" aria-label="CC undereye corrector"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__846733010059__CC-undereye-corrector-light-medium-peach__01.jpg?v=1772210109&width=80" alt="CC undereye corrector">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">CC undereye corrector</p>
+          <p class="edps-vc-product-price">$32</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/3d727d8b9e674a4db2172064d25a116a.thumbnail.0000000000.jpg?v=1781801308&width=800" src="https://cdn.shopify.com/videos/c/vp/3d727d8b9e674a4db2172064d25a116a/3d727d8b9e674a4db2172064d25a116a.HD-720p-2.1Mbps-86879979.mp4" loop muted playsinline preload="none" aria-label="tartelette tubing mascara"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__846733082957__tubing-mascara-black__01.jpg?v=1762804926&width=80" alt="tartelette tubing mascara">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">tartelette™ tubing mascara</p>
+          <p class="edps-vc-product-price">$28</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/cf633853aa334590b426c4bc99fe1987.thumbnail.0000000000.jpg?v=1781801303&width=800" src="https://cdn.shopify.com/videos/c/vp/cf633853aa334590b426c4bc99fe1987/cf633853aa334590b426c4bc99fe1987.HD-720p-1.6Mbps-86879968.mp4" loop muted playsinline preload="none" aria-label="shape tape concealer"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__846733016136__shape-tape-contour-concealer-29N-light-medium__01.jpg?v=1762804790&width=80" alt="shape tape concealer">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">shape tape™ concealer</p>
+          <p class="edps-vc-product-price">$32</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/c8a8427f88d745ffb6c308b9348d1590.thumbnail.0000000000.jpg?v=1781801303&width=800" src="https://cdn.shopify.com/videos/c/vp/c8a8427f88d745ffb6c308b9348d1590/c8a8427f88d745ffb6c308b9348d1590.HD-720p-1.6Mbps-86879970.mp4" loop muted playsinline preload="none" aria-label="CC color-correcting tinted serum"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/common__CC-tinted-serum__01.jpg?v=1780684013&width=80" alt="CC color-correcting tinted serum">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">CC color-correcting tinted serum</p>
+          <p class="edps-vc-product-price">$42</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/02f510b3b06e468a950ffd9f83ec4628.thumbnail.0000000000.jpg?v=1781801308&width=800" src="https://cdn.shopify.com/videos/c/vp/02f510b3b06e468a950ffd9f83ec4628/02f510b3b06e468a950ffd9f83ec4628.HD-720p-1.6Mbps-86879982.mp4" loop muted playsinline preload="none" aria-label="creaseless SPF 30 mineral powder sunscreen"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__197689057002__creaseless-SPF-30-translucent__01.jpg?v=1772487658&width=80" alt="creaseless SPF 30 mineral powder sunscreen">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">creaseless SPF 30 mineral…</p>
+          <p class="edps-vc-product-price">$37</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/33bf9a4ed5d04dea8eba5ea5d8447b99.thumbnail.0000000000.jpg?v=1781801305&width=800" src="https://cdn.shopify.com/videos/c/vp/33bf9a4ed5d04dea8eba5ea5d8447b99/33bf9a4ed5d04dea8eba5ea5d8447b99.HD-720p-1.6Mbps-86879971.mp4" loop muted playsinline preload="none" aria-label="shape tape blur concealer stick"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__197689033549__shape-tape-stick-35N-medium__01.jpg?v=1762804915&width=80" alt="shape tape blur concealer stick">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">shape tape™ blur concealer…</p>
+          <p class="edps-vc-product-price">$32</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="edps-vc-item">
+      <div class="edps-vc-media">
+        <video class="edps-vc-video" poster="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/preview_images/d9f61c3dc55f4e9b918294c90ad74237.thumbnail.0000000000.jpg?v=1781801308&width=800" src="https://cdn.shopify.com/videos/c/vp/d9f61c3dc55f4e9b918294c90ad74237/d9f61c3dc55f4e9b918294c90ad74237.HD-720p-1.6Mbps-86879976.mp4" loop muted playsinline preload="none" aria-label="tarte freckle stick"></video>
+        <button class="edps-vc-playbtn" aria-label="Reproduzir vídeo">
+          <svg class="edps-vc-icon-play" viewBox="0 0 24 24" fill="none"><path d="M4 3.532c0-1.554 1.696-2.514 3.029-1.715l14.113 8.468c1.294.777 1.294 2.653 0 3.43L7.029 22.183c-1.333.8-3.029-.16-3.029-1.715V3.532Z" fill="#fff"/></svg>
+          <svg class="edps-vc-icon-pause" viewBox="0 0 14 14" fill="none"><path d="M4.375 2.5c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 4.375 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 5.125 2.5h-.75Zm4.5 0c-.633 0-1.125.516-1.125 1.125v6.75A1.11 1.11 0 0 0 8.875 11.5h.75c.61 0 1.125-.492 1.125-1.125v-6.75A1.14 1.14 0 0 0 9.625 2.5h-.75Z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="edps-vc-product">
+        <img src="https://cdn.shopify.com/s/files/1/0898/4972/4950/files/unique__197689059136__tarte-freckle-stick-deep-richamberglow__01.jpg?v=1780069117&width=80" alt="tarte freckle stick">
+        <div class="edps-vc-product-info">
+          <p class="edps-vc-product-title">tarte freckle stick™</p>
+          <p class="edps-vc-product-price">$29</p>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('edps-vc-root')) return;
+
+  var viewport = root.querySelector('.edps-vc-viewport');
+  var track = root.querySelector('.edps-vc-track');
+  var items = Array.prototype.slice.call(root.querySelectorAll('.edps-vc-item'));
+  var prevBtn = root.querySelector('.edps-vc-nav--prev');
+  var nextBtn = root.querySelector('.edps-vc-nav--next');
+  if (!items.length) return;
+
+  var current = Math.min(3, items.length - 1);
+
+  function videoOf(i) { return items[i].querySelector('.edps-vc-video'); }
+  function btnOf(i) { return items[i].querySelector('.edps-vc-playbtn'); }
+
+  function play(i) {
+    var v = videoOf(i), b = btnOf(i);
+    if (!v || !b) return;
+    v.muted = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+    b.classList.add('is-playing');
+  }
+  function pause(i) {
+    var v = videoOf(i), b = btnOf(i);
+    if (!v || !b) return;
+    v.pause();
+    b.classList.remove('is-playing');
+  }
+
+  // Centraliza o item ativo movendo o track. A largura do <li> não é animada
+  // (só o conteúdo interno), então offsetLeft/offsetWidth já são os finais.
+  function layout() {
+    var item = items[current];
+    var offset = item.offsetLeft + item.offsetWidth / 2 - viewport.clientWidth / 2;
+    track.style.transform = 'translateX(' + (-offset) + 'px)';
+  }
+
+  function select(i, autoplay) {
+    if (i < 0 || i >= items.length) return;
+    items.forEach(function (el, idx) {
+      el.classList.toggle('edps-vc-item--center', idx === i);
+      if (idx !== i) pause(idx);
+    });
+    current = i;
+    layout();
+    if (autoplay) {
+      var v = videoOf(i);
+      if (!v) return;
+      v.setAttribute('preload', 'auto');
+      if (v.readyState >= 2) play(i);
+      else v.addEventListener('loadeddata', function () { play(i); }, { once: true });
+    }
+  }
+
+  items.forEach(function (item, i) {
+    var btn = btnOf(i);
+    var video = videoOf(i);
+    if (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (i !== current) { select(i, true); return; }
+        if (video.paused) play(i); else pause(i);
+      });
+    }
+    item.querySelector('.edps-vc-media').addEventListener('click', function () {
+      if (i !== current) select(i, true);
+    });
+    if (video) {
+      video.addEventListener('ended', function () {
+        btn.classList.remove('is-playing');
+      });
+    }
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', function () { select(current - 1, true); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { select(current + 1, true); });
+
+  window.addEventListener('resize', layout);
+  select(current, true);
+})();
+</script>

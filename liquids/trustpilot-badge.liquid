@@ -1,0 +1,108 @@
+<style>
+  .tpbg-root,
+  .tpbg-root *,
+  .tpbg-root *::before,
+  .tpbg-root *::after {
+    box-sizing: border-box !important;
+  }
+
+  .tpbg-root {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  }
+
+  .tpbg-root .tpbg-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    text-decoration: none !important;
+    color: #1a1a1a !important;
+    line-height: 1.4 !important;
+  }
+
+  .tpbg-root .tpbg-badge:hover,
+  .tpbg-root .tpbg-badge:focus,
+  .tpbg-root .tpbg-badge:visited {
+    text-decoration: none !important;
+    color: #1a1a1a !important;
+  }
+
+  .tpbg-root .tpbg-stars {
+    display: block !important;
+    width: 100px !important;
+    height: auto !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    object-fit: contain !important;
+  }
+
+  .tpbg-root .tpbg-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+    line-height: 24px !important;
+    color: #1a1a1a !important;
+    white-space: nowrap !important;
+  }
+
+  .tpbg-root .tpbg-rating {
+    font-weight: 800 !important;
+  }
+
+  .tpbg-root .tpbg-separator,
+  .tpbg-root .tpbg-label,
+  .tpbg-root .tpbg-count {
+    font-weight: 400 !important;
+  }
+
+  .tpbg-root .tpbg-count {
+    font-style: normal !important;
+  }
+
+  @media (max-width: 480px) {
+    .tpbg-root .tpbg-badge {
+      gap: 8px !important;
+    }
+
+    .tpbg-root .tpbg-stars {
+      width: 88px !important;
+    }
+
+    .tpbg-root .tpbg-info {
+      font-size: 13.5px !important;
+      gap: 5px !important;
+    }
+  }
+</style>
+
+<div class="tpbg-root">
+  <a href="#reviews" class="tpbg-badge">
+    <img
+      class="tpbg-stars"
+      src="https://cdn.shopify.com/s/files/1/0691/7835/9959/files/Group_11_50619882-df6d-45af-81b3-8823878457fa.svg?v=1775664697"
+      alt="Rating stars"
+      width="1461"
+      height="261"
+      loading="eager">
+
+    <div class="tpbg-info">
+      <span class="tpbg-rating">4.8</span>
+      <span class="tpbg-separator">|</span>
+      <span class="tpbg-label">Excellent</span>
+      <b class="tpbg-count">10,541 reviews</b>
+    </div>
+  </a>
+</div>

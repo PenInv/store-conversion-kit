@@ -1,0 +1,196 @@
+<style>
+  @font-face {
+    font-family: "hmb-graphik-xxcond";
+    src:
+      url("https://hollowsocks.com/cdn/shop/t/413/assets/GraphikXXCond-Bold.woff2?v=131287753912708631821782403668") format("woff2"),
+      url("https://hollowsocks.com/cdn/shop/t/413/assets/GraphikXXCond-Bold.woff?v=43780200223286244731782403668") format("woff");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "hmb-gt-america-mono";
+    src:
+      url("https://hollowsocks.com/cdn/shop/t/413/assets/GTAmericaMono-Medium.woff2?v=41737214228632121171782403668") format("woff2"),
+      url("https://hollowsocks.com/cdn/shop/t/413/assets/GTAmericaMono-Medium.woff?v=38376514154481575261782403667") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  .hmb-metric-bar,
+  .hmb-metric-bar *,
+  .hmb-metric-bar *::before,
+  .hmb-metric-bar *::after {
+    box-sizing: border-box !important;
+  }
+
+  .hmb-metric-bar {
+    width: 100% !important;
+    max-width: none !important;
+    height: 100px !important;
+    margin: 0 !important;
+    padding: 16px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background: #282828 !important;
+  }
+
+  .hmb-metric-bar__inner {
+    width: 100% !important;
+    max-width: 680px !important;
+    height: 68px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+  }
+
+  .hmb-metric-bar__item {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 68px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+
+  .hmb-metric-bar__value,
+  .hmb-metric-bar__label {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+  }
+
+  .hmb-metric-bar__value {
+    color: #f8f6f2 !important;
+    font-family: "hmb-graphik-xxcond", "Arial Narrow", sans-serif !important;
+    font-size: 48px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 48px !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+  }
+
+  .hmb-metric-bar__label {
+    color: #ffffff !important;
+    font-family: "hmb-gt-america-mono", ui-monospace, monospace !important;
+    font-size: 12px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 12px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .hmb-metric-bar__mobile-break {
+    display: none !important;
+  }
+
+  .hmb-metric-bar__divider {
+    width: 1px !important;
+    height: 68px !important;
+    min-width: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 1px !important;
+    background: #484541 !important;
+  }
+
+  @media screen and (max-width: 640px) {
+    .hmb-metric-bar {
+      height: 65px !important;
+      padding: 4px 0 5px !important;
+    }
+
+    .hmb-metric-bar__inner {
+      width: 100% !important;
+      max-width: 375px !important;
+      height: 56px !important;
+      padding: 0 !important;
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr) !important;
+      column-gap: 0 !important;
+      align-items: center !important;
+    }
+
+    .hmb-metric-bar__item {
+      width: 100% !important;
+      height: 56px !important;
+      gap: 8px !important;
+    }
+
+    .hmb-metric-bar__value {
+      font-size: 28px !important;
+      line-height: 28px !important;
+      letter-spacing: 0.02em !important;
+    }
+
+    .hmb-metric-bar__label {
+      max-width: 66px !important;
+      font-size: 10px !important;
+      line-height: 10px !important;
+      letter-spacing: 0.04em !important;
+      white-space: normal !important;
+    }
+
+    .hmb-metric-bar__mobile-break {
+      display: block !important;
+    }
+
+    .hmb-metric-bar__desktop-only {
+      display: none !important;
+    }
+
+    .hmb-metric-bar__divider {
+      width: 1px !important;
+      height: 44px !important;
+      min-width: 1px !important;
+    }
+  }
+</style>
+
+<section class="hmb-metric-bar" aria-label="Hollow Socks em números">
+  <div class="hmb-metric-bar__inner">
+    <div class="hmb-metric-bar__item">
+      <p class="hmb-metric-bar__value">21,000+</p>
+      <p class="hmb-metric-bar__label">
+        <span>5-star</span><span class="hmb-metric-bar__mobile-break">reviews</span><span class="hmb-metric-bar__desktop-only"> reviews</span>
+      </p>
+    </div>
+
+    <span class="hmb-metric-bar__divider" aria-hidden="true"></span>
+
+    <div class="hmb-metric-bar__item">
+      <p class="hmb-metric-bar__value">3 MILLION+</p>
+      <p class="hmb-metric-bar__label">
+        <span>pairs</span><span class="hmb-metric-bar__mobile-break">sold</span><span class="hmb-metric-bar__desktop-only"> sold</span>
+      </p>
+    </div>
+
+    <span class="hmb-metric-bar__divider" aria-hidden="true"></span>
+
+    <div class="hmb-metric-bar__item">
+      <p class="hmb-metric-bar__value">99-DAY</p>
+      <p class="hmb-metric-bar__label">
+        <span>money-back</span><span class="hmb-metric-bar__mobile-break">guarantee</span><span class="hmb-metric-bar__desktop-only"> guarantee</span>
+      </p>
+    </div>
+  </div>
+</section>

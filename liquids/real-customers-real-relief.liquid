@@ -1,0 +1,273 @@
+<style>
+  /* ============================================================
+     Real Customers, Real Relief — clone Hollow Socks
+     Escopo exclusivo: .rcrr-section  (blindado contra CSS do tema)
+     ============================================================ */
+
+  @font-face {
+    font-family: "RCRR Graphik XXCond";
+    src: url("https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1229ddfd-460c-48a6-b37f-c277dc5503a4_Graphik_XX_Condensed_Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "RCRR Haas Grotesk";
+    src: url("https://hollowsocks.com/cdn/shop/t/413/assets/HaasGrotText-55Roman.woff2?v=69352221081524630201782403669") format("woff2"),
+         url("https://hollowsocks.com/cdn/shop/t/413/assets/HaasGrotText-55Roman.woff?v=171200495703106418331782403669") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .rcrr-section,
+  .rcrr-section *,
+  .rcrr-section *::before,
+  .rcrr-section *::after {
+    box-sizing: border-box !important;
+  }
+
+  .rcrr-section {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    padding: 88px 0 !important;
+    margin: 0 !important;
+    color: #18191b !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .rcrr-section .rcrr-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+  }
+
+  /* ---------- Cabeçalho ---------- */
+
+  .rcrr-section .rcrr-head {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .rcrr-section .rcrr-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "RCRR Graphik XXCond", Impact, "Haettenschweiler", sans-serif !important;
+    font-size: 40px !important;
+    font-weight: 700 !important;
+    line-height: 35.2px !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    color: #18191b !important;
+  }
+
+  .rcrr-section .rcrr-subtitle {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "RCRR Haas Grotesk", Helvetica, Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 25.2px !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    text-align: center !important;
+    color: #18191b !important;
+  }
+
+  /* ---------- Grid dos cards ---------- */
+
+  .rcrr-section .rcrr-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    justify-content: center !important;
+    gap: 40px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rcrr-section .rcrr-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rcrr-section .rcrr-media {
+    display: block !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #f2f2f2 !important;
+  }
+
+  .rcrr-section .rcrr-media img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .rcrr-section .rcrr-copy {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .rcrr-section .rcrr-card-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "RCRR Graphik XXCond", Impact, "Haettenschweiler", sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    line-height: 24.64px !important;
+    letter-spacing: 0.56px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    color: #18191b !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .rcrr-section .rcrr-card-text {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "RCRR Haas Grotesk", Helvetica, Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 22.4px !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    text-align: center !important;
+    color: #18191b !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* ---------- Tablet ---------- */
+
+  @media (max-width: 1024px) {
+    .rcrr-section .rcrr-grid {
+      gap: 28px !important;
+    }
+    .rcrr-section .rcrr-card-title {
+      font-size: 24px !important;
+      line-height: 21.5px !important;
+      letter-spacing: 0.48px !important;
+    }
+  }
+
+  /* ---------- Mobile ---------- */
+
+  @media (max-width: 767px) {
+    .rcrr-section {
+      padding: 40px 0 !important;
+    }
+    .rcrr-section .rcrr-container {
+      padding: 0 10px !important;
+    }
+    .rcrr-section .rcrr-subtitle {
+      font-size: 16px !important;
+      line-height: 22.4px !important;
+    }
+    .rcrr-section .rcrr-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 48px !important;
+    }
+    .rcrr-section .rcrr-card-title {
+      font-size: 28px !important;
+      line-height: 24.64px !important;
+      letter-spacing: 0.56px !important;
+    }
+  }
+</style>
+
+<section class="rcrr-section">
+  <div class="rcrr-container">
+
+    <div class="rcrr-head">
+      <h2 class="rcrr-title">Real customers, real relief</h2>
+      <p class="rcrr-subtitle">See why thousands are making the switch to Hollow Alpaca Compression Socks</p>
+    </div>
+
+    <div class="rcrr-grid">
+
+      <div class="rcrr-card">
+        <picture class="rcrr-media">
+          <source media="(max-width: 640px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/6afd43cd-9d9b-4b10-8853-5df693ae8203?width=820">
+          <source media="(min-width: 641px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/6afd43cd-9d9b-4b10-8853-5df693ae8203?width=1024">
+          <img src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/6afd43cd-9d9b-4b10-8853-5df693ae8203?width=1024"
+               width="720" height="720" loading="lazy" decoding="async"
+               alt="Compressão graduada sendo demonstrada na panturrilha">
+        </picture>
+        <div class="rcrr-copy">
+          <p class="rcrr-card-title">Graduated compression that really works</p>
+          <p class="rcrr-card-text">True graduated compression — firm at the ankle, easing up the calf. Reduces swelling and keeps blood moving through long days on your feet.</p>
+        </div>
+      </div>
+
+      <div class="rcrr-card">
+        <picture class="rcrr-media">
+          <source media="(max-width: 640px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1ac90e1d-9823-44bf-9504-c52b8630ea06?width=820">
+          <source media="(min-width: 641px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1ac90e1d-9823-44bf-9504-c52b8630ea06?width=1024">
+          <img src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/1ac90e1d-9823-44bf-9504-c52b8630ea06?width=1024"
+               width="720" height="720" loading="lazy" decoding="async"
+               alt="Meia de alpaca sendo usada em dia quente ao ar livre">
+        </picture>
+        <div class="rcrr-copy">
+          <p class="rcrr-card-title">Cool In 100° summer Heat</p>
+          <p class="rcrr-card-text">Alpaca fiber naturally wicks sweat and dumps heat. Feet stay dry and cool even on your hottest days.</p>
+        </div>
+      </div>
+
+      <div class="rcrr-card">
+        <picture class="rcrr-media">
+          <source media="(max-width: 640px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/32be10f5-4088-4e99-93e8-6d2b232b9431?width=820">
+          <source media="(min-width: 641px)" srcset="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/32be10f5-4088-4e99-93e8-6d2b232b9431?width=1024">
+          <img src="https://assets.replocdn.com/projects/5b831aa6-e971-4295-ba6f-1ddadda85b7f/32be10f5-4088-4e99-93e8-6d2b232b9431?width=1024"
+               width="720" height="720" loading="lazy" decoding="async"
+               alt="Meia sendo calçada facilmente, deslizando pela perna">
+        </picture>
+        <div class="rcrr-copy">
+          <p class="rcrr-card-title">easy on, easy off</p>
+          <p class="rcrr-card-text">Stretches wide enough to slide over swollen feet and calves. On in seconds, no struggle, no dreading the morning.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
