@@ -219,7 +219,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: 'Anton, sans-serif',
-              fontSize: 'clamp(90px, 28vw, 380px)',
+              fontSize: 'clamp(80px, 23vw, 380px)',
               fontWeight: 900,
               color: '#ffffff',
               opacity: 1,
@@ -229,7 +229,7 @@ export default function ToonhubHero() {
               whiteSpace: 'nowrap',
             }}
           >
-            3D Shape
+            Go Farther
           </span>
         </div>
 
@@ -238,7 +238,7 @@ export default function ToonhubHero() {
           className="absolute left-4 top-6 text-xs font-semibold uppercase sm:left-8"
           style={{ zIndex: 60, color: '#ffffff', opacity: 0.9, letterSpacing: '0.18em' }}
         >
-          TOONHUB
+          NORTIV 8
         </div>
 
         {/* Carousel */}
@@ -276,20 +276,20 @@ export default function ToonhubHero() {
             className="mb-2 text-base font-bold uppercase tracking-widest sm:mb-3 sm:text-[22px]"
             style={{ color: '#ffffff', opacity: 0.95, letterSpacing: '0.02em' }}
           >
-            TOONHUB FIGURINES
+            NORTIV 8 METROSTRIKE
           </p>
           <p
             className="mb-4 hidden text-xs sm:mb-5 sm:block sm:text-sm"
             style={{ color: '#ffffff', opacity: 0.85, lineHeight: 1.6 }}
           >
-            The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D craft is
-            flawless. Many thanks! Wishing you the win. Order now.
+            Built tough for every adventure. Rugged traction, all-day comfort and a look that keeps
+            working long past the trailhead. Go farther in the Metrostrike.
           </p>
           <div className="flex items-center gap-3 sm:gap-4">
-            <NavButton label="Previous figurine" onClick={() => navigate('prev')}>
+            <NavButton label="Previous boot" onClick={() => navigate('prev')}>
               <ArrowLeft size={26} strokeWidth={2.25} />
             </NavButton>
-            <NavButton label="Next figurine" onClick={() => navigate('next')}>
+            <NavButton label="Next boot" onClick={() => navigate('next')}>
               <ArrowRight size={26} strokeWidth={2.25} />
             </NavButton>
           </div>
@@ -315,7 +315,7 @@ export default function ToonhubHero() {
               transition: 'opacity 200ms',
             }}
           >
-            Discover it
+            Shop now
             <ArrowRight className="h-5 w-5 sm:h-8 sm:w-8" strokeWidth={2.25} />
           </a>
         </div>
