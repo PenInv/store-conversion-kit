@@ -6,6 +6,8 @@ type ImageItem = {
   src: string;
   bg: string;
   panel: string;
+  /** Overrides the desktop centre scale for artwork that is not a standing figure. */
+  desktopScale?: number;
 };
 
 const IMAGES: ImageItem[] = [
@@ -13,6 +15,7 @@ const IMAGES: ImageItem[] = [
     src: '/bota.png',
     bg: '#A8825C',
     panel: '#BF9E7C',
+    desktopScale: 1,
   },
   {
     src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
@@ -34,6 +37,8 @@ const IMAGES: ImageItem[] = [
 const DURATION = 650;
 const EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
 const MOBILE_BREAKPOINT = 640;
+const CENTER_SCALE_DESKTOP = 1.68;
+const CENTER_SCALE_MOBILE = 1.25;
 
 const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>" +
@@ -54,60 +59,67 @@ function roleFor(index: number, activeIndex: number): Role {
   return 'back';
 }
 
-function itemStyle(role: Role, isMobile: boolean): CSSProperties {
-  const base: CSSProperties = {
+/** Where each role sits, in viewport units — the geometry the original layout described. */
+type RoleTarget = {
+  height: number;
+  bottom: number;
+  centerX: number;
+  blur: number;
+  opacity: number;
+  zIndex: number;
+};
+
+/** The box every item actually occupies; roles are reached from here by transform alone. */
+const BASE_BOX = {
+  desktop: { height: 92, bottom: 0 },
+  mobile: { height: 60, bottom: 22 },
+};
+
+const ROLE_TARGETS: Record<'desktop' | 'mobile', Record<Role, RoleTarget>> = {
+  desktop: {
+    center: { height: 92, bottom: 0, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
+    left: { height: 28, bottom: 12, centerX: 30, blur: 2, opacity: 0.85, zIndex: 10 },
+    right: { height: 28, bottom: 12, centerX: 70, blur: 2, opacity: 0.85, zIndex: 10 },
+    back: { height: 22, bottom: 12, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
+  },
+  mobile: {
+    center: { height: 60, bottom: 22, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
+    left: { height: 16, bottom: 32, centerX: 20, blur: 2, opacity: 0.85, zIndex: 10 },
+    right: { height: 16, bottom: 32, centerX: 80, blur: 2, opacity: 0.85, zIndex: 10 },
+    back: { height: 13, bottom: 32, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
+  },
+};
+
+function itemStyle(role: Role, isMobile: boolean, desktopScale: number): CSSProperties {
+  const mode = isMobile ? 'mobile' : 'desktop';
+  const box = BASE_BOX[mode];
+  const target = ROLE_TARGETS[mode][role];
+
+  // Size and position never change: only transform/filter/opacity animate, so the
+  // browser keeps the whole crossfade on the compositor instead of relaying out.
+  const scale =
+    role === 'center'
+      ? isMobile
+        ? CENTER_SCALE_MOBILE
+        : desktopScale
+      : target.height / box.height;
+  const offsetX = target.centerX - 50;
+  const offsetY = box.bottom + box.height / 2 - (target.bottom + target.height / 2);
+
+  return {
     position: 'absolute',
+    left: '50%',
+    bottom: `${box.bottom}%`,
+    height: `${box.height}%`,
     aspectRatio: '0.6 / 1',
-    transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}`,
+    transform: `translateX(calc(-50% + ${offsetX}vw)) translateY(${offsetY}vh) scale(${scale})`,
+    // The blur is rasterised before the scale, so divide it to keep the on-screen radius.
+    filter: `blur(${(target.blur / scale).toFixed(2)}px)`,
+    opacity: target.opacity,
+    zIndex: target.zIndex,
+    transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}`,
     willChange: 'transform, filter, opacity',
   };
-
-  switch (role) {
-    case 'center':
-      return {
-        ...base,
-        left: '50%',
-        bottom: isMobile ? '22%' : 0,
-        height: isMobile ? '60%' : '92%',
-        transform: `translateX(-50%) scale(${isMobile ? 1.25 : 1.68})`,
-        filter: 'blur(0px)',
-        opacity: 1,
-        zIndex: 20,
-      };
-    case 'left':
-      return {
-        ...base,
-        left: isMobile ? '20%' : '30%',
-        bottom: isMobile ? '32%' : '12%',
-        height: isMobile ? '16%' : '28%',
-        transform: 'translateX(-50%) scale(1)',
-        filter: 'blur(2px)',
-        opacity: 0.85,
-        zIndex: 10,
-      };
-    case 'right':
-      return {
-        ...base,
-        left: isMobile ? '80%' : '70%',
-        bottom: isMobile ? '32%' : '12%',
-        height: isMobile ? '16%' : '28%',
-        transform: 'translateX(-50%) scale(1)',
-        filter: 'blur(2px)',
-        opacity: 0.85,
-        zIndex: 10,
-      };
-    case 'back':
-      return {
-        ...base,
-        left: '50%',
-        bottom: isMobile ? '32%' : '12%',
-        height: isMobile ? '13%' : '22%',
-        transform: 'translateX(-50%) scale(1)',
-        filter: 'blur(4px)',
-        opacity: 1,
-        zIndex: 5,
-      };
-  }
 }
 
 type NavButtonProps = {
@@ -231,7 +243,14 @@ export default function ToonhubHero() {
         {/* Carousel */}
         <div className="absolute inset-0" style={{ zIndex: 3 }}>
           {IMAGES.map((item, index) => (
-            <div key={item.src} style={itemStyle(roleFor(index, activeIndex), isMobile)}>
+            <div
+              key={item.src}
+              style={itemStyle(
+                roleFor(index, activeIndex),
+                isMobile,
+                item.desktopScale ?? CENTER_SCALE_DESKTOP,
+              )}
+            >
               <img
                 src={item.src}
                 alt=""
