@@ -15,7 +15,7 @@ type ImageItem = {
 
 const IMAGES: ImageItem[] = [
   {
-    src: '/bota.png',
+    src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/bota_1.avif?v=1787862306',
     bg: '#A8825C',
     panel: '#BF9E7C',
     desktopScale: 1,
