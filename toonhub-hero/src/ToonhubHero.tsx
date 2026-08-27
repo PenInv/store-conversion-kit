@@ -19,8 +19,8 @@ const IMAGES: ImageItem[] = [
   },
   {
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/55ac546d-0372-4c41-8a76-bd356c298d0a_1.png?v=1787856307',
-    bg: '#6BBF7A',
-    panel: '#85CC92',
+    bg: '#1F7A52',
+    panel: '#289F6B',
     desktopScale: 1,
   },
   {
