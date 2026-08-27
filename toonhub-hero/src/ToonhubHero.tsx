@@ -310,7 +310,7 @@ export default function ToonhubHero() {
         {/* Bottom-right link */}
         <div className="absolute bottom-6 right-4 sm:bottom-20 sm:right-10" style={{ zIndex: 60 }}>
           <a
-            href="#"
+            href="https://www.nortiv8.shop/products/metrostrike-mens-lightweight-military-tactical-boots"
             className="flex items-center"
             onMouseEnter={() => setLinkHovered(true)}
             onMouseLeave={() => setLinkHovered(false)}
