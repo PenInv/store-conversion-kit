@@ -316,7 +316,15 @@ export const SCRIPT_REGISTRY: ScriptMeta[] = [
     title: "Hero Carrossel de Produto",
     shortDescription: "Hero de tela cheia com quatro produtos girando entre centro, laterais e fundo.",
     category: "banner",
-    tags: ["hero", "carrossel", "banner", "full screen", "produto"],
+    tags: ["hero", "carrossel", "banner", "full screen", "produto", "inglês"],
     compatibilityNotes: "Bloco isolado com prefixo .n8h-. Cada slide é um .n8h-item: troque a URL da imagem e o data-bg (cor de fundo). Use imagens PNG/AVIF com fundo transparente. data-desktop-fit na raiz encolhe as quatro peças juntas no desktop (0.85 = 15% menor) sem desfazer a proporção entre elas — é o ajuste a usar se a arte estiver grande demais. data-scale compensa o quanto cada foto preenche o próprio quadro, e data-bottom / data-mobile-bottom sobem ou descem a peça em % da altura. Se o header do tema for fixo e cobrir o topo, troque --n8h-height por calc(100svh - 60px).",
+  },
+  {
+    slug: "nortiv8-hero-carousel-es",
+    title: "Hero Carrossel de Produto (ES)",
+    shortDescription: "Mesma estrutura do hero carrossel, com os textos em espanhol da Espanha.",
+    category: "banner",
+    tags: ["hero", "carrossel", "banner", "full screen", "produto", "espanhol"],
+    compatibilityNotes: "Versão em espanhol do nortiv8-hero-carousel, com os mesmos ajustes (data-desktop-fit, data-scale, data-bottom, data-mobile-bottom). Usa os IDs n8h-root-es e n8h-stage-es, então as duas versões podem conviver na mesma página. As classes CSS são compartilhadas: se colar as duas juntas, o segundo bloco <style> é redundante e pode sair.",
   },
 ];

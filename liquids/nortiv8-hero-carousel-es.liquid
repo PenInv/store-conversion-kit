@@ -1,0 +1,443 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .n8h-root * {
+    box-sizing: border-box;
+  }
+
+  .n8h-root {
+    /* Troque por calc(100svh - 60px) se o header do tema for fixo e estiver
+       cobrindo o topo do hero. */
+    --n8h-height: 100svh;
+
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #A8825C;
+    transition: background-color 650ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .n8h-frame {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: var(--n8h-height);
+    overflow: hidden;
+  }
+
+  /* Grão por cima de toda a composição. */
+  .n8h-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.4;
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n8hgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n8hgrain)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .n8h-ghost {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 18%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .n8h-ghost span {
+    /* Relativo à largura do próprio hero, não da janela: dentro de um container
+       com max-width o vw estouraria a caixa. */
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, calc(var(--n8h-w, 100vw) * 0.23), 380px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #fff;
+  }
+
+  .n8h-brand {
+    position: absolute;
+    top: 24px;
+    left: 16px;
+    z-index: 60;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .n8h-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+
+  /* A caixa nunca muda de tamanho nem de lugar: o papel é alcançado só por
+     transform, então a troca inteira fica no compositor. */
+  .n8h-item {
+    position: absolute;
+    left: 50%;
+    bottom: 22%;
+    height: 60%;
+    aspect-ratio: 0.6 / 1;
+    transform-origin: bottom center;
+    transition:
+      transform 650ms cubic-bezier(0.4, 0, 0.2, 1),
+      filter 650ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 650ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, filter, opacity;
+  }
+
+  .n8h-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+
+  .n8h-copy {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    z-index: 60;
+    max-width: 320px;
+  }
+
+  .n8h-title {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #fff;
+    opacity: 0.95;
+  }
+
+  .n8h-text {
+    display: none;
+    margin: 0 0 16px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #fff;
+    opacity: 0.85;
+  }
+
+  .n8h-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .n8h-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 150ms, background-color 150ms;
+  }
+
+  .n8h-btn:hover {
+    transform: scale(1.08);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .n8h-btn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .n8h-cta {
+    position: absolute;
+    right: 16px;
+    bottom: 24px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(20px, calc(var(--n8h-w, 100vw) * 0.04), 56px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.95;
+    transition: opacity 200ms;
+  }
+
+  .n8h-cta:hover {
+    opacity: 1;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .n8h-cta svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .n8h-item {
+      bottom: 0;
+      height: 92%;
+    }
+
+    .n8h-brand {
+      left: 32px;
+    }
+
+    .n8h-copy {
+      bottom: 80px;
+      left: 96px;
+    }
+
+    .n8h-title {
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .n8h-text {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .n8h-nav {
+      gap: 16px;
+    }
+
+    .n8h-btn {
+      width: 64px;
+      height: 64px;
+    }
+
+    .n8h-cta {
+      right: 40px;
+      bottom: 80px;
+    }
+
+    .n8h-cta svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+</style>
+
+<!-- data-desktop-fit encolhe ou aumenta as quatro peças juntas no desktop, sem
+     desfazer a proporção entre elas. 1 = tamanho cheio. -->
+<div class="n8h-root" id="n8h-root-es" data-desktop-fit="0.85">
+  <div class="n8h-frame">
+    <div class="n8h-ghost"><span>Más lejos</span></div>
+
+    <div class="n8h-brand">NORTIV 8</div>
+
+    <!-- Cada slide se descreve nos data-*. data-scale e data-bottom valem no
+         desktop; data-mobile-bottom só abaixo de 640px. Os valores de escala
+         compensam o quanto cada foto preenche o próprio quadro, para as botas
+         saírem do mesmo tamanho na tela. -->
+    <div class="n8h-stage" id="n8h-stage-es">
+      <div class="n8h-item" data-bg="#A8825C" data-scale="1" data-bottom="8">
+        <img src="https://cdn.shopify.com/s/files/1/0814/9454/0514/files/bota_1.avif?v=1787862306" alt="" draggable="false">
+      </div>
+      <div class="n8h-item" data-bg="#1F7A52" data-scale="1.27">
+        <img src="https://cdn.shopify.com/s/files/1/0814/9454/0514/files/55ac546d-0372-4c41-8a76-bd356c298d0a_1.png?v=1787856307" alt="" draggable="false">
+      </div>
+      <div class="n8h-item" data-bg="#C4A574" data-scale="1.08" data-bottom="3">
+        <img src="https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_15_52_14.png?v=1787856795" alt="" draggable="false">
+      </div>
+      <div class="n8h-item" data-bg="#1E3A5F" data-scale="1.2" data-mobile-bottom="15">
+        <img src="https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_16_50_10.png?v=1787860276" alt="" draggable="false">
+      </div>
+    </div>
+
+    <div class="n8h-grain"></div>
+
+    <div class="n8h-copy">
+      <p class="n8h-title">NORTIV 8 METROSTRIKE</p>
+      <p class="n8h-text">Resistencia para cualquier aventura. Agarre firme, comodidad durante todo el día y un diseño que aguanta mucho más allá del sendero. Llega más lejos con las Metrostrike.</p>
+      <div class="n8h-nav">
+        <button class="n8h-btn" type="button" data-dir="prev" aria-label="Bota anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        </button>
+        <button class="n8h-btn" type="button" data-dir="next" aria-label="Bota siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <a class="n8h-cta" href="https://www.nortiv8.shop/products/metrostrike-mens-lightweight-military-tactical-boots">Comprar ahora
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('n8h-root-es');
+    var stage = document.getElementById('n8h-stage-es');
+    if (!root || !stage) return;
+
+    var items = [].slice.call(stage.querySelectorAll('.n8h-item'));
+    if (items.length < 2) return;
+
+    var DURATION = 650;
+    var BREAKPOINT = 640;
+
+    /* A caixa que todo item ocupa, e onde cada papel precisa chegar. Tudo em %
+       do hero, para a geometria acompanhar qualquer altura de section. */
+    var BOX = {
+      desktop: { height: 92, bottom: 0 },
+      mobile: { height: 60, bottom: 22 }
+    };
+
+    var ROLES = {
+      desktop: {
+        center: { height: 92, bottom: 0, centerX: 50, blur: 0, opacity: 1, z: 20 },
+        left: { height: 28, bottom: 12, centerX: 30, blur: 2, opacity: 0.85, z: 10 },
+        right: { height: 28, bottom: 12, centerX: 70, blur: 2, opacity: 0.85, z: 10 },
+        back: { height: 22, bottom: 12, centerX: 50, blur: 4, opacity: 1, z: 5 }
+      },
+      mobile: {
+        center: { height: 60, bottom: 22, centerX: 50, blur: 0, opacity: 1, z: 20 },
+        left: { height: 16, bottom: 32, centerX: 20, blur: 2, opacity: 0.85, z: 10 },
+        right: { height: 16, bottom: 32, centerX: 80, blur: 2, opacity: 0.85, z: 10 },
+        back: { height: 13, bottom: 32, centerX: 50, blur: 4, opacity: 1, z: 5 }
+      }
+    };
+
+    var DEFAULT_SCALE = { desktop: 1.68, mobile: 1.25 };
+
+    var fit = parseFloat(root.getAttribute('data-desktop-fit'));
+    if (isNaN(fit) || fit <= 0) fit = 1;
+
+    var active = 0;
+    var animating = false;
+    var W = 0;
+    var H = 0;
+
+    function isMobile() {
+      return W < BREAKPOINT;
+    }
+
+    function roleOf(index) {
+      var n = items.length;
+      if (index === active) return 'center';
+      if (index === (active + n - 1) % n) return 'left';
+      if (index === (active + 1) % n) return 'right';
+      return 'back';
+    }
+
+    function paint() {
+      var mode = isMobile() ? 'mobile' : 'desktop';
+      var box = BOX[mode];
+
+      items.forEach(function (el, index) {
+        var role = roleOf(index);
+        var target = ROLES[mode][role];
+        var center = role === 'center';
+
+        var scale;
+        if (center) {
+          var own = parseFloat(el.getAttribute('data-scale'));
+          scale = mode === 'mobile' || isNaN(own) ? DEFAULT_SCALE[mode] : own;
+          /* Um fator só para todas as peças: reduzir aqui mantém as botas do
+             mesmo tamanho entre si, o que mexer em cada data-scale desfaria. */
+          if (mode === 'desktop') scale *= fit;
+        } else {
+          scale = target.height / box.height;
+        }
+
+        /* A base é a única coisa que um papel precisa mover, porque a origem do
+           transform está fixa no chão da caixa. Um item pode sobrescrever a sua
+           quando a foto tem mais ou menos margem transparente embaixo. */
+        var baseline = target.bottom;
+        if (center) {
+          var attr = el.getAttribute(mode === 'mobile' ? 'data-mobile-bottom' : 'data-bottom');
+          if (attr !== null && attr !== '' && !isNaN(parseFloat(attr))) {
+            baseline = parseFloat(attr);
+          }
+        }
+
+        var dx = ((target.centerX - 50) / 100) * W;
+        var dy = ((box.bottom - baseline) / 100) * H;
+
+        el.style.transform =
+          'translateX(calc(-50% + ' + dx.toFixed(1) + 'px)) translateY(' +
+          dy.toFixed(1) + 'px) scale(' + scale + ')';
+        /* O blur é rasterizado antes da escala: divide para o raio na tela
+           continuar sendo o mesmo em qualquer papel. */
+        el.style.filter = 'blur(' + (target.blur / scale).toFixed(2) + 'px)';
+        el.style.opacity = target.opacity;
+        el.style.zIndex = target.z;
+      });
+
+      var bg = items[active].getAttribute('data-bg');
+      if (bg) root.style.backgroundColor = bg;
+    }
+
+    function measure() {
+      var rect = root.getBoundingClientRect();
+      W = rect.width;
+      H = rect.height;
+      root.style.setProperty('--n8h-w', W + 'px');
+    }
+
+    function go(direction) {
+      if (animating) return;
+      animating = true;
+      var n = items.length;
+      active = direction === 'next' ? (active + 1) % n : (active + n - 1) % n;
+      paint();
+      setTimeout(function () {
+        animating = false;
+      }, DURATION);
+    }
+
+    root.addEventListener('click', function (event) {
+      var btn = event.target.closest ? event.target.closest('.n8h-btn') : null;
+      if (btn) go(btn.getAttribute('data-dir'));
+    });
+
+    /* Sem isso a primeira troca mostra a imagem chegando em pedaços. */
+    items.forEach(function (el) {
+      var img = el.querySelector('img');
+      if (!img) return;
+      var pre = new Image();
+      pre.src = img.getAttribute('src');
+    });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        /* Os offsets são calculados em px a partir do tamanho do hero, então
+           qualquer resize precisa remedir e repintar. */
+        measure();
+        paint();
+      }, 120);
+    });
+
+    measure();
+    paint();
+  })();
+</script>
