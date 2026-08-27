@@ -30,7 +30,7 @@ const IMAGES: ImageItem[] = [
     desktopScale: 1,
   },
   {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png',
+    src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_16_50_10.png?v=1787860276',
     bg: '#6EB5FF',
     panel: '#8DC4FF',
   },
