@@ -86,7 +86,7 @@ const ROLE_TARGETS: Record<'desktop' | 'mobile', Record<Role, RoleTarget>> = {
     back: { height: 22, bottom: 12, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
   },
   mobile: {
-    center: { height: 60, bottom: 22, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
+    center: { height: 60, bottom: 15, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
     left: { height: 16, bottom: 32, centerX: 20, blur: 2, opacity: 0.85, zIndex: 10 },
     right: { height: 16, bottom: 32, centerX: 80, blur: 2, opacity: 0.85, zIndex: 10 },
     back: { height: 13, bottom: 32, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
