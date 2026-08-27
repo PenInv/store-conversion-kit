@@ -34,6 +34,7 @@ const IMAGES: ImageItem[] = [
     bg: '#C4A574',
     panel: '#D2BA94',
     desktopScale: 1.08,
+    desktopBottom: 3,
   },
   {
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_16_50_10.png?v=1787860276',
