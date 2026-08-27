@@ -317,6 +317,6 @@ export const SCRIPT_REGISTRY: ScriptMeta[] = [
     shortDescription: "Hero de tela cheia com quatro produtos girando entre centro, laterais e fundo.",
     category: "banner",
     tags: ["hero", "carrossel", "banner", "full screen", "produto"],
-    compatibilityNotes: "Bloco isolado com prefixo .n8h-. Cada slide é um .n8h-item: troque a URL da imagem e o data-bg (cor de fundo). Use imagens PNG/AVIF com fundo transparente. data-scale ajusta o tamanho no desktop (compensa o quanto a foto preenche o próprio quadro) e data-bottom / data-mobile-bottom sobem ou descem a peça em % da altura. Se o header do tema for fixo e cobrir o topo, troque --n8h-height por calc(100svh - 60px).",
+    compatibilityNotes: "Bloco isolado com prefixo .n8h-. Cada slide é um .n8h-item: troque a URL da imagem e o data-bg (cor de fundo). Use imagens PNG/AVIF com fundo transparente. data-desktop-fit na raiz encolhe as quatro peças juntas no desktop (0.85 = 15% menor) sem desfazer a proporção entre elas — é o ajuste a usar se a arte estiver grande demais. data-scale compensa o quanto cada foto preenche o próprio quadro, e data-bottom / data-mobile-bottom sobem ou descem a peça em % da altura. Se o header do tema for fixo e cobrir o topo, troque --n8h-height por calc(100svh - 60px).",
   },
 ];

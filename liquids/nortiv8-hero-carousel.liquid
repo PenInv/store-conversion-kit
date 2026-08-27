@@ -243,7 +243,9 @@
   }
 </style>
 
-<div class="n8h-root" id="n8h-root">
+<!-- data-desktop-fit encolhe ou aumenta as quatro peças juntas no desktop, sem
+     desfazer a proporção entre elas. 1 = tamanho cheio. -->
+<div class="n8h-root" id="n8h-root" data-desktop-fit="0.85">
   <div class="n8h-frame">
     <div class="n8h-ghost"><span>Go Farther</span></div>
 
@@ -325,6 +327,9 @@
 
     var DEFAULT_SCALE = { desktop: 1.68, mobile: 1.25 };
 
+    var fit = parseFloat(root.getAttribute('data-desktop-fit'));
+    if (isNaN(fit) || fit <= 0) fit = 1;
+
     var active = 0;
     var animating = false;
     var W = 0;
@@ -355,6 +360,9 @@
         if (center) {
           var own = parseFloat(el.getAttribute('data-scale'));
           scale = mode === 'mobile' || isNaN(own) ? DEFAULT_SCALE[mode] : own;
+          /* Um fator só para todas as peças: reduzir aqui mantém as botas do
+             mesmo tamanho entre si, o que mexer em cada data-scale desfaria. */
+          if (mode === 'desktop') scale *= fit;
         } else {
           scale = target.height / box.height;
         }
