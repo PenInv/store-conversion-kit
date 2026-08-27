@@ -107,7 +107,8 @@ function itemStyle(role: Role, isMobile: boolean, desktopScale: number): CSSProp
         : desktopScale
       : target.height / box.height;
   const offsetX = target.centerX - 50;
-  const offsetY = box.bottom + box.height / 2 - (target.bottom + target.height / 2);
+  // With the origin pinned to the floor, a role only has to move its own baseline.
+  const offsetY = box.bottom - target.bottom;
 
   return {
     position: 'absolute',
@@ -116,9 +117,9 @@ function itemStyle(role: Role, isMobile: boolean, desktopScale: number): CSSProp
     height: `${box.height}%`,
     aspectRatio: '0.6 / 1',
     transform: `translateX(calc(-50% + ${offsetX}vw)) translateY(${offsetY}vh) scale(${scale})`,
-    // The centre grows upward from the floor, so scaling it up never pushes the
-    // product out of frame; the other roles keep scaling about their own middle.
-    transformOrigin: role === 'center' ? 'bottom center' : 'center',
+    // Every role scales from the same floor. Origin cannot be transitioned, so a
+    // per-role origin would snap the item the instant its role changed.
+    transformOrigin: 'bottom center',
     // The blur is rasterised before the scale, so divide it to keep the on-screen radius.
     filter: `blur(${(target.blur / scale).toFixed(2)}px)`,
     opacity: target.opacity,
