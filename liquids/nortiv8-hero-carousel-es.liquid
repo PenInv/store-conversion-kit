@@ -66,17 +66,31 @@
     color: #fff;
   }
 
-  .n8h-brand {
+  /* Dentro de uma landing de produto o topo não é lugar de assinatura de marca:
+     é onde se explica ao lead o que ele está vendo. */
+  .n8h-intro {
     position: absolute;
     top: 24px;
     left: 16px;
     z-index: 60;
+    max-width: min(420px, calc(100% - 32px));
+    color: #fff;
+  }
+
+  .n8h-eyebrow {
+    margin: 0 0 6px;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: #fff;
     opacity: 0.9;
+  }
+
+  .n8h-introtext {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.55;
+    opacity: 0.85;
   }
 
   .n8h-stage {
@@ -183,6 +197,11 @@
     color: #fff;
     opacity: 0.95;
     transition: opacity 200ms;
+    /* É um botão, não um link: aqui ele rola até a área de compra da página. */
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
   }
 
   .n8h-cta:hover {
@@ -202,8 +221,14 @@
       height: 92%;
     }
 
-    .n8h-brand {
+    .n8h-intro {
+      top: 32px;
       left: 32px;
+      max-width: 460px;
+    }
+
+    .n8h-introtext {
+      font-size: 15px;
     }
 
     .n8h-copy {
@@ -249,7 +274,10 @@
   <div class="n8h-frame">
     <div class="n8h-ghost"><span>Más lejos</span></div>
 
-    <div class="n8h-brand">NORTIV 8</div>
+    <div class="n8h-intro">
+      <p class="n8h-eyebrow">Acabados</p>
+      <p class="n8h-introtext">La misma Metrostrike en tres acabados. Cambia con las flechas y mírala puesta con el equipo completo.</p>
+    </div>
 
     <!-- Cada slide se descreve nos data-*. data-scale e data-bottom valem no
          desktop; data-mobile-bottom só abaixo de 640px. Os valores de escala
@@ -285,9 +313,11 @@
       </div>
     </div>
 
-    <a class="n8h-cta" href="https://www.nortiv8.shop/products/metrostrike-mens-lightweight-military-tactical-boots">Comprar ahora
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
+    <!-- data-scroll-target aceita um seletor CSS da área de compra. Vazio, o
+         script procura o formulário de produto do tema por conta própria. -->
+    <button class="n8h-cta" type="button" id="n8h-cta-es" data-scroll-target="">Comprar ahora
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+    </button>
   </div>
 </div>
 
@@ -417,6 +447,41 @@
       var btn = event.target.closest ? event.target.closest('.n8h-btn') : null;
       if (btn) go(btn.getAttribute('data-dir'));
     });
+
+    /* O CTA não navega: leva o lead de volta à área de compra da própria página.
+       Tenta o seletor informado, depois os lugares onde os temas costumam pôr o
+       formulário de produto e, se nada existir, o topo. */
+    var cta = document.getElementById('n8h-cta-es');
+    if (cta) {
+      cta.addEventListener('click', function () {
+        var candidatos = [
+          'product-form',
+          'form[action*="/cart/add"]',
+          '.shopify-product-form',
+          '.product__info-wrapper',
+          '[name="add"]'
+        ];
+
+        var pedido = cta.getAttribute('data-scroll-target');
+        if (pedido) candidatos.unshift(pedido);
+
+        var alvo = null;
+        for (var i = 0; i < candidatos.length && !alvo; i++) {
+          try {
+            alvo = document.querySelector(candidatos[i]);
+          } catch (e) {
+            alvo = null;
+          }
+        }
+
+        var modo = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth';
+
+        if (alvo) alvo.scrollIntoView({ behavior: modo, block: 'center' });
+        else window.scrollTo({ top: 0, behavior: modo });
+      });
+    }
 
     /* Sem isso a primeira troca mostra a imagem chegando em pedaços. */
     items.forEach(function (el) {

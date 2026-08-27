@@ -321,10 +321,10 @@ export const SCRIPT_REGISTRY: ScriptMeta[] = [
   },
   {
     slug: "nortiv8-hero-carousel-es",
-    title: "Hero Carrossel de Produto (ES)",
-    shortDescription: "Mesma estrutura do hero carrossel, com os textos em espanhol da Espanha.",
+    title: "Carrossel de Acabados (ES)",
+    shortDescription: "Seção de landing page em espanhol que mostra os acabamentos do produto e leva o lead de volta à área de compra.",
     category: "banner",
     tags: ["hero", "carrossel", "banner", "full screen", "produto", "espanhol"],
-    compatibilityNotes: "Versão em espanhol do nortiv8-hero-carousel, com os mesmos ajustes (data-desktop-fit, data-scale, data-bottom, data-mobile-bottom). Usa os IDs n8h-root-es e n8h-stage-es, então as duas versões podem conviver na mesma página. As classes CSS são compartilhadas: se colar as duas juntas, o segundo bloco <style> é redundante e pode sair.",
+    compatibilityNotes: "Feito para ficar dentro da página de produto, não na home: o topo traz um texto curto explicando os acabamentos em vez da assinatura da marca, e o botão \"Comprar ahora\" não navega — ele rola a página até a área de compra. O script procura sozinho o formulário do tema (product-form, form[action*='/cart/add'], .shopify-product-form); se o seu tema usar outra marcação, informe o seletor em data-scroll-target no próprio botão. Mesmos ajustes de imagem do nortiv8-hero-carousel (data-desktop-fit, data-scale, data-bottom, data-mobile-bottom). IDs com sufixo -es, então convive com a versão em inglês na mesma página.",
   },
 ];
