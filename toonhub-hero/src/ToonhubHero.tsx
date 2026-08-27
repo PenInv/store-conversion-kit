@@ -8,8 +8,9 @@ type ImageItem = {
   panel: string;
   /** Overrides the desktop centre scale for artwork that is not a standing figure. */
   desktopScale?: number;
-  /** Overrides where this artwork's baseline sits on mobile, in % of the viewport. */
+  /** Overrides where this artwork's baseline sits, in % of the viewport. */
   mobileBottom?: number;
+  desktopBottom?: number;
 };
 
 const IMAGES: ImageItem[] = [
@@ -18,6 +19,7 @@ const IMAGES: ImageItem[] = [
     bg: '#A8825C',
     panel: '#BF9E7C',
     desktopScale: 1,
+    desktopBottom: 8,
   },
   {
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/55ac546d-0372-4c41-8a76-bd356c298d0a_1.png?v=1787856307',
@@ -113,7 +115,8 @@ function itemStyle(role: Role, isMobile: boolean, item: ImageItem): CSSPropertie
     : target.height / box.height;
   const offsetX = target.centerX - 50;
   // With the origin pinned to the floor, a role only has to move its own baseline.
-  const baseline = isCenter && isMobile ? item.mobileBottom ?? target.bottom : target.bottom;
+  const override = isMobile ? item.mobileBottom : item.desktopBottom;
+  const baseline = isCenter ? override ?? target.bottom : target.bottom;
   const offsetY = box.bottom - baseline;
 
   return {
