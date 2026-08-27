@@ -18,9 +18,10 @@ const IMAGES: ImageItem[] = [
     desktopScale: 1,
   },
   {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
+    src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/55ac546d-0372-4c41-8a76-bd356c298d0a_1.png?v=1787856307',
     bg: '#6BBF7A',
     panel: '#85CC92',
+    desktopScale: 1,
   },
   {
     src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png',
