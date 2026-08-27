@@ -33,6 +33,7 @@ const IMAGES: ImageItem[] = [
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_16_50_10.png?v=1787860276',
     bg: '#6EB5FF',
     panel: '#8DC4FF',
+    desktopScale: 1.2,
   },
 ];
 
@@ -115,6 +116,9 @@ function itemStyle(role: Role, isMobile: boolean, desktopScale: number): CSSProp
     height: `${box.height}%`,
     aspectRatio: '0.6 / 1',
     transform: `translateX(calc(-50% + ${offsetX}vw)) translateY(${offsetY}vh) scale(${scale})`,
+    // The centre grows upward from the floor, so scaling it up never pushes the
+    // product out of frame; the other roles keep scaling about their own middle.
+    transformOrigin: role === 'center' ? 'bottom center' : 'center',
     // The blur is rasterised before the scale, so divide it to keep the on-screen radius.
     filter: `blur(${(target.blur / scale).toFixed(2)}px)`,
     opacity: target.opacity,
