@@ -311,4 +311,12 @@ export const SCRIPT_REGISTRY: ScriptMeta[] = [
     tags: ["tamanho", "medidas", "product.title", "dinâmico"],
     compatibilityNotes: "Usa {{ product.title }} com fallback: dentro da página de produto exibe o nome real; fora dele mostra \"Size guides\".",
   },
+  {
+    slug: "nortiv8-hero-carousel",
+    title: "Hero Carrossel de Produto",
+    shortDescription: "Hero de tela cheia com quatro produtos girando entre centro, laterais e fundo.",
+    category: "banner",
+    tags: ["hero", "carrossel", "banner", "full screen", "produto"],
+    compatibilityNotes: "Bloco isolado com prefixo .n8h-. Cada slide é um .n8h-item: troque a URL da imagem e o data-bg (cor de fundo). Use imagens PNG/AVIF com fundo transparente. data-scale ajusta o tamanho no desktop (compensa o quanto a foto preenche o próprio quadro) e data-bottom / data-mobile-bottom sobem ou descem a peça em % da altura. Se o header do tema for fixo e cobrir o topo, troque --n8h-height por calc(100svh - 60px).",
+  },
 ];
