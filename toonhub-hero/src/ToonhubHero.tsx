@@ -11,8 +11,8 @@ type ImageItem = {
 const IMAGES: ImageItem[] = [
   {
     src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png',
-    bg: '#F4845F',
-    panel: '#F79B7F',
+    bg: '#A8825C',
+    panel: '#BF9E7C',
   },
   {
     src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
