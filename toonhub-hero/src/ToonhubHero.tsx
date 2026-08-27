@@ -23,13 +23,15 @@ const IMAGES: ImageItem[] = [
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/55ac546d-0372-4c41-8a76-bd356c298d0a_1.png?v=1787856307',
     bg: '#1F7A52',
     panel: '#289F6B',
-    desktopScale: 1,
+    // Fills only 55% of its canvas against the tan boot's 93%, so it needs the
+    // extra scale to end up the same size on screen.
+    desktopScale: 1.27,
   },
   {
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_15_52_14.png?v=1787856795',
     bg: '#C4A574',
     panel: '#D2BA94',
-    desktopScale: 1,
+    desktopScale: 1.08,
   },
   {
     src: 'https://cdn.shopify.com/s/files/1/0814/9454/0514/files/ChatGPT_Image_27_de_ago._de_2026_16_50_10.png?v=1787860276',
