@@ -8,6 +8,8 @@ type ImageItem = {
   panel: string;
   /** Overrides the desktop centre scale for artwork that is not a standing figure. */
   desktopScale?: number;
+  /** Overrides where this artwork's baseline sits on mobile, in % of the viewport. */
+  mobileBottom?: number;
 };
 
 const IMAGES: ImageItem[] = [
@@ -34,6 +36,7 @@ const IMAGES: ImageItem[] = [
     bg: '#1E3A5F',
     panel: '#294F82',
     desktopScale: 1.2,
+    mobileBottom: 15,
   },
 ];
 
@@ -86,29 +89,30 @@ const ROLE_TARGETS: Record<'desktop' | 'mobile', Record<Role, RoleTarget>> = {
     back: { height: 22, bottom: 12, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
   },
   mobile: {
-    center: { height: 60, bottom: 15, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
+    center: { height: 60, bottom: 22, centerX: 50, blur: 0, opacity: 1, zIndex: 20 },
     left: { height: 16, bottom: 32, centerX: 20, blur: 2, opacity: 0.85, zIndex: 10 },
     right: { height: 16, bottom: 32, centerX: 80, blur: 2, opacity: 0.85, zIndex: 10 },
     back: { height: 13, bottom: 32, centerX: 50, blur: 4, opacity: 1, zIndex: 5 },
   },
 };
 
-function itemStyle(role: Role, isMobile: boolean, desktopScale: number): CSSProperties {
+function itemStyle(role: Role, isMobile: boolean, item: ImageItem): CSSProperties {
   const mode = isMobile ? 'mobile' : 'desktop';
   const box = BASE_BOX[mode];
   const target = ROLE_TARGETS[mode][role];
+  const isCenter = role === 'center';
 
   // Size and position never change: only transform/filter/opacity animate, so the
   // browser keeps the whole crossfade on the compositor instead of relaying out.
-  const scale =
-    role === 'center'
-      ? isMobile
-        ? CENTER_SCALE_MOBILE
-        : desktopScale
-      : target.height / box.height;
+  const scale = isCenter
+    ? isMobile
+      ? CENTER_SCALE_MOBILE
+      : item.desktopScale ?? CENTER_SCALE_DESKTOP
+    : target.height / box.height;
   const offsetX = target.centerX - 50;
   // With the origin pinned to the floor, a role only has to move its own baseline.
-  const offsetY = box.bottom - target.bottom;
+  const baseline = isCenter && isMobile ? item.mobileBottom ?? target.bottom : target.bottom;
+  const offsetY = box.bottom - baseline;
 
   return {
     position: 'absolute',
@@ -252,11 +256,7 @@ export default function ToonhubHero() {
           {IMAGES.map((item, index) => (
             <div
               key={item.src}
-              style={itemStyle(
-                roleFor(index, activeIndex),
-                isMobile,
-                item.desktopScale ?? CENTER_SCALE_DESKTOP,
-              )}
+              style={itemStyle(roleFor(index, activeIndex), isMobile, item)}
             >
               <img
                 src={item.src}
